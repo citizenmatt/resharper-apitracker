@@ -19,6 +19,10 @@ Assembly level attributes to provide format strings for locating master pages, v
 
 Minor changes to APIs for internal implementation of decompiler. Not significant for plugin authors.
 
+## External Sources
+
+Minor implementation changes. Not significate for plugin authors.
+
 ## Live Templates
 
 * `HtmlMacroImplBase` now requires two type parameters, `TLanguage`, which must derive from `HtmlLanguage` and `TFile` which must implement `IHtmlFile`. Allows for macro to be used with HTML like languages, e.g. ASP.net + Razor

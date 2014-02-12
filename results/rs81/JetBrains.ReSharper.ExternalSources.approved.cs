@@ -1,9 +1,9 @@
 ﻿[assembly: JetBrains.ActionManagement.ActionsXmlAttribute("JetBrains.ReSharper.ExternalSources.resources.Actions.xml")]
 [assembly: JetBrains.UI.Icons.CompiledIcons.CompiledIconsPackAttribute(IconNames=new string[] {
         "DecompiledSources",
+        "MetadataView",
         "SourcesFromSymbolFiles",
-        "ExternalSources",
-        "MetadataView"}, IconPackResourceIdentification="JetBrains.ReSharper.ExternalSources;component/resources/ExternalSourcesIcons/Them" +
+        "ExternalSources"}, IconPackResourceIdentification="JetBrains.ReSharper.ExternalSources;component/resources/ExternalSourcesIcons/Them" +
     "edIcons.ExternalSources.Generated.Xaml")]
 [assembly: System.Runtime.InteropServices.ComVisibleAttribute(false)]
 [assembly: System.Windows.Markup.XmlnsDefinitionAttribute("urn:shemas-jetbrains-com:ui-application-icons-external-sources", "JetBrains.ReSharper.ExternalSources.Resources")]
@@ -30,7 +30,7 @@ namespace JetBrains.ReSharper.ExternalSources.MetadataViewer
     [JetBrains.ProjectModel.SolutionComponentAttribute()]
     public class DecompiledSourcesExternalSourcesProvider : JetBrains.ReSharper.ExternalSources.MetadataViewer.DecompilerBasedExternalSourcesProvider
     {
-        public DecompiledSourcesExternalSourcesProvider(JetBrains.DataFlow.Lifetime lifetime, JetBrains.ReSharper.Feature.Services.ExternalSources.Core.IDecompilationCache decompilationCache, JetBrains.ReSharper.Psi.ILanguageManager languageManager, JetBrains.Application.Settings.ISettingsStore settingsStore, JetBrains.ProjectModel.ISolution solution, JetBrains.ReSharper.ExternalSources.MetadataViewer.DecompiledSourceLegalNotice legalNotice) { }
+        public DecompiledSourcesExternalSourcesProvider(JetBrains.DataFlow.Lifetime lifetime, JetBrains.ReSharper.Feature.Services.ExternalSources.Core.IDecompilationCache decompilationCache, JetBrains.ReSharper.Psi.ILanguageManager languageManager, JetBrains.Application.Settings.ISettingsStore settingsStore, JetBrains.ProjectModel.ISolution solution, JetBrains.ReSharper.ExternalSources.MetadataViewer.DecompiledSourceLegalNotice legalNotice, JetBrains.UI.Application.Progress.UITaskExecutor uiTaskExecutor) { }
         public override string Id { get; }
         public override string PresentableShortName { get; }
         public override int Priority { get; }
@@ -55,7 +55,7 @@ namespace JetBrains.ReSharper.ExternalSources.MetadataViewer
     public abstract class DecompilerBasedExternalSourcesProvider : JetBrains.ReSharper.Feature.Services.ExternalSources.Core.IExternalSourcesProvider
     {
         protected readonly JetBrains.Application.Settings.IContextBoundSettingsStore myContextBoundSettings;
-        protected DecompilerBasedExternalSourcesProvider(JetBrains.DataFlow.Lifetime lifetime, JetBrains.ReSharper.Feature.Services.ExternalSources.Core.IDecompilationCache decompilationCache, JetBrains.ReSharper.Psi.ILanguageManager languageManager, JetBrains.Application.Settings.ISettingsStore settingsStore, JetBrains.ProjectModel.ISolution solution) { }
+        protected DecompilerBasedExternalSourcesProvider(JetBrains.DataFlow.Lifetime lifetime, JetBrains.ReSharper.Feature.Services.ExternalSources.Core.IDecompilationCache decompilationCache, JetBrains.ReSharper.Psi.ILanguageManager languageManager, JetBrains.Application.Settings.ISettingsStore settingsStore, JetBrains.ProjectModel.ISolution solution, JetBrains.UI.Application.Progress.UITaskExecutor uiTaskExecutor) { }
         public abstract string Id { get; }
         public abstract string PresentableShortName { get; }
         public abstract int Priority { get; }
@@ -101,7 +101,7 @@ namespace JetBrains.ReSharper.ExternalSources.MetadataViewer
     [JetBrains.ProjectModel.SolutionComponentAttribute()]
     public class MetadataViewerExternalSourcesProvider : JetBrains.ReSharper.ExternalSources.MetadataViewer.DecompilerBasedExternalSourcesProvider
     {
-        public MetadataViewerExternalSourcesProvider(JetBrains.DataFlow.Lifetime lifetime, JetBrains.ReSharper.Feature.Services.ExternalSources.Core.IDecompilationCache decompilationCache, JetBrains.ReSharper.Psi.ILanguageManager languageManager, JetBrains.Application.Settings.ISettingsStore settingsStore, JetBrains.ProjectModel.ISolution solution) { }
+        public MetadataViewerExternalSourcesProvider(JetBrains.DataFlow.Lifetime lifetime, JetBrains.ReSharper.Feature.Services.ExternalSources.Core.IDecompilationCache decompilationCache, JetBrains.ReSharper.Psi.ILanguageManager languageManager, JetBrains.Application.Settings.ISettingsStore settingsStore, JetBrains.ProjectModel.ISolution solution, JetBrains.UI.Application.Progress.UITaskExecutor uiTaskExecutor) { }
         public override string Id { get; }
         public override string PresentableShortName { get; }
         public override int Priority { get; }
@@ -224,11 +224,11 @@ namespace JetBrains.ReSharper.ExternalSources.ReSharperIntegration
         public JetBrains.ReSharper.Psi.Xaml.DeclaredElements.IXamlExternalResource Resource { get; }
     }
     [JetBrains.ReSharper.Psi.SolutionFeaturePartAttribute()]
-    public class CompiledXamlResourceNavigator : JetBrains.ReSharper.Features.Finding.GoToDeclaration.DeclaredElementNavigation.DefaultDeclaredElementNavigator
+    public class CompiledXamlResourceNavigator : JetBrains.ReSharper.Feature.Services.Navigation.DeclaredElementNavigation.DefaultDeclaredElementNavigator
     {
-        public CompiledXamlResourceNavigator([JetBrains.Annotations.NotNullAttribute()] JetBrains.ProjectModel.ISolution solution, [JetBrains.Annotations.NotNullAttribute()] JetBrains.ReSharper.Feature.Services.IFeaturePartsContainer shellFeaturePartsContainer) { }
+        public CompiledXamlResourceNavigator([JetBrains.Annotations.NotNullAttribute()] JetBrains.ProjectModel.ISolution solution, [JetBrains.Annotations.NotNullAttribute()] JetBrains.ReSharper.Feature.Services.IFeaturePartsContainer shellFeaturePartsContainer, JetBrains.Application.Settings.ISettingsStore settingsStore) { }
         public override bool IsApplicable(JetBrains.ReSharper.Psi.IDeclaredElement declaredElement) { }
-        public override void Navigate(JetBrains.ReSharper.Psi.IDeclaredElement declaredElement, JetBrains.UI.PopupWindowManager.PopupWindowContextSource windowContext, bool transferFocus, System.Nullable<JetBrains.ReSharper.Feature.Services.Occurences.OccurencePresentationOptions> options = null) { }
+        public override void Navigate(JetBrains.ReSharper.Psi.IDeclaredElement declaredElement, JetBrains.UI.PopupWindowManager.PopupWindowContextSource windowContext, bool transferFocus, JetBrains.ReSharper.Feature.Services.SolutionFeaturePartsContainer filters, System.Nullable<JetBrains.ReSharper.Feature.Services.Occurences.OccurencePresentationOptions> options = null) { }
     }
     [JetBrains.ReSharper.Psi.SolutionFeaturePartAttribute()]
     public class DecompiledFileNavigationProvider : JetBrains.ReSharper.Feature.Services.Navigation.Navigation.INavigationProvider<JetBrains.ReSharper.Feature.Services.Occurences.DecompiledFileNavigationData>, JetBrains.ReSharper.Feature.Services.Navigation.Navigation.NavigationProviders.IDecompiledFileNavigationProvider
@@ -272,7 +272,7 @@ namespace JetBrains.ReSharper.ExternalSources.ReSharperIntegration
     [JetBrains.ReSharper.Feature.Services.Occurences.OccurenceProviderAttribute(Priority=5)]
     public class ExternalSourceOccurenceProvider : JetBrains.ReSharper.Feature.Services.Occurences.IOccurenceProvider
     {
-        public JetBrains.ReSharper.Feature.Services.Search.IOccurence MakeOccurence(JetBrains.ReSharper.Psi.Search.FindResult findResult) { }
+        public JetBrains.ReSharper.Feature.Services.Navigation.Search.IOccurence MakeOccurence(JetBrains.ReSharper.Psi.Search.FindResult findResult) { }
     }
     [JetBrains.Application.ShellComponentAttribute()]
     public class ExternalSourcesFirstTimeNavigation
@@ -298,14 +298,17 @@ namespace JetBrains.ReSharper.ExternalSources.ReSharperIntegration
     [JetBrains.ProjectModel.SolutionComponentAttribute()]
     public class ExternalSourcesPointsProvider
     {
-        public ExternalSourcesPointsProvider(JetBrains.ReSharper.Feature.Services.ExternalSources.Core.IExternalSourcesService service, JetBrains.TextControl.TextControlManager textControlManager, JetBrains.ReSharper.Psi.Caches.IPsiCaches psiCaches, JetBrains.ReSharper.ExternalSources.ReSharperIntegration.ExternalSourcesFirstTimeNavigation firstTimeNavigation, JetBrains.ReSharper.ExternalSources.ReSharperIntegration.FileSystemPathNavigator fileSystemPathNavigator, JetBrains.DocumentManagers.DocumentManager documentManager, JetBrains.ReSharper.Feature.Services.ExternalSources.Core.ExternalSourcesActivation externalSourcesActivation, JetBrains.Application.Settings.ISettingsStore settingsStore, JetBrains.ProjectModel.ISolution solution, JetBrains.DataFlow.Lifetime lifetime, JetBrains.Application.IShellLocks locks, JetBrains.ReSharper.Feature.Services.ExternalSources.Core.IExternalSourcesService externalSourceFilesService, JetBrains.ProjectModel.Assemblies.Impl.AssemblyFactory assemblyFactory, JetBrains.ProjectModel.Model2.Assemblies.Interfaces.IAssemblyCollection assemblyCollection) { }
+        public ExternalSourcesPointsProvider(JetBrains.ReSharper.Feature.Services.ExternalSources.Core.IExternalSourcesService service, JetBrains.TextControl.TextControlManager textControlManager, JetBrains.ReSharper.Psi.Caches.IPsiCaches psiCaches, JetBrains.ReSharper.ExternalSources.ReSharperIntegration.ExternalSourcesFirstTimeNavigation firstTimeNavigation, JetBrains.ReSharper.ExternalSources.ReSharperIntegration.FileSystemPathNavigator fileSystemPathNavigator, JetBrains.DocumentManagers.DocumentManager documentManager, JetBrains.ReSharper.Feature.Services.ExternalSources.Core.ExternalSourcesActivation externalSourcesActivation, JetBrains.Application.Settings.ISettingsStore settingsStore, JetBrains.ProjectModel.ISolution solution, JetBrains.DataFlow.Lifetime lifetime, JetBrains.Application.IShellLocks locks, JetBrains.ReSharper.Feature.Services.ExternalSources.Core.IExternalSourcesService externalSourceFilesService, JetBrains.ProjectModel.Assemblies.Impl.AssemblyFactory assemblyFactory, JetBrains.ProjectModel.Model2.Assemblies.Interfaces.IAssemblyCollection assemblyCollection, JetBrains.ReSharper.Psi.Files.IPsiFiles psiFiles) { }
         [JetBrains.Annotations.CanBeNullAttribute()]
         public JetBrains.ReSharper.Feature.Services.Navigation.Navigation.INavigationPoint[] CreateNavigationPoints(JetBrains.ReSharper.Feature.Services.Navigation.CompiledElementNavigationInfo navigationInfo) { }
         [JetBrains.Annotations.CanBeNullAttribute()]
         public JetBrains.ReSharper.Feature.Services.Navigation.Navigation.INavigationPoint[] CreateNavigationPoints(JetBrains.ReSharper.Feature.Services.Navigation.CompiledElementNavigationInfo navigationInfo, JetBrains.DataStructures.IReadOnlyCollection<JetBrains.ReSharper.Feature.Services.ExternalSources.Core.IExternalSourcesProvider> providers) { }
+        public JetBrains.ReSharper.ExternalSources.ReSharperIntegration.FileSystemPathNavigationPoint[] FindSpecificElementInFile(JetBrains.ReSharper.Feature.Services.Navigation.CompiledElementNavigationInfo compiledElementNavigationInfo, JetBrains.DataStructures.IReadOnlyCollection<JetBrains.ReSharper.Feature.Services.ExternalSources.Core.Impl.ExternalSourcesMapping> files, JetBrains.ReSharper.Psi.Modules.IAssemblyPsiModule assemblyPsiModule, JetBrains.Metadata.Reader.API.IModuleReferenceResolveContext resolveContext, JetBrains.Application.Progress.IProgressIndicator indicator, out JetBrains.ReSharper.ExternalSources.ReSharperIntegration.ExternalSourceFile externalSourceFiles) { }
         [JetBrains.Annotations.CanBeNullAttribute()]
         public JetBrains.ReSharper.Psi.Modules.IAssemblyPsiModule GetPsiAssemblyHonorSurfaceAssemblies([JetBrains.Annotations.CanBeNullAttribute()] JetBrains.ReSharper.Psi.Modules.IAssemblyPsiModule module, JetBrains.Metadata.Reader.API.IModuleReferenceResolveContext resolveContext) { }
         public JetBrains.ReSharper.ExternalSources.ReSharperIntegration.ExternalSourceFile[] ParseFiles(JetBrains.DataStructures.IReadOnlyCollection<JetBrains.ReSharper.Feature.Services.ExternalSources.Core.Impl.ExternalSourcesMapping> files, JetBrains.ReSharper.Psi.Modules.IAssemblyPsiModule assemblyPsiModule, JetBrains.Metadata.Reader.API.IModuleReferenceResolveContext resolveContext, JetBrains.Application.Progress.IProgressIndicator indicator) { }
+        [JetBrains.Annotations.CanBeNullAttribute()]
+        public JetBrains.ReSharper.Psi.ICompiledElement RetargetDeclaredElement(JetBrains.ReSharper.Psi.ICompiledElement initialDeclaredElement) { }
     }
     [JetBrains.ProjectModel.ProjectModelElementPresenterAttribute(100D)]
     public class ExternalSourcesProjectFilePresenter : JetBrains.ProjectModel.IProjectModelElementPresenter
@@ -349,19 +352,19 @@ namespace JetBrains.ReSharper.ExternalSources.Resources
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.ExternalSources;component/resources/ExternalSourcesIcons/Them" +
-            "edIcons.ExternalSources.Generated.Xaml", 2, "ExternalSources")]
+            "edIcons.ExternalSources.Generated.Xaml", 3, "ExternalSources")]
         public sealed class ExternalSources : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.ExternalSources;component/resources/ExternalSourcesIcons/Them" +
-            "edIcons.ExternalSources.Generated.Xaml", 3, "MetadataView")]
+            "edIcons.ExternalSources.Generated.Xaml", 1, "MetadataView")]
         public sealed class MetadataView : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.ExternalSources;component/resources/ExternalSourcesIcons/Them" +
-            "edIcons.ExternalSources.Generated.Xaml", 1, "SourcesFromSymbolFiles")]
+            "edIcons.ExternalSources.Generated.Xaml", 2, "SourcesFromSymbolFiles")]
         public sealed class SourcesFromSymbolFiles : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
