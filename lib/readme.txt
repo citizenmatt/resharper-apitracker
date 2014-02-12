@@ -1,0 +1,1 @@
+Custom build of https://github.com/JakeGinnivan/ApiApprover/pull/1, until it's merged and put on nuget
