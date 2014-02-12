@@ -36,12 +36,12 @@ namespace JetBrains.ReSharper.Daemon.Impl
     }
     public class VisibleDocumentDaemonProcessTest : JetBrains.ReSharper.Daemon.Impl.VisibleDocumentDaemonProcess
     {
-        public VisibleDocumentDaemonProcessTest(JetBrains.ReSharper.Psi.IPsiSourceFile sourceFile, JetBrains.TextControl.DocumentMarkup.IDocumentMarkupManager documentMarkupManager, JetBrains.TextControl.ITextControlManager textControlManager, JetBrains.DocumentManagers.DocumentManager documentManager, JetBrains.ReSharper.Daemon.Impl.SolutionAnalysisService solutionAnalysisService, JetBrains.ReSharper.Daemon.HighlightingSettingsManager highlightingSettingsManager, JetBrains.Threading.IThreading invocator, JetBrains.DocumentManagers.Transactions.SolutionDocumentTransactionManager documentTransactionManager, JetBrains.DataFlow.Lifetime lifetime) { }
-        protected override JetBrains.ReSharper.Daemon.Impl.VisibleDocumentDaemonProcess.Commiter CreateCommiter() { }
-        protected override void WaitForHighlightingsCommiter(JetBrains.ReSharper.Daemon.Impl.VisibleDocumentDaemonProcess.Commiter commiter) { }
-        public class TextCommiter : JetBrains.ReSharper.Daemon.Impl.VisibleDocumentDaemonProcess.Commiter
+        public VisibleDocumentDaemonProcessTest(JetBrains.ReSharper.Psi.IPsiSourceFile sourceFile, JetBrains.TextControl.DocumentMarkup.IDocumentMarkupManager documentMarkupManager, JetBrains.TextControl.ITextControlManager textControlManager, JetBrains.DocumentManagers.DocumentManager documentManager, JetBrains.ReSharper.Daemon.Impl.SolutionAnalysisService solutionAnalysisService, JetBrains.ReSharper.Daemon.HighlightingSettingsManager highlightingSettingsManager, JetBrains.Application.IShellLocks locks, JetBrains.DocumentManagers.Transactions.SolutionDocumentTransactionManager documentTransactionManager, JetBrains.DataFlow.Lifetime lifetime) { }
+        protected override JetBrains.ReSharper.Daemon.Impl.VisibleDocumentDaemonProcess.Committer CreateCommitter() { }
+        protected override void WaitForHighlightingsCommitter(JetBrains.ReSharper.Daemon.Impl.VisibleDocumentDaemonProcess.Committer committer) { }
+        public class TextCommitter : JetBrains.ReSharper.Daemon.Impl.VisibleDocumentDaemonProcess.Committer
         {
-            public TextCommiter(JetBrains.ReSharper.Daemon.Impl.VisibleDocumentDaemonProcess process, JetBrains.DataFlow.Lifetime lifetime, JetBrains.ReSharper.Daemon.Impl.DaemonImpl daemonImpl) { }
+            public TextCommitter(JetBrains.ReSharper.Daemon.Impl.VisibleDocumentDaemonProcess process, JetBrains.DataFlow.Lifetime lifetime, JetBrains.ReSharper.Daemon.Impl.DaemonImpl daemonImpl) { }
             public override void Dispose() { }
             protected override void QueueExecution() { }
         }
@@ -158,32 +158,31 @@ namespace JetBrains.ReSharper.Feature.Services.Tests.CSharp.FeatureServices.Cont
 namespace JetBrains.ReSharper.Feature.Services.Tests.CSharp.FeatureServices.Navigation
 {
     
-    public class TestDeclaredElementNavigationService : JetBrains.ReSharper.Features.Finding.GoToDeclaration.DeclaredElementNavigationService
+    public class TestDeclaredElementNavigationService : JetBrains.ReSharper.Feature.Services.Navigation.DeclaredElementNavigation.DeclaredElementNavigationService
     {
-        public TestDeclaredElementNavigationService(JetBrains.DataFlow.Lifetime lifetime, JetBrains.ReSharper.Feature.Services.SolutionFeaturePartsContainer container, JetBrains.UI.Application.IUIApplication environment) { }
+        public TestDeclaredElementNavigationService(JetBrains.DataFlow.Lifetime lifetime, JetBrains.ReSharper.Feature.Services.SolutionFeaturePartsContainer container, JetBrains.UI.Application.IUIApplication environment, JetBrains.Application.IShellLocks shellLocks) { }
         public override void Navigate(JetBrains.ReSharper.Psi.IDeclaredElement declaredElement, JetBrains.UI.PopupWindowManager.PopupWindowContextSource windowContext, bool transferFocus, System.Nullable<JetBrains.ReSharper.Feature.Services.Occurences.OccurencePresentationOptions> options = null, JetBrains.IDE.TabOptions tabOptions = 2) { }
         public void SetWriter(System.IO.TextWriter textWriter) { }
     }
     [JetBrains.ProjectModel.SolutionComponentAttribute()]
     public class TestNavigationManagerImpl : JetBrains.ReSharper.Feature.Services.Navigation.NavigationManagerImpl
     {
-        public TestNavigationManagerImpl(JetBrains.Application.IShellLocks shellLocks, JetBrains.DocumentManagers.DocumentManager documentManager, JetBrains.TextControl.ITextControlManager textControlManager, JetBrains.IDE.EditorManager editorManager, JetBrains.ReSharper.Feature.Services.Navigation.CustomHighlighting.CustomHighlightingManager customHighlightingManager, JetBrains.UI.PopupWindowManager.MainWindowPopupWindowContext mainWindowPopupWindowContext, JetBrains.ReSharper.Feature.Services.SolutionFeaturePartsContainer featurePartsContainer, JetBrains.UI.Application.IUIApplication environment) { }
+        public TestNavigationManagerImpl(JetBrains.DataFlow.Lifetime lifetime, JetBrains.Application.IShellLocks shellLocks, JetBrains.DocumentManagers.DocumentManager documentManager, JetBrains.TextControl.ITextControlManager textControlManager, JetBrains.IDE.EditorManager editorManager, JetBrains.ReSharper.Feature.Services.Navigation.CustomHighlighting.CustomHighlightingManager customHighlightingManager, JetBrains.UI.PopupWindowManager.MainWindowPopupWindowContext mainWindowPopupWindowContext, JetBrains.ReSharper.Feature.Services.SolutionFeaturePartsContainer featurePartsContainer, JetBrains.UI.Application.IUIApplication environment) { }
         public void SetWriter(System.IO.TextWriter writer) { }
         protected override bool ShowMenu(System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Feature.Services.Navigation.Navigation.INavigationPoint> points, JetBrains.ReSharper.Feature.Services.Navigation.NavigationOptions options) { }
         protected override void SynchronizeToCaret() { }
     }
     [JetBrains.ProjectModel.SolutionComponentAttribute()]
-    public class TestOccurencePopupMenu : JetBrains.ReSharper.Features.Common.Occurences.OccurencePopupMenu
+    public class TestOccurencePopupMenu : JetBrains.ReSharper.Feature.Services.Occurences.Presentation.OccurencePopupMenu
     {
         public TestOccurencePopupMenu(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.IShellLocks locks, JetBrains.DataFlow.Lifetime lifetime) { }
         public void SetHost(JetBrains.ReSharper.Features.Common.Occurences.ExecutionHosting.INavigationExecutionHost host) { }
-        public override void ShowMenuGlobal(string title, bool skipMenuIfSingleEnabled, System.Collections.Generic.ICollection<JetBrains.ReSharper.Feature.Services.Search.IOccurence> items, JetBrains.ReSharper.Feature.Services.Navigation.NavigationOptions options, JetBrains.ReSharper.Feature.Services.Occurences.OccurencePresentationOptions presentationOptions, System.Func<JetBrains.ReSharper.Features.Common.Occurences.OccurenceBrowserDescriptor> descriptorBuilder) { }
+        public override void ShowMenuGlobal(string title, bool skipMenuIfSingleEnabled, System.Collections.Generic.ICollection<JetBrains.ReSharper.Feature.Services.Navigation.Search.IOccurence> items, JetBrains.ReSharper.Feature.Services.Navigation.NavigationOptions options, JetBrains.ReSharper.Feature.Services.Occurences.OccurencePresentationOptions presentationOptions, System.Func<JetBrains.ReSharper.Feature.Services.Tree.OccurenceBrowserDescriptor> descriptorBuilder) { }
     }
     [JetBrains.ProjectModel.SolutionComponentAttribute()]
     public class TestReferencedCodeSearcher : JetBrains.ReSharper.Feature.Services.ReferencedCode.ReferencedCodeSearcher
     {
-        public TestReferencedCodeSearcher(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.IShellLocks locks, JetBrains.ReSharper.Psi.Modules.AssemblyPsiModuleFactory assemblyPsiModuleFactory, JetBrains.Application.Env.RunsProducts.ProductConfigurations configuration) { }
-        protected override bool IsMultiThreadingEnabled { get; }
+        public TestReferencedCodeSearcher(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.IShellLocks locks, JetBrains.Application.Threading.Tasks.ITaskHost tasks, JetBrains.ReSharper.Psi.Modules.AssemblyPsiModuleFactory assemblyPsiModuleFactory, JetBrains.Application.Env.RunsProducts.ProductConfigurations configuration) { }
     }
 }
 namespace JetBrains.ReSharper.Features.Intellisense.ParameterInfo.Test
@@ -199,10 +198,10 @@ namespace JetBrains.ReSharper.Features.Intellisense.ParameterInfo.Test
         public override bool SupportsSignatureSwitching { get; }
         public override JetBrains.ReSharper.Feature.Services.ParameterInfo.IParameterInfoContext CreateContext(JetBrains.ProjectModel.ISolution solution, JetBrains.DocumentModel.IDocument document, int caretOffset, int expectedLParenthOffset) { }
         public override void EmulateTyping(char c, JetBrains.TextControl.ITextControl textControl) { }
-        public override bool IsParameterInfoAvailable(JetBrains.Application.DataContext.IDataContext context) { }
+        public override bool IsParameterInfoAvailableFast(JetBrains.Application.DataContext.IDataContext context) { }
         public override void MoveParameterInfoOnTop() { }
         public override void PopupParameterInfo(JetBrains.ProjectModel.ISolution solution, JetBrains.TextControl.ITextControl textControl, int offset, JetBrains.ReSharper.Psi.IDeclaredElement signature) { }
-        public override void PopupParameterInfo(JetBrains.ReSharper.Feature.Services.ParameterInfo.IParameterInfoProvider provider, JetBrains.TextControl.ITextControl textControl) { }
+        public override void PopupParameterInfo(JetBrains.DataFlow.Lifetime lifetime, JetBrains.ReSharper.Feature.Services.ParameterInfo.IParameterInfoProvider provider, JetBrains.TextControl.ITextControl textControl) { }
         public override void PopupParameterInfo(JetBrains.ProjectModel.ISolution solution, JetBrains.TextControl.ITextControl textControl) { }
         public override void PopupParameterInfo(JetBrains.Application.DataContext.IDataContext context) { }
         public override void ShowDocForNextSignature() { }
@@ -265,64 +264,23 @@ namespace JetBrains.ReSharper.PsiTests.Asp
     {
         public TestAsp45Attribute(params string[] references) { }
         public JetBrains.ProjectModel.PlatformID GetPlatformId() { }
-        public override System.Collections.Generic.IEnumerable<string> GetReferences() { }
+        public override System.Collections.Generic.IEnumerable<string> GetReferences(JetBrains.ProjectModel.PlatformID platformID) { }
     }
     public class TestAspAttribute : JetBrains.ReSharper.TestFramework.TestReferencesAttribute
     {
         public TestAspAttribute(params string[] references) { }
-        public override System.Collections.Generic.IEnumerable<string> GetReferences() { }
+        public override System.Collections.Generic.IEnumerable<string> GetReferences(JetBrains.ProjectModel.PlatformID platformID) { }
     }
     public class TestExtendedAsp45Attribute : JetBrains.ReSharper.PsiTests.Asp.TestExtendedAspAttribute, JetBrains.ReSharper.TestFramework.ITestPlatformProvider
     {
         public TestExtendedAsp45Attribute(params string[] references) { }
         public JetBrains.ProjectModel.PlatformID GetPlatformId() { }
-        public override System.Collections.Generic.IEnumerable<string> GetReferences() { }
+        public override System.Collections.Generic.IEnumerable<string> GetReferences(JetBrains.ProjectModel.PlatformID platformID) { }
     }
     public class TestExtendedAspAttribute : JetBrains.ReSharper.PsiTests.Asp.TestAspAttribute
     {
         public TestExtendedAspAttribute(params string[] references) { }
-        public override System.Collections.Generic.IEnumerable<string> GetReferences() { }
-    }
-    public class TestMvc2Attribute : JetBrains.ReSharper.PsiTests.Asp.TestMvcAttribute
-    {
-        public TestMvc2Attribute(params string[] references) { }
-        public override JetBrains.ProjectModel.PlatformID GetPlatformId() { }
-    }
-    public class TestMvc3Attribute : JetBrains.ReSharper.PsiTests.Asp.TestMvcAttribute
-    {
-        public TestMvc3Attribute(params string[] references) { }
-        public override JetBrains.ProjectModel.PlatformID GetPlatformId() { }
-    }
-    public class TestMvc4Attribute : JetBrains.ReSharper.PsiTests.Asp.TestMvcAttribute
-    {
-        public TestMvc4Attribute(params string[] references) { }
-        public override JetBrains.ProjectModel.PlatformID GetPlatformId() { }
-    }
-    public class TestMvcAttribute : JetBrains.ReSharper.TestFramework.TestReferencesAttribute, JetBrains.ReSharper.TestFramework.ITestPlatformProvider
-    {
-        public TestMvcAttribute(params string[] references) { }
-        public virtual JetBrains.ProjectModel.PlatformID GetPlatformId() { }
-        public override System.Collections.Generic.IEnumerable<string> GetReferences() { }
-    }
-    public class TestRazor2Attribute : JetBrains.ReSharper.PsiTests.Asp.TestMvcAttribute
-    {
-        public TestRazor2Attribute(params string[] references) { }
-        public override JetBrains.ProjectModel.PlatformID GetPlatformId() { }
-    }
-    public class TestRazorAttribute : JetBrains.ReSharper.PsiTests.Asp.TestMvcAttribute
-    {
-        public TestRazorAttribute(params string[] references) { }
-        public override JetBrains.ProjectModel.PlatformID GetPlatformId() { }
-    }
-    public class TestWebMatrix2Attribute : JetBrains.ReSharper.PsiTests.Asp.TestMvcAttribute
-    {
-        public TestWebMatrix2Attribute(params string[] references) { }
-        public override JetBrains.ProjectModel.PlatformID GetPlatformId() { }
-    }
-    public class TestWebMatrixAttribute : JetBrains.ReSharper.PsiTests.Asp.TestMvcAttribute
-    {
-        public TestWebMatrixAttribute(params string[] references) { }
-        public override JetBrains.ProjectModel.PlatformID GetPlatformId() { }
+        public override System.Collections.Generic.IEnumerable<string> GetReferences(JetBrains.ProjectModel.PlatformID platformID) { }
     }
     [JetBrains.ReSharper.TestFramework.IncludeMsCorLibAttribute()]
     public abstract class WebReferenceTestBase : JetBrains.ReSharper.TestFramework.ReferenceTestBase
@@ -399,7 +357,7 @@ namespace JetBrains.ReSharper.PsiTests.WinRT
         public TestNetCore45Attribute(params string[] references) { }
         public JetBrains.ReSharper.TestFramework.ReferenceDlls GetMsCorLibFlag() { }
         public JetBrains.ProjectModel.PlatformID GetPlatformId() { }
-        public override System.Collections.Generic.IEnumerable<string> GetReferences() { }
+        public override System.Collections.Generic.IEnumerable<string> GetReferences(JetBrains.ProjectModel.PlatformID platformID) { }
     }
     public class TestNetCore45WinRTComponentAttribute : JetBrains.ReSharper.PsiTests.WinRT.TestNetCore45Attribute, JetBrains.ReSharper.TestFramework.ITestSdkReferencesProvider
     {
@@ -413,77 +371,67 @@ namespace JetBrains.ReSharper.PsiTests.Xaml
     {
         public TestDev10WorkflowAttribute(params string[] references) { }
         public JetBrains.ProjectModel.PlatformID GetPlatformId() { }
-        public override System.Collections.Generic.IEnumerable<string> GetReferences() { }
+        public override System.Collections.Generic.IEnumerable<string> GetReferences(JetBrains.ProjectModel.PlatformID platformID) { }
     }
     public class TestSilverlight2Attribute : JetBrains.ReSharper.TestFramework.TestReferencesAttribute, JetBrains.ReSharper.TestFramework.ITestMsCorLibFlagProvider, JetBrains.ReSharper.TestFramework.ITestPlatformProvider
     {
         public TestSilverlight2Attribute(params string[] references) { }
         public JetBrains.ReSharper.TestFramework.ReferenceDlls GetMsCorLibFlag() { }
         public JetBrains.ProjectModel.PlatformID GetPlatformId() { }
-        public override System.Collections.Generic.IEnumerable<string> GetReferences() { }
+        public override System.Collections.Generic.IEnumerable<string> GetReferences(JetBrains.ProjectModel.PlatformID platformID) { }
     }
     public class TestSilverlight3Attribute : JetBrains.ReSharper.TestFramework.TestReferencesAttribute, JetBrains.ReSharper.TestFramework.ITestPlatformProvider
     {
         public TestSilverlight3Attribute(params string[] references) { }
         public JetBrains.ProjectModel.PlatformID GetPlatformId() { }
-        public override System.Collections.Generic.IEnumerable<string> GetReferences() { }
+        public override System.Collections.Generic.IEnumerable<string> GetReferences(JetBrains.ProjectModel.PlatformID platformID) { }
     }
     public class TestSilverlight4Attribute : JetBrains.ReSharper.TestFramework.TestReferencesAttribute, JetBrains.ReSharper.TestFramework.ITestMsCorLibFlagProvider, JetBrains.ReSharper.TestFramework.ITestPlatformProvider
     {
         public TestSilverlight4Attribute(params string[] references) { }
         public JetBrains.ReSharper.TestFramework.ReferenceDlls GetMsCorLibFlag() { }
         public JetBrains.ProjectModel.PlatformID GetPlatformId() { }
-        public override System.Collections.Generic.IEnumerable<string> GetReferences() { }
+        public override System.Collections.Generic.IEnumerable<string> GetReferences(JetBrains.ProjectModel.PlatformID platformID) { }
     }
     public class TestSilverlight5Attribute : JetBrains.ReSharper.TestFramework.TestReferencesAttribute, JetBrains.ReSharper.TestFramework.ITestMsCorLibFlagProvider, JetBrains.ReSharper.TestFramework.ITestPlatformProvider
     {
         public TestSilverlight5Attribute(params string[] references) { }
         public JetBrains.ReSharper.TestFramework.ReferenceDlls GetMsCorLibFlag() { }
         public JetBrains.ProjectModel.PlatformID GetPlatformId() { }
-        public override System.Collections.Generic.IEnumerable<string> GetReferences() { }
+        public override System.Collections.Generic.IEnumerable<string> GetReferences(JetBrains.ProjectModel.PlatformID platformID) { }
     }
     public class TestWindowsPhone70Attribute : JetBrains.ReSharper.TestFramework.TestReferencesAttribute, JetBrains.ReSharper.TestFramework.ITestFlavoursProvider, JetBrains.ReSharper.TestFramework.ITestPlatformProvider
     {
         public TestWindowsPhone70Attribute(params string[] references) { }
         public JetBrains.ProjectModel.PlatformID GetPlatformId() { }
         public System.Guid[] GetProjectTypeGuids() { }
-        public override System.Collections.Generic.IEnumerable<string> GetReferences() { }
+        public override System.Collections.Generic.IEnumerable<string> GetReferences(JetBrains.ProjectModel.PlatformID platformID) { }
     }
     public class TestWindowsPhone71Attribute : JetBrains.ReSharper.TestFramework.TestReferencesAttribute, JetBrains.ReSharper.TestFramework.ITestFlavoursProvider, JetBrains.ReSharper.TestFramework.ITestPlatformProvider
     {
         public TestWindowsPhone71Attribute(params string[] references) { }
         public JetBrains.ProjectModel.PlatformID GetPlatformId() { }
         public System.Guid[] GetProjectTypeGuids() { }
-        public override System.Collections.Generic.IEnumerable<string> GetReferences() { }
+        public override System.Collections.Generic.IEnumerable<string> GetReferences(JetBrains.ProjectModel.PlatformID platformID) { }
     }
     public class TestWPF30Attribute : JetBrains.ReSharper.TestFramework.TestReferencesAttribute, JetBrains.ReSharper.TestFramework.ITestFlavoursProvider, JetBrains.ReSharper.TestFramework.ITestPlatformProvider
     {
         public TestWPF30Attribute(params string[] references) { }
         public JetBrains.ProjectModel.PlatformID GetPlatformId() { }
         public System.Guid[] GetProjectTypeGuids() { }
-        public override System.Collections.Generic.IEnumerable<string> GetReferences() { }
+        public override System.Collections.Generic.IEnumerable<string> GetReferences(JetBrains.ProjectModel.PlatformID platformID) { }
     }
     public class TestWPF40Attribute : JetBrains.ReSharper.TestFramework.TestReferencesAttribute, JetBrains.ReSharper.TestFramework.ITestPlatformProvider
     {
         public TestWPF40Attribute(params string[] references) { }
         public JetBrains.ProjectModel.PlatformID GetPlatformId() { }
-        public override System.Collections.Generic.IEnumerable<string> GetReferences() { }
+        public override System.Collections.Generic.IEnumerable<string> GetReferences(JetBrains.ProjectModel.PlatformID platformID) { }
     }
     public class TestWPF45Attribute : JetBrains.ReSharper.TestFramework.TestReferencesAttribute, JetBrains.ReSharper.TestFramework.ITestPlatformProvider
     {
         public TestWPF45Attribute(params string[] references) { }
         public JetBrains.ProjectModel.PlatformID GetPlatformId() { }
-        public override System.Collections.Generic.IEnumerable<string> GetReferences() { }
-    }
-}
-namespace JetBrains.ReSharper.SolutionAnalysisTests.Daemon
-{
-    
-    [JetBrains.ProjectModel.SolutionComponentAttribute()]
-    public class FileImagesDisableFlushChangesComponent
-    {
-        public static bool DisableFlushChanges;
-        public FileImagesDisableFlushChangesComponent(JetBrains.ProjectModel.ISolution solution) { }
+        public override System.Collections.Generic.IEnumerable<string> GetReferences(JetBrains.ProjectModel.PlatformID platformID) { }
     }
 }
 namespace JetBrains.ReSharper.TestFramework
@@ -582,8 +530,8 @@ namespace JetBrains.ReSharper.TestFramework
         [JetBrains.Annotations.NotNullAttribute()]
         protected JetBrains.ProjectModel.ISolution PrepareSolution([JetBrains.Annotations.NotNullAttribute()] JetBrains.DataFlow.Lifetime lifetime, [JetBrains.Annotations.NotNullAttribute()] JetBrains.ReSharper.TestFramework.BaseTestWithSolution.TestSolutionConfiguration solutionconfiguration) { }
         public static void SetDefaultProjectFilePropertiesAction(JetBrains.Util.FileSystemPath filePath, JetBrains.ProjectModel.Properties.IProjectFileProperties properties) { }
-        protected System.IDisposable SetPlatfromVersion(JetBrains.ProjectModel.PlatformID platformId) { }
-        protected void SetPlatfromVersion(JetBrains.DataFlow.Lifetime lifetime, JetBrains.ProjectModel.PlatformID platformId) { }
+        protected System.IDisposable SetPlatformVersion(JetBrains.ProjectModel.PlatformID platformId) { }
+        protected void SetPlatformVersion(JetBrains.DataFlow.Lifetime lifetime, JetBrains.ProjectModel.PlatformID platformId) { }
         protected virtual void SetProjectFileProperties(JetBrains.Util.FileSystemPath fileSystemPath, JetBrains.ProjectModel.Properties.IProjectFileProperties projectFileProperties) { }
         protected class CustomProjectFilePropertiesCookie : System.IDisposable
         {
@@ -722,7 +670,7 @@ namespace JetBrains.ReSharper.TestFramework
     public interface ITestLibraryReferencesProvider
     {
         bool Inherits { get; }
-        System.Collections.Generic.IEnumerable<string> GetReferences();
+        System.Collections.Generic.IEnumerable<string> GetReferences(JetBrains.ProjectModel.PlatformID platformID);
     }
     public interface ITestMsCorLibFlagProvider
     {
@@ -805,6 +753,7 @@ namespace JetBrains.ReSharper.TestFramework
         protected void DoNamedTest(params string[] otherFiles) { }
         protected override void DoOneTest(string testName) { }
         protected void DoTest(string testFileName, params string[] otherFiles) { }
+        protected void DoTest(string testFileName, System.Collections.Generic.IEnumerable<string> otherFiles) { }
         protected override void DoTest(JetBrains.ProjectModel.IProject testProject) { }
         protected virtual string Format([JetBrains.Annotations.CanBeNullAttribute()] JetBrains.ReSharper.Psi.IDeclaredElement declaredElement, JetBrains.ReSharper.Psi.Resolve.ISubstitution substitution, JetBrains.ReSharper.Psi.PsiLanguageType languageType, JetBrains.ReSharper.Psi.DeclaredElementPresenterStyle presenter, JetBrains.ReSharper.Psi.Resolve.IReference reference) { }
         protected virtual JetBrains.DocumentModel.DocumentRange GetDocumentRange(JetBrains.ReSharper.Psi.Resolve.IReference reference) { }
@@ -864,7 +813,9 @@ namespace JetBrains.ReSharper.TestFramework
     }
     public class static TestFrameworkUtil
     {
+        [System.ObsoleteAttribute()]
         public static void DumpReferencePositions(System.IO.TextWriter w, string text, System.Collections.Generic.IList<JetBrains.ReSharper.TestFramework.TestFrameworkUtil.Position> sortedPositions) { }
+        public static void DumpReferencePositions(System.IO.TextWriter w, JetBrains.Text.IBuffer text, System.Collections.Generic.IList<JetBrains.ReSharper.TestFramework.TestFrameworkUtil.Position> sortedPositions) { }
         public static void SortItems<T>(System.Collections.Generic.IEnumerable<T> collectedItems, System.Collections.Generic.IComparer<T> comparer, System.Func<T, JetBrains.DocumentModel.DocumentRange> ranger, out System.Collections.Generic.IList<> sortedItems, out System.Collections.Generic.IList<> sortedPositions) { }
         public class EndPosition : JetBrains.ReSharper.TestFramework.TestFrameworkUtil.Position
         {
@@ -951,7 +902,7 @@ namespace JetBrains.ReSharper.TestFramework
     {
         public TestReferencesAttribute(params string[] references) { }
         public bool Inherits { get; set; }
-        public virtual System.Collections.Generic.IEnumerable<string> GetReferences() { }
+        public virtual System.Collections.Generic.IEnumerable<string> GetReferences(JetBrains.ProjectModel.PlatformID platformID) { }
     }
     public abstract class TestResult
     {
@@ -998,7 +949,7 @@ namespace JetBrains.ReSharper.TestFramework
         public TestSharepointAttributeBase(params string[] references) { }
         public JetBrains.ProjectModel.PlatformID GetPlatformId() { }
         public abstract System.Guid[] GetProjectTypeGuids();
-        public override System.Collections.Generic.IEnumerable<string> GetReferences() { }
+        public override System.Collections.Generic.IEnumerable<string> GetReferences(JetBrains.ProjectModel.PlatformID platformID) { }
     }
     [NUnit.Framework.TestFixtureAttribute()]
     public class TestTreeNodeEnumerable
@@ -1016,28 +967,12 @@ namespace JetBrains.ReSharper.TestFramework
     {
         public TestVbSharepointAttribute(params string[] references) { }
         public override System.Guid[] GetProjectTypeGuids() { }
-        public override System.Collections.Generic.IEnumerable<string> GetReferences() { }
+        public override System.Collections.Generic.IEnumerable<string> GetReferences(JetBrains.ProjectModel.PlatformID platformID) { }
     }
     public class WebApplicationAttribute : System.Attribute, JetBrains.ReSharper.TestFramework.ITestFlavoursProvider
     {
         public bool Inherits { get; set; }
         public System.Guid[] GetProjectTypeGuids() { }
-    }
-}
-namespace JetBrains.ReSharper.TestFramework.Components.Extensions
-{
-    
-    [JetBrains.Application.Env.EnvironmentComponentAttribute(JetBrains.Application.Sharing.Product)]
-    public class TestCollectPluginsInProductFolders : JetBrains.Application.PluginSupport.CollectPluginsInProductFolders
-    {
-        public TestCollectPluginsInProductFolders(JetBrains.DataFlow.Lifetime lifetime, JetBrains.Application.Env.Components.ProductSettingsLocation productSettingsLocation, JetBrains.Application.IApplicationDescriptor product) { }
-        protected override bool IsEnabled { get; }
-    }
-    [JetBrains.Application.Env.EnvironmentComponentAttribute(JetBrains.Application.Sharing.Product)]
-    public class TestExtensionLocations : JetBrains.Application.Extensions.ExtensionLocations
-    {
-        public TestExtensionLocations(JetBrains.Application.IApplicationDescriptor product, JetBrains.Application.Env.Components.ProductSettingsLocation settingsLocation, JetBrains.Application.Env.Components.AnyProductSettingsLocation anyProductSettingsLocation) { }
-        public override JetBrains.Util.FileSystemPath GetBaseLocation(System.Environment.SpecialFolder basefolder, JetBrains.Application.Env.Components.ProductSettingsLocation productSettingsLocation) { }
     }
 }
 namespace JetBrains.ReSharper.TestFramework.Components.Feature.Services.ContextHighlighters
@@ -1074,6 +1009,17 @@ namespace JetBrains.ReSharper.TestFramework.Components.Features.StructuralSearch
         public void RemovePattern(JetBrains.Application.Settings.GuidIndex guid) { }
     }
 }
+namespace JetBrains.ReSharper.TestFramework.Components.Features.TodoManager
+{
+    
+    [JetBrains.ReSharper.Psi.PsiComponentAttribute()]
+    public sealed class TodoManagerTest : JetBrains.ReSharper.Feature.Services.TodoItems.TodoManager, JetBrains.ReSharper.Psi.Caches.ICache
+    {
+        public TodoManagerTest(JetBrains.DataFlow.Lifetime lifetime, JetBrains.Application.Threading.Tasks.ITaskHost tasks, JetBrains.ProjectModel.Settings.Cache.SettingsCacheManager settingsCacheManager, JetBrains.Application.Settings.ISettingsStore settingStore, JetBrains.ReSharper.Feature.Services.TodoItems.ITodoPatternStorage patternStorage, JetBrains.ProjectModel.ISolution solution, JetBrains.ReSharper.Psi.Caches.ISymbolCache symbolCache, JetBrains.ReSharper.Psi.PsiProjectFileTypeCoordinator projectFileTypeCoordinator, JetBrains.Application.IShellLocks locks, JetBrains.ReSharper.Psi.IPsiConfiguration psiConfiguration, JetBrains.ReSharper.Psi.ILanguages languages, JetBrains.ReSharper.Psi.ILanguageManager languageManager, JetBrains.ReSharper.Psi.Caches.IPersistentIndexManager persistentIndexManager) { }
+        protected override void OnUpdated() { }
+        public void SyncUpdate(bool underTransaction) { }
+    }
+}
 namespace JetBrains.ReSharper.TestFramework.Components.I18n
 {
     
@@ -1102,9 +1048,9 @@ namespace JetBrains.ReSharper.TestFramework.Components.Psi
     [JetBrains.ReSharper.Psi.PsiComponentAttribute()]
     public class FileDependenciesSynchronizerTest : JetBrains.ReSharper.Psi.Modules.ExternalFileModules.FileDependenciesSynchronizer
     {
-        public FileDependenciesSynchronizerTest(JetBrains.Application.IShellLocks locks, JetBrains.DataFlow.Lifetime lifetime, JetBrains.ReSharper.Psi.Caches.IPsiCaches psiCaches, System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Psi.Modules.ExternalFileModules.IAsynchronousModuleChangeProducer> factories, JetBrains.ProjectModel.Tasks.ISolutionLoadTasksScheduler scheduler, JetBrains.ProjectModel.ISolution solution, JetBrains.ReSharper.Psi.JavaScript.Impl.PsiModules.ReferencedFilesSupport.JavaScriptDependentFilesCache dependentFilesCache, JetBrains.ReSharper.Psi.JavaScript.Impl.PsiModules.ReferencedFilesSupport.JavaScriptDependentFilesModuleFactory javaScriptDependentFilesModuleFactory) { }
+        public FileDependenciesSynchronizerTest(JetBrains.Application.IShellLocks locks, JetBrains.DataFlow.Lifetime lifetime, JetBrains.ReSharper.Psi.Caches.IPsiCaches psiCaches, System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Psi.Modules.ExternalFileModules.IAsynchronousModuleChangeProducer> factories, JetBrains.ProjectModel.Tasks.ISolutionLoadTasksScheduler scheduler, JetBrains.ProjectModel.ISolution solution, JetBrains.ReSharper.Psi.JavaScript.Impl.PsiModules.ReferencedFilesSupport.JavaScriptDependentFilesCache dependentFilesCache, JetBrains.ReSharper.Psi.JavaScript.Impl.PsiModules.ReferencedFilesSupport.JavaScriptDependentFilesModuleFactory javaScriptDependentFilesModuleFactory, JetBrains.Application.Threading.Tasks.ITaskHost tasks) { }
         public void ManualFlushChanged() { }
-        protected override void RunSynchronizationProcess() { }
+        protected override void SchedulerTask() { }
     }
     [JetBrains.ProjectModel.SolutionComponentAttribute()]
     public class SymbolCacheTestHelper : System.IDisposable
@@ -1134,7 +1080,7 @@ namespace JetBrains.ReSharper.TestFramework.Components.Psi
     [JetBrains.Application.ShellComponentAttribute()]
     public class TestPsiConfigurationSettings
     {
-        public TestPsiConfigurationSettings(JetBrains.Application.IApplicationDescriptor applicationDescriptor) { }
+        public TestPsiConfigurationSettings(JetBrains.DataFlow.Lifetime lifetime, JetBrains.Application.IApplicationDescriptor applicationDescriptor) { }
         public JetBrains.ReSharper.Psi.CachesLocationType CachesLocationType { get; }
         public bool EagerMetadataLoad { get; set; }
         public static JetBrains.ReSharper.TestFramework.Components.Psi.TestPsiConfigurationSettings Instance { get; }
@@ -1148,7 +1094,7 @@ namespace JetBrains.ReSharper.TestFramework.Components.Psi
         public TestSolutionCachesConfigurationOnPsi(JetBrains.DataFlow.Lifetime lifetime, JetBrains.Application.Settings.ISettingsStore settingsStore, JetBrains.ReSharper.TestFramework.Components.Psi.TestPsiConfigurationSettings testSettings, JetBrains.ProjectModel.ISolution solution, JetBrains.Application.IApplicationDescriptor applicationDescriptor, JetBrains.Application.Env.Components.ProductSettingsLocation productSettingsLocation, JetBrains.ProjectModel.Settings.Storages.SolutionSettingsStoragePersonal needToBeReady, JetBrains.ProjectModel.Settings.Storages.SolutionSettingsStorageShared needToBeReady2) { }
         protected override JetBrains.ReSharper.Psi.CachesLocationType CacheLocation { get; }
         public override bool PersistCaches { get; }
-        public override JetBrains.Util.FileSystemPath GetCacheFolder() { }
+        protected override JetBrains.Util.FileSystemPath GetExpectedCachesPath(string productName, string solutionName) { }
     }
 }
 namespace JetBrains.ReSharper.TestFramework.Components.Psi.Web
@@ -1166,6 +1112,16 @@ namespace JetBrains.ReSharper.TestFramework.Components.Psi.Web
         public override JetBrains.ReSharper.Psi.Web.BuildProviders.IWebsiteBuilder CreateWebsiteBuilder(JetBrains.DataFlow.Lifetime lifetime, JetBrains.ReSharper.Psi.Web.BuildProviders.IWebsiteBuildRequestor requestor) { }
     }
 }
+namespace JetBrains.ReSharper.TestFramework.Components.SolutionAnalysis
+{
+    
+    [JetBrains.ProjectModel.SolutionComponentAttribute()]
+    public class FileImagesDisableFlushChangesComponent
+    {
+        public static bool DisableFlushChanges;
+        public FileImagesDisableFlushChangesComponent(JetBrains.ProjectModel.ISolution solution) { }
+    }
+}
 namespace JetBrains.ReSharper.TestFramework.Components.UnitTestSupport
 {
     
@@ -1179,6 +1135,7 @@ namespace JetBrains.ReSharper.TestFramework.Components.UnitTestSupport
         public void OnError(string message) { }
         public void OnError(System.Exception exception) { }
         public void OnPacket(System.Xml.XmlElement message, JetBrains.ReSharper.TaskRunnerFramework.RemoteChannel remoteChannel) { }
+        public void RegisterPacketHandler(JetBrains.ReSharper.TaskRunnerFramework.ITaskRunnerPacketHandler packetHandler) { }
     }
     [JetBrains.ProjectModel.SolutionComponentAttribute()]
     public class UnitTestAgentManagerTestImpl : JetBrains.ReSharper.UnitTestFramework.IUnitTestAgentManager
@@ -1208,16 +1165,7 @@ namespace JetBrains.ReSharper.TestFramework.Web
     }
     public class static WebTestUtil
     {
-        public static readonly JetBrains.ProjectModel.PlatformID Mvc2PlatformID;
-        public static readonly JetBrains.ProjectModel.PlatformID Mvc3PlatformID;
-        public static readonly JetBrains.ProjectModel.PlatformID Mvc4PlatformID;
-        public static readonly JetBrains.ProjectModel.PlatformID MvcPlatformID;
-        public static readonly JetBrains.ProjectModel.PlatformID Razor2PlatformID;
-        public static readonly JetBrains.ProjectModel.PlatformID RazorPlatformID;
-        public static readonly JetBrains.ProjectModel.PlatformID WebMatrix2PlatformID;
-        public static readonly JetBrains.ProjectModel.PlatformID WebMatrixPlatformID;
         public static string ApplyTestDataPathSuffix(string fileName, string originalSuffix, string insert = ".mvc") { }
-        public static System.Collections.Generic.IEnumerable<string> GetReferencedAssemblies(JetBrains.ProjectModel.PlatformID platformID) { }
         public static void SetWebPaths(JetBrains.ProjectModel.IProject project, string text) { }
     }
 }
@@ -1249,6 +1197,7 @@ namespace JetBrains.ReSharper.UnitTestSupportTests
         public void AbortBuild() { }
         public void AddLaunch(JetBrains.DataFlow.Lifetime lifetime, JetBrains.ReSharper.UnitTestFramework.IUnitTestLaunch launch) { }
         public void BuildAndRunSession(JetBrains.ReSharper.UnitTestFramework.IUnitTestSessionView session, JetBrains.ReSharper.UnitTestFramework.UnitTestElements elements, JetBrains.ReSharper.UnitTestFramework.IHostProvider hostProvider, System.Collections.Generic.IEnumerable<JetBrains.ReSharper.UnitTestFramework.IUnitTestElementsTransformationRule> rules, JetBrains.ReSharper.UnitTestFramework.BuildPolicy buildPolicy = 0, JetBrains.ReSharper.TaskRunnerFramework.PlatformType platformType = 0, JetBrains.ReSharper.TaskRunnerFramework.PlatformVersion frameworkVersion = 0, bool focusAfterBuild = False) { }
+        public void ClearSessionHistory(JetBrains.ReSharper.UnitTestFramework.IUnitTestSessionView sessionView) { }
         public JetBrains.ReSharper.UnitTestFramework.IUnitTestLaunch CreateLaunch(System.Collections.Generic.IEnumerable<JetBrains.ReSharper.UnitTestFramework.IDiscoveredRemoteTaskHandler> taskHandlers, System.Action<JetBrains.ReSharper.UnitTestFramework.IUnitTestElement> addElement) { }
         public JetBrains.ReSharper.UnitTestFramework.IUnitTestLaunch GetLaunchByRun(string runId) { }
         public JetBrains.ReSharper.UnitTestFramework.IUnitTestRun GetRun(string id) { }
@@ -1300,6 +1249,7 @@ namespace JetBrains.ReSharper.UnitTestSupportTests
         public System.Collections.Generic.List<System.Collections.Generic.IList<JetBrains.ReSharper.UnitTestFramework.UnitTestTask>> Sequences { set; }
         public JetBrains.ReSharper.UnitTestFramework.IUnitTestSession Session { get; }
         public JetBrains.ReSharper.UnitTestFramework.UnitTestResult SessionResult { get; }
+        public bool ShowTime { get; set; }
         public JetBrains.DataFlow.IProperty<JetBrains.ReSharper.UnitTestFramework.UnitTestSessionState> State { get; }
         public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.UnitTestFramework.IDiscoveredRemoteTaskHandler> TaskHandlers { get; set; }
         public JetBrains.DataFlow.IProperty<string> Title { get; }
@@ -1314,10 +1264,10 @@ namespace JetBrains.ReSharper.UnitTestSupportTests
         public JetBrains.ReSharper.UnitTestFramework.IUnitTestRun CreateRun(JetBrains.ReSharper.TaskRunnerFramework.RuntimeEnvironment runtimeEnvironment) { }
         public void Finished() { }
         public JetBrains.ReSharper.UnitTestFramework.IUnitTestElement GetElementByRemoteTaskId(string id) { }
+        public JetBrains.ReSharper.TaskRunnerFramework.RemoteTask GetRemoteTaskForElement(JetBrains.ReSharper.UnitTestFramework.IUnitTestElement element) { }
         public JetBrains.ReSharper.UnitTestFramework.IUnitTestRun GetRun(string id) { }
         public System.Collections.Generic.Dictionary<string, JetBrains.ReSharper.UnitTestFramework.IUnitTestElement> GetTaskIdsToElements() { }
-        public JetBrains.ReSharper.TaskRunnerFramework.RemoteTask[][] GetTasks() { }
-        public JetBrains.ReSharper.TaskRunnerFramework.RemoteTask[][] GetTasks(string runId) { }
+        public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.TaskRunnerFramework.RemoteTaskPacket> GetTasks() { }
         public bool HasElement(JetBrains.ReSharper.UnitTestFramework.IUnitTestElement element) { }
         public void RemoveElements(System.Collections.Generic.IEnumerable<JetBrains.ReSharper.UnitTestFramework.IUnitTestElement> elements) { }
         public void Run(JetBrains.ReSharper.UnitTestFramework.UnitTestElements elements, JetBrains.ReSharper.UnitTestFramework.IHostProvider provider, bool build = True, bool focus = True) { }
@@ -1326,12 +1276,11 @@ namespace JetBrains.ReSharper.UnitTestSupportTests
         public void RunAll(JetBrains.ReSharper.UnitTestFramework.IHostProvider provider) { }
         public void SetActivePreviewPanel<T>()
             where T :  class, JetBrains.ReSharper.UnitTestFramework.IUnitTestPreviewPanel { }
-        public void Stopped() { }
         public void TaskDiscovered(JetBrains.ReSharper.UnitTestFramework.IUnitTestRun run, JetBrains.ReSharper.TaskRunnerFramework.RemoteTask task) { }
-        public void TaskDuration(JetBrains.ReSharper.TaskRunnerFramework.RemoteTask remoteTask, System.TimeSpan duration) { }
-        public void TaskException(JetBrains.ReSharper.TaskRunnerFramework.RemoteTask remoteTask, JetBrains.ReSharper.TaskRunnerFramework.TaskException[] exceptions) { }
-        public void TaskFinished(JetBrains.ReSharper.TaskRunnerFramework.RemoteTask remoteTask, string message, JetBrains.ReSharper.TaskRunnerFramework.TaskResult result) { }
-        public void TaskOutput(JetBrains.ReSharper.TaskRunnerFramework.RemoteTask remoteTask, string text, JetBrains.ReSharper.TaskRunnerFramework.TaskOutputType type) { }
-        public void TaskStarting(JetBrains.ReSharper.TaskRunnerFramework.RemoteTask remoteTask) { }
+        public void TaskDuration(JetBrains.ReSharper.UnitTestFramework.IUnitTestRun run, JetBrains.ReSharper.TaskRunnerFramework.RemoteTask remoteTask, System.TimeSpan duration) { }
+        public void TaskException(JetBrains.ReSharper.UnitTestFramework.IUnitTestRun run, JetBrains.ReSharper.TaskRunnerFramework.RemoteTask remoteTask, JetBrains.ReSharper.TaskRunnerFramework.TaskException[] exceptions) { }
+        public void TaskFinished(JetBrains.ReSharper.UnitTestFramework.IUnitTestRun run, JetBrains.ReSharper.TaskRunnerFramework.RemoteTask remoteTask, string message, JetBrains.ReSharper.TaskRunnerFramework.TaskResult result) { }
+        public void TaskOutput(JetBrains.ReSharper.UnitTestFramework.IUnitTestRun run, JetBrains.ReSharper.TaskRunnerFramework.RemoteTask remoteTask, string text, JetBrains.ReSharper.TaskRunnerFramework.TaskOutputType type) { }
+        public void TaskStarting(JetBrains.ReSharper.UnitTestFramework.IUnitTestRun run, JetBrains.ReSharper.TaskRunnerFramework.RemoteTask remoteTask) { }
     }
 }

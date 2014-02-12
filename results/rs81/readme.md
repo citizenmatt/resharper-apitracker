@@ -48,6 +48,24 @@ Minor implementation changes. Not significant for plugin authors.
 
 No changes.
 
+## Test Frameworks
+
+(Work in Progress - JetBrains.ReSharper.TestFramework only)
+
+* Removed attributes that were used to setup references:
+	* `TestMvc2Attribute`
+	* `TestMvc3Attribute`
+	* `TestMvc4Attribute`
+	* `TestMvcAttribute`
+	* `TestRazor2Attribute`
+	* `TestRazorAttribute`
+	* `TestWebMatrix2Attribute`
+	* `TestWebMatrixAttribute`
+* `ITestLibraryRefrencesProvider`, and so also `TestReferencesAttribute`'s `GetReferences` now gets passed a `PlatformID`
+* `BaseTestWithSolution` typo fixed in `SetPlatformVersion` method name (was "Platfrom")
+* `ReferencesTestBase.DoTest` gets new override that takes `IEnumerable<string>` for files
+* `TestFrameworkUtil.DumpReferencePositions` is now obsolete. Use override which takes `IBuffer`
+* Updates to testable versions of classes. Mostly useful for testing ReSharper implementation, not plugins. 
 
 ## Work in Progress
 
