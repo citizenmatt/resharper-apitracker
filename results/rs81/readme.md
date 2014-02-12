@@ -32,6 +32,13 @@ Minor implementation changes. Not significant for plugin authors.
 * `HtmlMacroImplBase` now requires two type parameters, `TLanguage`, which must derive from `HtmlLanguage` and `TFile` which must implement `IHtmlFile`. Allows for macro to be used with HTML like languages, e.g. ASP.net + Razor
 * Addition of TypeScript scopes
 
+## Solution Analysis
+
+* `CheckForInterrupt` usage has been replace by `Func<bool>`
+* `IssueTypesManager.Instance` is marked obsolete. Use Component Model injection
+* Support for VS theming
+* Minor changes for implementation. Most not significant for plugin authors.
+
 ## Solution Builder
 
 No changes.
@@ -48,5 +55,4 @@ No changes.
 * PSI
 * Refactorings
 * Resources
-* Solution Analysis
 * Unit Test

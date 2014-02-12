@@ -1,10 +1,10 @@
 ﻿[assembly: JetBrains.ReSharper.Daemon.RegisterStaticHighlightingsGroupAttribute("SWEA.FileErrors", "Solution-Wide Analysis Errors", false)]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute(@"JetBrains.ReSharper.Intentions.VB.Tests, PublicKey=002400000480000094000000060200000024000052534131000400000100010087f63ba6a789c30e210e7ec987234ad9fe33baf7367993bab1b312d6f72ca296b91ed5c658964ffb9e7570eb184a527c68c6bdba41cfe67d8cfd3f888234206bf39205a3652d3af3445bb6f715fdac532e289fea41229bac37762b67eb16f58fee717d2465fca9ee17f08ed16772a1fc52c1c17022e1f0d9bdd004524a663aca")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute(@"JetBrains.ReSharper.SolutionAnalysisTests, PublicKey=002400000480000094000000060200000024000052534131000400000100010087f63ba6a789c30e210e7ec987234ad9fe33baf7367993bab1b312d6f72ca296b91ed5c658964ffb9e7570eb184a527c68c6bdba41cfe67d8cfd3f888234206bf39205a3652d3af3445bb6f715fdac532e289fea41229bac37762b67eb16f58fee717d2465fca9ee17f08ed16772a1fc52c1c17022e1f0d9bdd004524a663aca")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute(@"JetBrains.ReSharper.IntentionsTests, PublicKey=002400000480000094000000060200000024000052534131000400000100010087f63ba6a789c30e210e7ec987234ad9fe33baf7367993bab1b312d6f72ca296b91ed5c658964ffb9e7570eb184a527c68c6bdba41cfe67d8cfd3f888234206bf39205a3652d3af3445bb6f715fdac532e289fea41229bac37762b67eb16f58fee717d2465fca9ee17f08ed16772a1fc52c1c17022e1f0d9bdd004524a663aca")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute(@"SolutionAnalysisMemoryChecker, PublicKey=002400000480000094000000060200000024000052534131000400000100010087f63ba6a789c30e210e7ec987234ad9fe33baf7367993bab1b312d6f72ca296b91ed5c658964ffb9e7570eb184a527c68c6bdba41cfe67d8cfd3f888234206bf39205a3652d3af3445bb6f715fdac532e289fea41229bac37762b67eb16f58fee717d2465fca9ee17f08ed16772a1fc52c1c17022e1f0d9bdd004524a663aca")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute(@"HighlightingTest, PublicKey=002400000480000094000000060200000024000052534131000400000100010087f63ba6a789c30e210e7ec987234ad9fe33baf7367993bab1b312d6f72ca296b91ed5c658964ffb9e7570eb184a527c68c6bdba41cfe67d8cfd3f888234206bf39205a3652d3af3445bb6f715fdac532e289fea41229bac37762b67eb16f58fee717d2465fca9ee17f08ed16772a1fc52c1c17022e1f0d9bdd004524a663aca")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute(@"JetBrains.ReSharper.VSIntegrationTests, PublicKey=002400000480000094000000060200000024000052534131000400000100010087f63ba6a789c30e210e7ec987234ad9fe33baf7367993bab1b312d6f72ca296b91ed5c658964ffb9e7570eb184a527c68c6bdba41cfe67d8cfd3f888234206bf39205a3652d3af3445bb6f715fdac532e289fea41229bac37762b67eb16f58fee717d2465fca9ee17f08ed16772a1fc52c1c17022e1f0d9bdd004524a663aca")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute(@"SolutionAnalysisMemoryChecker, PublicKey=002400000480000094000000060200000024000052534131000400000100010087F63BA6A789C30E210E7EC987234AD9FE33BAF7367993BAB1B312D6F72CA296B91ED5C658964FFB9E7570EB184A527C68C6BDBA41CFE67D8CFD3F888234206BF39205A3652D3AF3445BB6F715FDAC532E289FEA41229BAC37762B67EB16F58FEE717D2465FCA9EE17F08ED16772A1FC52C1C17022E1F0D9BDD004524A663ACA")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute(@"JetBrains.ReSharper.SolutionAnalysisTests, PublicKey=002400000480000094000000060200000024000052534131000400000100010087F63BA6A789C30E210E7EC987234AD9FE33BAF7367993BAB1B312D6F72CA296B91ED5C658964FFB9E7570EB184A527C68C6BDBA41CFE67D8CFD3F888234206BF39205A3652D3AF3445BB6F715FDAC532E289FEA41229BAC37762B67EB16F58FEE717D2465FCA9EE17F08ED16772A1FC52C1C17022E1F0D9BDD004524A663ACA")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute(@"HighlightingTest, PublicKey=002400000480000094000000060200000024000052534131000400000100010087F63BA6A789C30E210E7EC987234AD9FE33BAF7367993BAB1B312D6F72CA296B91ED5C658964FFB9E7570EB184A527C68C6BDBA41CFE67D8CFD3F888234206BF39205A3652D3AF3445BB6F715FDAC532E289FEA41229BAC37762B67EB16F58FEE717D2465FCA9EE17F08ED16772A1FC52C1C17022E1F0D9BDD004524A663ACA")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute(@"JetBrains.ReSharper.VSIntegrationTests, PublicKey=002400000480000094000000060200000024000052534131000400000100010087F63BA6A789C30E210E7EC987234AD9FE33BAF7367993BAB1B312D6F72CA296B91ED5C658964FFB9E7570EB184A527C68C6BDBA41CFE67D8CFD3F888234206BF39205A3652D3AF3445BB6F715FDAC532E289FEA41229BAC37762B67EB16F58FEE717D2465FCA9EE17F08ED16772A1FC52C1C17022E1F0D9BDD004524A663ACA")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute(@"JetBrains.ReSharper.IntentionsTests, PublicKey=002400000480000094000000060200000024000052534131000400000100010087F63BA6A789C30E210E7EC987234AD9FE33BAF7367993BAB1B312D6F72CA296B91ED5C658964FFB9E7570EB184A527C68C6BDBA41CFE67D8CFD3F888234206BF39205A3652D3AF3445BB6F715FDAC532E289FEA41229BAC37762B67EB16F58FEE717D2465FCA9EE17F08ED16772A1FC52C1C17022E1F0D9BDD004524A663ACA")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute(@"JetBrains.ReSharper.Intentions.VB.Tests, PublicKey=002400000480000094000000060200000024000052534131000400000100010087F63BA6A789C30E210E7EC987234AD9FE33BAF7367993BAB1B312D6F72CA296B91ED5C658964FFB9E7570EB184A527C68C6BDBA41CFE67D8CFD3F888234206BF39205A3652D3AF3445BB6F715FDAC532E289FEA41229BAC37762B67EB16F58FEE717D2465FCA9EE17F08ED16772A1FC52C1C17022E1F0D9BDD004524A663ACA")]
 [assembly: System.Runtime.InteropServices.ComVisibleAttribute(false)]
 
 namespace JetBrains.ReSharper.Daemon.SolutionAnalysis
@@ -24,7 +24,10 @@ namespace JetBrains.ReSharper.Daemon.SolutionAnalysis
     }
     public class static CollectInspectionResults
     {
+        public static void CollectIssuesFromSolutionAnalysis(JetBrains.ReSharper.Daemon.SolutionAnalysis.SolutionAnalysisManager manager, JetBrains.ReSharper.Daemon.SolutionAnalysis.IIssueSet issueSet, JetBrains.ProjectModel.IProjectFile file, System.Action<JetBrains.ReSharper.Daemon.SolutionAnalysis.IssuePointer> issueConsumer) { }
         public static bool Do(JetBrains.ProjectModel.ISolution solution, System.Collections.Generic.ICollection<JetBrains.ProjectModel.IProjectFile> files, JetBrains.Application.Progress.ITaskExecutor taskExecutor, System.Action<JetBrains.ReSharper.Daemon.SolutionAnalysis.IssuePointer> issueConsumer) { }
+        public static bool IsFileForGlobalAnalysis(JetBrains.ProjectModel.IProjectFile file) { }
+        public static void RunGlobalWarningsDaemon(JetBrains.Application.Progress.IProgressIndicator progress, JetBrains.ProjectModel.IProjectFile file, JetBrains.ReSharper.Daemon.UsageChecking.IGlobalUsageChecker usageChecker, System.Action<JetBrains.ReSharper.Daemon.SolutionAnalysis.IssuePointer> issueConsumer) { }
     }
     public class ConfigurableIssueType : JetBrains.ReSharper.Daemon.SolutionAnalysis.IIssueType
     {
@@ -68,6 +71,8 @@ namespace JetBrains.ReSharper.Daemon.SolutionAnalysis
         public static JetBrains.ReSharper.Daemon.SolutionAnalysis.HierarchyInfo ReadFrom(System.IO.BinaryReader reader) { }
         public void WriteTo(System.IO.BinaryWriter writer) { }
     }
+    [System.Diagnostics.DebuggerDisplayAttribute("Count = {Count}")]
+    [System.Diagnostics.DebuggerTypeProxyAttribute(typeof(JetBrains.ReSharper.Daemon.SolutionAnalysis.HighlightingResultDebugView))]
     public class HighlightingResult
     {
         public HighlightingResult(JetBrains.ReSharper.Daemon.Impl.ProjectModelWrapper.IProjectFileWrapper file) { }
@@ -118,11 +123,11 @@ namespace JetBrains.ReSharper.Daemon.SolutionAnalysis
         public event System.Action<JetBrains.ReSharper.Daemon.Impl.ProjectModelWrapper.IProjectFileWrapper> FileIssuesChanged;
         public event System.Action FilesWithIssuesChanged;
         public event System.Action IssuesChanged;
-        System.Collections.Generic.IEnumerable<JetBrains.ProjectModel.IProjectFile> GetFilesWithIssues(bool includeIgnored = False);
+        System.Collections.Generic.IList<JetBrains.ProjectModel.IProjectFile> GetFilesWithIssues(bool includeIgnored = False);
         int GetFilesWithIssuesCount(bool includeIgnored = False);
         int GetIssueCount(bool includeIgnored = False);
         int GetIssueCount(JetBrains.ProjectModel.IProjectFile file, bool includeIgnored = False);
-        System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Daemon.SolutionAnalysis.IssuePointer> GetIssues(bool includeIgnored = False);
+        System.Collections.Generic.IList<JetBrains.ReSharper.Daemon.SolutionAnalysis.IssuePointer> GetIssues(bool includeIgnored = False);
         System.Collections.Generic.ICollection<JetBrains.ReSharper.Daemon.SolutionAnalysis.IssuePointer> GetIssues(JetBrains.ProjectModel.IProjectFile file, bool includeIgnored = False);
         bool IsEmpty(bool includeIgnored = False);
         void RunOperationFromNonPrimaryThread(System.Action operation);
@@ -174,6 +179,7 @@ namespace JetBrains.ReSharper.Daemon.SolutionAnalysis
         public JetBrains.ReSharper.Daemon.SolutionAnalysis.IssueClass GetIssueClass(JetBrains.ReSharper.Daemon.HighlightingSettingsManager manager, JetBrains.ReSharper.Daemon.HighlightingInfo highlightingInfo) { }
         public JetBrains.ReSharper.Daemon.SolutionAnalysis.IssueClass ReadFrom(System.IO.BinaryReader reader, JetBrains.ReSharper.Daemon.HighlightingSettingsManager manager) { }
     }
+    [System.Diagnostics.DebuggerDisplayAttribute("Message = {Message}, IssueType={IssueType}")]
     public struct IssueData
     {
         public IssueData(JetBrains.Util.TextRange range, JetBrains.ReSharper.Daemon.SolutionAnalysis.IssueClass issueClass, string message, bool ignored, JetBrains.ReSharper.Daemon.SolutionAnalysis.IssueStrings issueStrings) { }
@@ -238,6 +244,7 @@ namespace JetBrains.ReSharper.Daemon.SolutionAnalysis
     {
         public IssueTypesManager(JetBrains.DataFlow.Lifetime lifetime, JetBrains.Application.Parts.IPartsCatalogueSet catalog, JetBrains.ReSharper.Daemon.HighlightingSettingsManager highlightingSettingsManager) { }
         public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Daemon.SolutionAnalysis.IIssueType> AllIssueTypes { get; }
+        [System.ObsoleteAttribute("Inject me!")]
         public static JetBrains.ReSharper.Daemon.SolutionAnalysis.IssueTypesManager Instance { get; }
         public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Daemon.SolutionAnalysis.IIssueType> GetIssueTypesByCompoundItemName(string compoundItemName) { }
         public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Daemon.SolutionAnalysis.IIssueType> GetIssueTypesByGroupId(string groupId) { }
@@ -424,7 +431,7 @@ namespace JetBrains.ReSharper.Daemon.SolutionAnalysis.FileImages
         [JetBrains.Annotations.CanBeNullAttribute()]
         public JetBrains.ReSharper.Daemon.SolutionAnalysis.FileImages.ImagesData BuildImagesData(JetBrains.ProjectModel.IProjectFile projectFile) { }
         [JetBrains.Annotations.CanBeNullAttribute()]
-        public JetBrains.ReSharper.Daemon.SolutionAnalysis.FileImages.ImagesData BuildImagesData(JetBrains.ReSharper.Psi.IPsiAssembly assembly, JetBrains.Application.CheckForInterrupt checkForInterrupt) { }
+        public JetBrains.ReSharper.Daemon.SolutionAnalysis.FileImages.ImagesData BuildImagesData(JetBrains.ReSharper.Psi.IPsiAssembly assembly, System.Func<bool> checkForInterrupt) { }
         public bool ShouldBuildImageData(JetBrains.ProjectModel.IProjectFile projectFile) { }
     }
     [JetBrains.ReSharper.Psi.PsiComponentAttribute()]
@@ -450,7 +457,7 @@ namespace JetBrains.ReSharper.Daemon.SolutionAnalysis.FileImages
         public JetBrains.ReSharper.Daemon.Impl.SolutionAnalysisService.FileImagesCacheInitializationResult Initialize() { }
         public void MarkAsDirty(JetBrains.ReSharper.Psi.IPsiSourceFile sourceFile) { }
         public void Release() { }
-        public void Save(JetBrains.Application.CheckForInterrupt checkForInterrupt) { }
+        public void Save(System.Func<bool> checkForInterrupt) { }
         public void TestDump(System.IO.TextWriter builder) { }
         public void UnloadIfInitialized() { }
     }
@@ -562,7 +569,7 @@ namespace JetBrains.ReSharper.Daemon.SolutionAnalysis.IssuesSerializer
         }
         public class IssuesReportIssueType : JetBrains.ReSharper.Daemon.SolutionAnalysis.IIssueType
         {
-            public IssuesReportIssueType(string id, string groupId, JetBrains.ReSharper.Daemon.Severity severity, string description) { }
+            public IssuesReportIssueType(string id, string groupId, string compoundItemName, JetBrains.ReSharper.Daemon.Severity severity, string description, bool solutionAnalysisRequired) { }
             public string CompoundItemName { get; }
             public string ConfigurableSeverityId { get; }
             public string GroupId { get; }
@@ -574,10 +581,21 @@ namespace JetBrains.ReSharper.Daemon.SolutionAnalysis.IssuesSerializer
         }
     }
     [JetBrains.ProjectModel.SolutionComponentAttribute()]
-    public class IssuesReportWriter
+    public class IssuesReportWriter : JetBrains.ReSharper.Daemon.SolutionAnalysis.IssuesSerializer.IssuesTypesWriter
     {
-        public IssuesReportWriter(JetBrains.ProjectModel.ISolution solution, JetBrains.DocumentManagers.DocumentManager documentManager, JetBrains.Application.Settings.ISettingsStore settingsStore, JetBrains.ReSharper.Feature.Services.Explanatory.ICodeInspectionWikiDataProvider inspectionWikiData, JetBrains.ReSharper.Daemon.HighlightingSettingsManager highlightingSettingsManager, JetBrains.Application.IApplicationDescriptor applicationDescriptor) { }
+        public IssuesReportWriter(JetBrains.ProjectModel.ISolution solution, JetBrains.DocumentManagers.DocumentManager documentManager, JetBrains.ReSharper.Daemon.SolutionAnalysis.IssueTypesManager issueTypesManager, JetBrains.Application.Settings.ISettingsStore settingsStore, JetBrains.ReSharper.Feature.Services.Explanatory.ICodeInspectionWikiDataProvider inspectionWikiData, JetBrains.ReSharper.Daemon.HighlightingSettingsManager highlightingSettingsManager, JetBrains.Application.IProductNameAndVersion product) { }
         public void WriteReport(JetBrains.Application.Progress.IProgressIndicator progress, System.IO.Stream writer, System.Collections.Generic.IEnumerable<JetBrains.ProjectModel.IProjectModelElement> scope, System.Collections.Generic.ICollection<JetBrains.ReSharper.Daemon.SolutionAnalysis.IIssue> issues) { }
-        public void WriteReport(JetBrains.Application.Progress.IProgressIndicator progress, System.IO.Stream writer, JetBrains.Util.FileSystemPath baseDirectory, System.Collections.Generic.IEnumerable<JetBrains.ProjectModel.IProjectModelElement> scope, System.Collections.Generic.ICollection<JetBrains.ReSharper.Daemon.SolutionAnalysis.IIssue> issues, System.Version toolVersion = null) { }
+        public void WriteReport(JetBrains.Application.Progress.IProgressIndicator progress, System.IO.Stream stream, JetBrains.Util.FileSystemPath baseDirectory, System.Collections.Generic.IEnumerable<JetBrains.ProjectModel.IProjectModelElement> scope, System.Collections.Generic.ICollection<JetBrains.ReSharper.Daemon.SolutionAnalysis.IIssue> issues) { }
+        public void WriteReport(JetBrains.Application.Progress.IProgressIndicator progress, System.IO.TextWriter writer, JetBrains.Util.FileSystemPath baseDirectory, System.Collections.Generic.IEnumerable<JetBrains.ProjectModel.IProjectModelElement> scope, System.Collections.Generic.ICollection<JetBrains.ReSharper.Daemon.SolutionAnalysis.IIssue> issues) { }
+    }
+    [JetBrains.Application.ShellComponentAttribute()]
+    public class IssuesTypesWriter
+    {
+        protected readonly JetBrains.Application.IProductNameAndVersion myProduct;
+        protected readonly JetBrains.Application.Settings.ISettingsStore mySettingsStore;
+        public IssuesTypesWriter(JetBrains.ReSharper.Daemon.SolutionAnalysis.IssueTypesManager issueTypesManager, JetBrains.ReSharper.Feature.Services.Explanatory.ICodeInspectionWikiDataProvider inspectionWikiData, JetBrains.ReSharper.Daemon.HighlightingSettingsManager highlightingSettingsManager, JetBrains.Application.Settings.ISettingsStore settingsStore, JetBrains.Application.IProductNameAndVersion product) { }
+        protected static string GetTypeId(JetBrains.ReSharper.Daemon.SolutionAnalysis.IIssueType type) { }
+        public void WriteIssuesTypesReport(JetBrains.Application.Progress.IProgressIndicator progress, System.IO.Stream writer, System.Version toolVersion = null) { }
+        protected void WriteIssueTypes(JetBrains.Application.Progress.IProgressIndicator progress, System.Xml.XmlWriter writer, System.Collections.Generic.ICollection<JetBrains.ReSharper.Daemon.SolutionAnalysis.IIssueType> types, JetBrains.Application.Settings.IContextBoundSettingsStore settingsStore) { }
     }
 }
