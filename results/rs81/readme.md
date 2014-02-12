@@ -15,9 +15,12 @@ New Annotations added:
 
 Assembly level attributes to provide format strings for locating master pages, views and partial views.
 
+## Decompiler
+
+Minor changes to APIs for internal implementation of decompiler. Not significant for plugin authors.
+
 ## Work in Progress
 
-* Decompiler
 * Platform
 * PsiFeatures.VisualStudio
 * Daemon

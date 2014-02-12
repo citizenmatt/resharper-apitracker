@@ -1,6 +1,6 @@
-﻿[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute(@"ControlFlowGraphVisualizer, PublicKey=002400000480000094000000060200000024000052534131000400000100010087f63ba6a789c30e210e7ec987234ad9fe33baf7367993bab1b312d6f72ca296b91ed5c658964ffb9e7570eb184a527c68c6bdba41cfe67d8cfd3f888234206bf39205a3652d3af3445bb6f715fdac532e289fea41229bac37762b67eb16f58fee717d2465fca9ee17f08ed16772a1fc52c1c17022e1f0d9bdd004524a663aca")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute(@"DecompilerConsole, PublicKey=002400000480000094000000060200000024000052534131000400000100010087f63ba6a789c30e210e7ec987234ad9fe33baf7367993bab1b312d6f72ca296b91ed5c658964ffb9e7570eb184a527c68c6bdba41cfe67d8cfd3f888234206bf39205a3652d3af3445bb6f715fdac532e289fea41229bac37762b67eb16f58fee717d2465fca9ee17f08ed16772a1fc52c1c17022e1f0d9bdd004524a663aca")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute(@"JetBrains.Decompiler.Core.Tests, PublicKey=002400000480000094000000060200000024000052534131000400000100010087f63ba6a789c30e210e7ec987234ad9fe33baf7367993bab1b312d6f72ca296b91ed5c658964ffb9e7570eb184a527c68c6bdba41cfe67d8cfd3f888234206bf39205a3652d3af3445bb6f715fdac532e289fea41229bac37762b67eb16f58fee717d2465fca9ee17f08ed16772a1fc52c1c17022e1f0d9bdd004524a663aca")]
+﻿[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute(@"ControlFlowGraphVisualizer, PublicKey=002400000480000094000000060200000024000052534131000400000100010087F63BA6A789C30E210E7EC987234AD9FE33BAF7367993BAB1B312D6F72CA296B91ED5C658964FFB9E7570EB184A527C68C6BDBA41CFE67D8CFD3F888234206BF39205A3652D3AF3445BB6F715FDAC532E289FEA41229BAC37762B67EB16F58FEE717D2465FCA9EE17F08ED16772A1FC52C1C17022E1F0D9BDD004524A663ACA")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute(@"DecompilerConsole, PublicKey=002400000480000094000000060200000024000052534131000400000100010087F63BA6A789C30E210E7EC987234AD9FE33BAF7367993BAB1B312D6F72CA296B91ED5C658964FFB9E7570EB184A527C68C6BDBA41CFE67D8CFD3F888234206BF39205A3652D3AF3445BB6F715FDAC532E289FEA41229BAC37762B67EB16F58FEE717D2465FCA9EE17F08ED16772A1FC52C1C17022E1F0D9BDD004524A663ACA")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute(@"JetBrains.Decompiler.Core.Tests, PublicKey=002400000480000094000000060200000024000052534131000400000100010087F63BA6A789C30E210E7EC987234AD9FE33BAF7367993BAB1B312D6F72CA296B91ED5C658964FFB9E7570EB184A527C68C6BDBA41CFE67D8CFD3F888234206BF39205A3652D3AF3445BB6F715FDAC532E289FEA41229BAC37762B67EB16F58FEE717D2465FCA9EE17F08ED16772A1FC52C1C17022E1F0D9BDD004524A663ACA")]
 [assembly: System.Runtime.InteropServices.ComVisibleAttribute(false)]
 
 namespace JetBrains.Decompiler.Ast
@@ -940,10 +940,6 @@ namespace JetBrains.Decompiler.Baml.Reader
     }
     public class BamlReader
     {
-        public BamlReader([JetBrains.Annotations.NotNullAttribute()] System.IO.Stream stream, [JetBrains.Annotations.NotNullAttribute()] JetBrains.Decompiler.Baml.Reader.IBamlConsumer consumer, [JetBrains.Annotations.CanBeNullAttribute()] JetBrains.Decompiler.Baml.Reader.BamlPredefinedProvider predefinedProvider = null) { }
-        public System.IO.Stream BaseStream { get; }
-        public long Position { get; }
-        public void Read() { }
         public static void Read([JetBrains.Annotations.NotNullAttribute()] System.IO.Stream stream, [JetBrains.Annotations.NotNullAttribute()] JetBrains.Decompiler.Baml.Reader.IBamlConsumer consumer, [JetBrains.Annotations.CanBeNullAttribute()] JetBrains.Decompiler.Baml.Reader.BamlPredefinedProvider predefinedProvider = null) { }
     }
     [System.Diagnostics.DebuggerDisplayAttribute("{FullName,nq}")]
@@ -1449,6 +1445,8 @@ namespace JetBrains.Decompiler.Render.CSharp
         [JetBrains.Annotations.NotNullAttribute()]
         public static JetBrains.Decompiler.Render.ICodeTextWriter RenderMethodBody([JetBrains.Annotations.NotNullAttribute()] this JetBrains.Decompiler.Render.ICodeTextWriter writer, [JetBrains.Annotations.NotNullAttribute()] JetBrains.Decompiler.Ast.IDecompiledMethod method) { }
         public static JetBrains.Decompiler.Render.ICodeTextWriter RenderStatement(this JetBrains.Decompiler.Render.ICodeTextWriter writer, JetBrains.Decompiler.Ast.IStatement statement, bool isEmbedded = False) { }
+        public static JetBrains.Decompiler.Render.ICodeTextWriter TryRenderMethodBody(this JetBrains.Decompiler.Render.ICodeTextWriter writer, JetBrains.Decompiler.Ast.IDecompiledMethod method) { }
+        public static JetBrains.Decompiler.Render.ICodeTextWriter TryRenderStatement(this JetBrains.Decompiler.Render.ICodeTextWriter writer, JetBrains.Decompiler.Ast.IStatement statement, bool isEmbedded = False) { }
     }
     public enum CSharpAccessRights
     {
@@ -1487,6 +1485,10 @@ namespace JetBrains.Decompiler.Render.CSharp
             public JetBrains.Util.OneToListMap<JetBrains.Metadata.Reader.API.IMetadataMethod, JetBrains.Util.TextRange> MethodRanges { get; }
             public string Text { get; }
         }
+    }
+    public class static ParameterUtil
+    {
+        public static System.IDisposable FixImplicitParameterName([JetBrains.Annotations.CanBeNullAttribute()] JetBrains.Decompiler.Ast.IDecompiledMethod methodWithImplicitParameter) { }
     }
 }
 namespace JetBrains.Decompiler.Transformations
