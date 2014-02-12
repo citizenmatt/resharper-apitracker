@@ -169,6 +169,7 @@ namespace JetBrains.ReSharper.LiveTemplates.VB
     {
         public VBMacroUtil(JetBrains.ReSharper.Psi.VB.VBLanguage language, JetBrains.ReSharper.Psi.VB.ExpectedTypes.IVBExpectedTypesProvider expectedTypesProvider) { }
         public override JetBrains.ReSharper.Psi.IDeclaredElement AsDeclaredElement(string text, JetBrains.ReSharper.Feature.Services.LiveTemplates.Hotspots.IHotspotContext context) { }
+        public override JetBrains.ReSharper.Feature.Services.Lookup.DeclaredElementLookupItem CreateDeclaredElementLookupItem(JetBrains.ReSharper.Psi.DeclaredElementInstance<JetBrains.ReSharper.Psi.ITypeOwner> element, JetBrains.ReSharper.Feature.Services.LiveTemplates.Hotspots.IHotspotContext context) { }
         protected override JetBrains.ReSharper.Psi.Tree.IExpression CreateExpression(JetBrains.ReSharper.Psi.Modules.IPsiModule module, string text) { }
         public override JetBrains.ReSharper.Psi.IDeclaredElement CreateVariableDeclaredElement(JetBrains.ReSharper.Feature.Services.LiveTemplates.Hotspots.IHotspotContext macroContext) { }
         public override string GetDefaultNamespace(JetBrains.ReSharper.Feature.Services.LiveTemplates.Hotspots.IHotspotContext context) { }

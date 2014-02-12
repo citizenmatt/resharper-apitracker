@@ -2,8 +2,8 @@
 [assembly: JetBrains.TextControl.DocumentMarkup.RegisterHighlighterAttribute("ReSharper Template Editor HTML Comment", "{A30A39DD-B71F-42EB-807F-239756FBED7C}", DarkForegroundColor="LightGreen", ForegroundColor="Green", Layer=2000, VSPriority=40)]
 [assembly: JetBrains.TextControl.DocumentMarkup.RegisterHighlighterAttribute("ReSharper Template Editor HTML Attribute", "{BBCA5F13-5230-42CD-B522-E520ECD8A3FA}", DarkForegroundColor="Violet", ForegroundColor="Purple", Layer=2000, VSPriority=40)]
 [assembly: JetBrains.UI.Icons.CompiledIcons.CompiledIconsPackAttribute(IconNames=new string[] {
-        "ScopeHtml",
-        "ScopeHtmlLike"}, IconPackResourceIdentification="JetBrains.ReSharper.LiveTemplates.Html;component/resources/LiveTemplatesHtml/Them" +
+        "ScopeHtmlLike",
+        "ScopeHtml"}, IconPackResourceIdentification="JetBrains.ReSharper.LiveTemplates.Html;component/resources/LiveTemplatesHtml/Them" +
     "edIcons.LiveTemplatesHtml.Generated.Xaml")]
 [assembly: System.Runtime.InteropServices.ComVisibleAttribute(false)]
 [assembly: System.Windows.Markup.XmlnsDefinitionAttribute("urn:shemas-jetbrains-com:ui-application-icons-live-templates-html", "JetBrains.ReSharper.LiveTemplates.Html.Resources")]
@@ -154,10 +154,12 @@ namespace JetBrains.ReSharper.LiveTemplates.Html.Macros
     {
         public HtmlImpl() { }
     }
-    public abstract class HtmlMacroImplBase : JetBrains.ReSharper.Feature.Services.LiveTemplates.Macros.SimpleMacroImplementation
+    public abstract class HtmlMacroImplBase<TLanguage, TFile> : JetBrains.ReSharper.Feature.Services.LiveTemplates.Macros.SimpleMacroImplementation
+        where TLanguage : JetBrains.ReSharper.Psi.Html.HtmlLanguage
+        where TFile :  class, JetBrains.ReSharper.Psi.Html.Tree.IHtmlFile
     {
         public override JetBrains.ReSharper.Feature.Services.LiveTemplates.Hotspots.HotspotItems GetLookupItems(JetBrains.ReSharper.Feature.Services.LiveTemplates.Hotspots.IHotspotContext context) { }
-        protected abstract System.Collections.Generic.IList<JetBrains.ReSharper.Feature.Services.Lookup.ILookupItem> GetSuggestedNames(JetBrains.ReSharper.Psi.Html.Tree.IHtmlFile file, JetBrains.ReSharper.Feature.Services.LiveTemplates.Hotspots.IHotspotContext context);
+        protected abstract System.Collections.Generic.IList<JetBrains.ReSharper.Feature.Services.Lookup.ILookupItem> GetSuggestedNames(TFile file, JetBrains.ReSharper.Feature.Services.LiveTemplates.Hotspots.IHotspotContext context);
     }
     [JetBrains.ReSharper.Psi.LanguageAttribute(typeof(JetBrains.ReSharper.Psi.Html.HtmlLanguage))]
     public class HtmlMacroUtil : JetBrains.ReSharper.Feature.Services.LiveTemplates.Macros.MacroUtilBase
@@ -173,14 +175,14 @@ namespace JetBrains.ReSharper.LiveTemplates.Html.Macros
     [JetBrains.ReSharper.Feature.Services.LiveTemplates.Macros.MacroDefinitionAttribute("suggestAttributeNameByTag", LongDescription="Suggests attribute name used in the same tags in current document", ShortDescription="Suggests attribute name by tag")]
     public class SuggestAttributeNameByTagMacroDef : JetBrains.ReSharper.Feature.Services.LiveTemplates.Macros.SimpleMacroDefinition { }
     [JetBrains.ReSharper.Feature.Services.LiveTemplates.Macros.MacroImplementationAttribute(Definition=typeof(JetBrains.ReSharper.LiveTemplates.Html.Macros.SuggestAttributeNameByTagMacroDef))]
-    public class SuggestAttributeNameByTagMacroImpl : JetBrains.ReSharper.LiveTemplates.Html.Macros.HtmlMacroImplBase
+    public class SuggestAttributeNameByTagMacroImpl : JetBrains.ReSharper.LiveTemplates.Html.Macros.HtmlMacroImplBase<JetBrains.ReSharper.Psi.Html.HtmlLanguage, JetBrains.ReSharper.Psi.Html.Tree.IHtmlFile>
     {
         protected override System.Collections.Generic.IList<JetBrains.ReSharper.Feature.Services.Lookup.ILookupItem> GetSuggestedNames(JetBrains.ReSharper.Psi.Html.Tree.IHtmlFile file, JetBrains.ReSharper.Feature.Services.LiveTemplates.Hotspots.IHotspotContext context) { }
     }
     [JetBrains.ReSharper.Feature.Services.LiveTemplates.Macros.MacroDefinitionAttribute("suggestAttributeValue", LongDescription="Suggest attribute value for current html tag attribute", ShortDescription="Suggest attribute value")]
     public class SuggestAttributeValueMacroDef : JetBrains.ReSharper.Feature.Services.LiveTemplates.Macros.SimpleMacroDefinition { }
     [JetBrains.ReSharper.Feature.Services.LiveTemplates.Macros.MacroImplementationAttribute(Definition=typeof(JetBrains.ReSharper.LiveTemplates.Html.Macros.SuggestAttributeValueMacroDef))]
-    public class SuggestAttributeValueMacroImpl : JetBrains.ReSharper.LiveTemplates.Html.Macros.HtmlMacroImplBase
+    public class SuggestAttributeValueMacroImpl : JetBrains.ReSharper.LiveTemplates.Html.Macros.HtmlMacroImplBase<JetBrains.ReSharper.Psi.Html.HtmlLanguage, JetBrains.ReSharper.Psi.Html.Tree.IHtmlFile>
     {
         protected override System.Collections.Generic.IList<JetBrains.ReSharper.Feature.Services.Lookup.ILookupItem> GetSuggestedNames(JetBrains.ReSharper.Psi.Html.Tree.IHtmlFile file, JetBrains.ReSharper.Feature.Services.LiveTemplates.Hotspots.IHotspotContext context) { }
     }
@@ -203,13 +205,13 @@ namespace JetBrains.ReSharper.LiveTemplates.Html.Resources
     public sealed class LiveTemplatesHtmlThemedIcons
     {
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.LiveTemplates.Html;component/resources/LiveTemplatesHtml/Them" +
-            "edIcons.LiveTemplatesHtml.Generated.Xaml", 0, "ScopeHtml")]
+            "edIcons.LiveTemplatesHtml.Generated.Xaml", 1, "ScopeHtml")]
         public sealed class ScopeHtml : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.LiveTemplates.Html;component/resources/LiveTemplatesHtml/Them" +
-            "edIcons.LiveTemplatesHtml.Generated.Xaml", 1, "ScopeHtmlLike")]
+            "edIcons.LiveTemplatesHtml.Generated.Xaml", 0, "ScopeHtmlLike")]
         public sealed class ScopeHtmlLike : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;

@@ -112,6 +112,7 @@ namespace JetBrains.ReSharper.LiveTemplates.CSharp.Macros
     {
         public CSharpMacroUtil(JetBrains.ReSharper.Psi.CSharp.CSharpLanguage language, JetBrains.ReSharper.Psi.CSharp.ExpectedTypes.ICSharpExpectedTypesProvider expectedTypesProvider) { }
         public override JetBrains.ReSharper.Psi.IDeclaredElement AsDeclaredElement(string text, JetBrains.ReSharper.Feature.Services.LiveTemplates.Hotspots.IHotspotContext context) { }
+        public override JetBrains.ReSharper.Feature.Services.Lookup.DeclaredElementLookupItem CreateDeclaredElementLookupItem(JetBrains.ReSharper.Psi.DeclaredElementInstance<JetBrains.ReSharper.Psi.ITypeOwner> element, JetBrains.ReSharper.Feature.Services.LiveTemplates.Hotspots.IHotspotContext context) { }
         protected override JetBrains.ReSharper.Psi.Tree.IExpression CreateExpression(JetBrains.ReSharper.Psi.Modules.IPsiModule module, string text) { }
         public override JetBrains.ReSharper.Psi.IDeclaredElement CreateVariableDeclaredElement(JetBrains.ReSharper.Feature.Services.LiveTemplates.Hotspots.IHotspotContext hotspotContext) { }
         public override System.Collections.Generic.ICollection<JetBrains.ReSharper.Psi.IType> GetElementTypes(JetBrains.ReSharper.Psi.Tree.IExpression collectionExpression) { }

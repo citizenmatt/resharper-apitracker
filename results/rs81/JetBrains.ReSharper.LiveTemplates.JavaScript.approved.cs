@@ -1,6 +1,7 @@
-﻿[assembly: JetBrains.TextControl.DocumentMarkup.RegisterHighlighterAttribute("ReSharper Template Editor JavaScript Comment", "{6ceadc67-0748-43aa-a42c-7c48138db090}", DarkForegroundColor="LightGreen", ForegroundColor="Green", Layer=2000, VSPriority=40)]
-[assembly: JetBrains.TextControl.DocumentMarkup.RegisterHighlighterAttribute("ReSharper Template Editor JavaScript Keyword", "{ddc3f972-2827-4778-95e1-8f07041906c3}", DarkForegroundColor="LightSkyBlue", ForegroundColor="Blue", Layer=2000, VSPriority=40)]
+﻿[assembly: JetBrains.TextControl.DocumentMarkup.RegisterHighlighterAttribute("ReSharper Template Editor JavaScript Keyword", "{ddc3f972-2827-4778-95e1-8f07041906c3}", DarkForegroundColor="LightSkyBlue", ForegroundColor="Blue", Layer=2000, VSPriority=40)]
+[assembly: JetBrains.TextControl.DocumentMarkup.RegisterHighlighterAttribute("ReSharper Template Editor JavaScript Comment", "{6ceadc67-0748-43aa-a42c-7c48138db090}", DarkForegroundColor="LightGreen", ForegroundColor="Green", Layer=2000, VSPriority=40)]
 [assembly: JetBrains.UI.Icons.CompiledIcons.CompiledIconsPackAttribute(IconNames=new string[] {
+        "ScopeTypeScript",
         "ScopeJS"}, IconPackResourceIdentification="JetBrains.ReSharper.LiveTemplates.JavaScript;component/resources/LiveTemplatesJav" +
     "aScripts/ThemedIcons.LiveTemplatesJavaScripts.Generated.Xaml")]
 [assembly: System.Runtime.InteropServices.ComVisibleAttribute(false)]
@@ -18,8 +19,8 @@ namespace JetBrains.ReSharper.LiveTemplates.JavaScript.LiveTemplates
     public class InJavaScriptFile : JetBrains.ReSharper.Feature.Services.LiveTemplates.Scope.InAnyLanguageFile, JetBrains.ReSharper.Feature.Services.LiveTemplates.Scope.IMainScopePoint, JetBrains.ReSharper.Feature.Services.LiveTemplates.Scope.ITemplateScopePoint
     {
         public override string PresentableShortName { get; }
-        public string QuickListTitle { get; }
-        public System.Guid QuickListUID { get; }
+        public virtual string QuickListTitle { get; }
+        public virtual System.Guid QuickListUID { get; }
         public override JetBrains.ReSharper.Psi.PsiLanguageType RelatedLanguage { get; }
         public override System.Guid GetDefaultUID() { }
         protected override System.Collections.Generic.IEnumerable<string> GetExtensions() { }
@@ -27,6 +28,30 @@ namespace JetBrains.ReSharper.LiveTemplates.JavaScript.LiveTemplates
     }
     public class InJavaScriptStatement : JetBrains.ReSharper.LiveTemplates.JavaScript.LiveTemplates.InJavaScriptExpression
     {
+        public override string PresentableShortName { get; }
+        public override System.Guid GetDefaultUID() { }
+        public override string ToString() { }
+    }
+    public class InTypeScriptExpression : JetBrains.ReSharper.LiveTemplates.JavaScript.LiveTemplates.InTypeScriptFile
+    {
+        public InTypeScriptExpression() { }
+        public override string PresentableShortName { get; }
+        public override System.Guid GetDefaultUID() { }
+        public override string ToString() { }
+    }
+    public class InTypeScriptFile : JetBrains.ReSharper.LiveTemplates.JavaScript.LiveTemplates.InJavaScriptFile, JetBrains.ReSharper.Feature.Services.LiveTemplates.Scope.IMainScopePoint, JetBrains.ReSharper.Feature.Services.LiveTemplates.Scope.ITemplateScopePoint
+    {
+        public override string PresentableShortName { get; }
+        public override string QuickListTitle { get; }
+        public override System.Guid QuickListUID { get; }
+        public override JetBrains.ReSharper.Psi.PsiLanguageType RelatedLanguage { get; }
+        public override System.Guid GetDefaultUID() { }
+        protected override System.Collections.Generic.IEnumerable<string> GetExtensions() { }
+        public override string ToString() { }
+    }
+    public class InTypeScriptStatement : JetBrains.ReSharper.LiveTemplates.JavaScript.LiveTemplates.InTypeScriptExpression
+    {
+        public InTypeScriptStatement() { }
         public override string PresentableShortName { get; }
         public override System.Guid GetDefaultUID() { }
         public override string ToString() { }
@@ -83,6 +108,20 @@ namespace JetBrains.ReSharper.LiveTemplates.JavaScript.LiveTemplates
         public const string KeywordAttribute = "ReSharper Template Editor JavaScript Keyword";
         public override string GetHighlightingAttributeId(JetBrains.ReSharper.Psi.Parsing.TokenNodeType tokenType) { }
     }
+    [JetBrains.ReSharper.Feature.Services.LiveTemplates.Scope.ScopeCategoryUIProviderAttribute()]
+    public class TypeScriptScopeCategoryUIProvider : JetBrains.ReSharper.Feature.Services.LiveTemplates.Scope.ScopeCategoryUIProvider
+    {
+        public TypeScriptScopeCategoryUIProvider() { }
+        public override string CategoryCaption { get; }
+        public override System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Feature.Services.LiveTemplates.Scope.ITemplateScopePoint> BuildAllPoints() { }
+        public override string Present(JetBrains.ReSharper.Feature.Services.LiveTemplates.Scope.ITemplateScopePoint point) { }
+    }
+    [JetBrains.Application.ShellComponentAttribute()]
+    public class TypeScriptScopeProvider : JetBrains.ReSharper.Feature.Services.LiveTemplates.Scope.ScopeProvider
+    {
+        public TypeScriptScopeProvider() { }
+        public override System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Feature.Services.LiveTemplates.Scope.ITemplateScopePoint> ProvideScopePoints(JetBrains.ReSharper.Feature.Services.LiveTemplates.Context.TemplateAcceptanceContext context) { }
+    }
 }
 namespace JetBrains.ReSharper.LiveTemplates.JavaScript.Macros
 {
@@ -109,8 +148,14 @@ namespace JetBrains.ReSharper.LiveTemplates.JavaScript.Resources
     public sealed class LiveTemplatesJavaScriptsThemedIcons
     {
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.LiveTemplates.JavaScript;component/resources/LiveTemplatesJav" +
-            "aScripts/ThemedIcons.LiveTemplatesJavaScripts.Generated.Xaml", 0, "ScopeJS")]
+            "aScripts/ThemedIcons.LiveTemplatesJavaScripts.Generated.Xaml", 1, "ScopeJS")]
         public sealed class ScopeJS : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.LiveTemplates.JavaScript;component/resources/LiveTemplatesJav" +
+            "aScripts/ThemedIcons.LiveTemplatesJavaScripts.Generated.Xaml", 0, "ScopeTypeScript")]
+        public sealed class ScopeTypeScript : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }

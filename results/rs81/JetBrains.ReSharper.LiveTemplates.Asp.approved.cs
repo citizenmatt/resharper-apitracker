@@ -149,10 +149,10 @@ namespace JetBrains.ReSharper.LiveTemplates.Asp.Macros
     [JetBrains.ReSharper.Feature.Services.LiveTemplates.Macros.MacroDefinitionAttribute("runAtServer", LongDescription="Insert runat=\"server\" if server-side tag selected", ShortDescription="Insert runat=\"server\" if server-side tag selected")]
     public class RunAtServerMacroDef : JetBrains.ReSharper.Feature.Services.LiveTemplates.Macros.SimpleMacroDefinition { }
     [JetBrains.ReSharper.Feature.Services.LiveTemplates.Macros.MacroImplementationAttribute(Definition=typeof(JetBrains.ReSharper.LiveTemplates.Asp.Macros.RunAtServerMacroDef))]
-    public class RunAtServerMacroImpl : JetBrains.ReSharper.LiveTemplates.Html.Macros.HtmlMacroImplBase
+    public class RunAtServerMacroImpl : JetBrains.ReSharper.LiveTemplates.Html.Macros.HtmlMacroImplBase<JetBrains.ReSharper.Psi.Asp.AspLanguage, JetBrains.ReSharper.Psi.Asp.Tree.IAspFile>
     {
         public RunAtServerMacroImpl() { }
-        protected override System.Collections.Generic.IList<JetBrains.ReSharper.Feature.Services.Lookup.ILookupItem> GetSuggestedNames(JetBrains.ReSharper.Psi.Html.Tree.IHtmlFile file, JetBrains.ReSharper.Feature.Services.LiveTemplates.Hotspots.IHotspotContext context) { }
+        protected override System.Collections.Generic.IList<JetBrains.ReSharper.Feature.Services.Lookup.ILookupItem> GetSuggestedNames(JetBrains.ReSharper.Psi.Asp.Tree.IAspFile file, JetBrains.ReSharper.Feature.Services.LiveTemplates.Hotspots.IHotspotContext context) { }
     }
     [JetBrains.ReSharper.Feature.Services.LiveTemplates.Macros.MacroImplementationAttribute(Definition=typeof(JetBrains.ReSharper.LiveTemplates.Html.Macros.SuggestTagNameMacroDef), ScopeProvider=typeof(JetBrains.ReSharper.LiveTemplates.Asp.Macros.AspImpl))]
     public class SuggestTagNameMacroImpl : JetBrains.ReSharper.LiveTemplates.Html.Macros.SuggestTagNameMacroBase

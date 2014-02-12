@@ -1,22 +1,22 @@
 ﻿[assembly: JetBrains.ActionManagement.ActionsXmlAttribute("JetBrains.ReSharper.LiveTemplates.resources.actions.xml")]
 [assembly: JetBrains.TextControl.DocumentMarkup.RegisterHighlighterAttribute("ReSharper Template Editor Template Keyword", "{c08f5855-58b3-429e-959a-396c99fdd86d}", DarkForegroundColor="LightBlue", EffectType=JetBrains.TextControl.DocumentMarkup.EffectType.TEXT, ForegroundColor="DarkBlue", Layer=2000, VSPriority=40)]
 [assembly: JetBrains.UI.Icons.CompiledIcons.CompiledIconsPackAttribute(IconNames=new string[] {
-        "AddLiveTemplate",
-        "ImportLiveTemplate",
-        "EditTemplate",
-        "MoveLiveTemplate",
+        "AddFileTemplate",
         "AddFileStorage",
-        "ScopeVB",
-        "ExportLiveTemplate",
-        "NewFolderLiveTemplate",
-        "LiveTemplatesToolWindow",
-        "ShowPredefinedTemplates",
-        "AddSurroundTemplate",
-        "DeleteLiveTemplate",
         "ManageLayers",
+        "AddSurroundTemplate",
+        "AddLiveTemplate",
+        "ExportLiveTemplate",
+        "MoveLiveTemplate",
+        "LiveTemplatesToolWindow",
+        "ImportLiveTemplate",
+        "ScopeVB",
+        "NewFolderLiveTemplate",
+        "ShowPredefinedTemplates",
+        "DeleteLiveTemplate",
         "CopyLiveTemplete",
         "FilterLiveTemplate",
-        "AddFileTemplate"}, IconPackResourceIdentification="JetBrains.ReSharper.LiveTemplates;component/resources/LiveTemplatesThemedIcons/Th" +
+        "EditTemplate"}, IconPackResourceIdentification="JetBrains.ReSharper.LiveTemplates;component/resources/LiveTemplatesThemedIcons/Th" +
     "emedIcons.LiveTemplates.Generated.Xaml")]
 [assembly: System.Runtime.InteropServices.ComVisibleAttribute(false)]
 [assembly: System.Windows.Markup.XmlnsDefinitionAttribute("urn:shemas-jetbrains-com:ui-application-icons-live-templates", "JetBrains.ReSharper.LiveTemplates.Resources")]
@@ -89,7 +89,7 @@ namespace JetBrains.ReSharper.LiveTemplates
     }
     public class static ParameterValueSetManager
     {
-        public static JetBrains.ReSharper.Feature.Services.LiveTemplates.Macros.ConstantMacroParameter GetMacroParameterWithSolution(JetBrains.ReSharper.Feature.Services.LiveTemplates.Macros.ConstantMacroParameter constantMacroParameter, JetBrains.ProjectModel.ISolution solution, JetBrains.Application.IShellLocks locks, JetBrains.UI.Application.IMainWindow mainWindow) { }
+        public static JetBrains.ReSharper.Feature.Services.LiveTemplates.Macros.ConstantMacroParameter GetMacroParameterWithSolution(JetBrains.ReSharper.Feature.Services.LiveTemplates.Macros.ConstantMacroParameter constantMacroParameter, JetBrains.ProjectModel.ISolution solution, JetBrains.Application.IShellLocks locks, JetBrains.Application.Threading.Tasks.ITaskHost tasks, JetBrains.UI.Application.IMainWindow mainWindow) { }
     }
     public class RichTextEditor : JetBrains.ReSharper.LiveTemplates.ITextEditor, System.IDisposable
     {
@@ -142,6 +142,19 @@ namespace JetBrains.ReSharper.LiveTemplates.FileTemplates
         public void Execute(JetBrains.Application.DataContext.IDataContext context, JetBrains.ActionManagement.DelegateExecute nextExecute) { }
         public bool Update(JetBrains.Application.DataContext.IDataContext context, JetBrains.ActionManagement.ActionPresentation presentation, JetBrains.ActionManagement.DelegateUpdate nextUpdate) { }
     }
+    public class MoreTemplatesActionWorkflow : JetBrains.ReSharper.Feature.Services.ActionsMenu.IWorkflow<JetBrains.ReSharper.Feature.Services.Generate.Actions.GenerateActionGroup>, JetBrains.ReSharper.Feature.Services.Generate.Actions.IGenerateActionWorkflow
+    {
+        public MoreTemplatesActionWorkflow() { }
+        public JetBrains.ReSharper.Feature.Services.Generate.Actions.GenerateActionGroup ActionGroup { get; }
+        public string ActionId { get; }
+        public JetBrains.UI.Icons.IconId Icon { get; }
+        public double Order { get; }
+        public string ShortActionId { get; }
+        public string Title { get; }
+        public void Execute(JetBrains.Application.DataContext.IDataContext context) { }
+        public bool IsAvailable(JetBrains.Application.DataContext.IDataContext dataContext) { }
+        public bool IsEnabled(JetBrains.Application.DataContext.IDataContext context) { }
+    }
 }
 namespace JetBrains.ReSharper.LiveTemplates.Resources
 {
@@ -149,25 +162,25 @@ namespace JetBrains.ReSharper.LiveTemplates.Resources
     public sealed class LiveTemplatesThemedIcons
     {
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.LiveTemplates;component/resources/LiveTemplatesThemedIcons/Th" +
-            "emedIcons.LiveTemplates.Generated.Xaml", 4, "AddFileStorage")]
+            "emedIcons.LiveTemplates.Generated.Xaml", 1, "AddFileStorage")]
         public sealed class AddFileStorage : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.LiveTemplates;component/resources/LiveTemplatesThemedIcons/Th" +
-            "emedIcons.LiveTemplates.Generated.Xaml", 15, "AddFileTemplate")]
+            "emedIcons.LiveTemplates.Generated.Xaml", 0, "AddFileTemplate")]
         public sealed class AddFileTemplate : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.LiveTemplates;component/resources/LiveTemplatesThemedIcons/Th" +
-            "emedIcons.LiveTemplates.Generated.Xaml", 0, "AddLiveTemplate")]
+            "emedIcons.LiveTemplates.Generated.Xaml", 4, "AddLiveTemplate")]
         public sealed class AddLiveTemplate : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.LiveTemplates;component/resources/LiveTemplatesThemedIcons/Th" +
-            "emedIcons.LiveTemplates.Generated.Xaml", 10, "AddSurroundTemplate")]
+            "emedIcons.LiveTemplates.Generated.Xaml", 3, "AddSurroundTemplate")]
         public sealed class AddSurroundTemplate : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
@@ -179,19 +192,19 @@ namespace JetBrains.ReSharper.LiveTemplates.Resources
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.LiveTemplates;component/resources/LiveTemplatesThemedIcons/Th" +
-            "emedIcons.LiveTemplates.Generated.Xaml", 11, "DeleteLiveTemplate")]
+            "emedIcons.LiveTemplates.Generated.Xaml", 12, "DeleteLiveTemplate")]
         public sealed class DeleteLiveTemplate : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.LiveTemplates;component/resources/LiveTemplatesThemedIcons/Th" +
-            "emedIcons.LiveTemplates.Generated.Xaml", 2, "EditTemplate")]
+            "emedIcons.LiveTemplates.Generated.Xaml", 15, "EditTemplate")]
         public sealed class EditTemplate : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.LiveTemplates;component/resources/LiveTemplatesThemedIcons/Th" +
-            "emedIcons.LiveTemplates.Generated.Xaml", 6, "ExportLiveTemplate")]
+            "emedIcons.LiveTemplates.Generated.Xaml", 5, "ExportLiveTemplate")]
         public sealed class ExportLiveTemplate : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
@@ -203,43 +216,43 @@ namespace JetBrains.ReSharper.LiveTemplates.Resources
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.LiveTemplates;component/resources/LiveTemplatesThemedIcons/Th" +
-            "emedIcons.LiveTemplates.Generated.Xaml", 1, "ImportLiveTemplate")]
+            "emedIcons.LiveTemplates.Generated.Xaml", 8, "ImportLiveTemplate")]
         public sealed class ImportLiveTemplate : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.LiveTemplates;component/resources/LiveTemplatesThemedIcons/Th" +
-            "emedIcons.LiveTemplates.Generated.Xaml", 8, "LiveTemplatesToolWindow")]
+            "emedIcons.LiveTemplates.Generated.Xaml", 7, "LiveTemplatesToolWindow")]
         public sealed class LiveTemplatesToolWindow : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.LiveTemplates;component/resources/LiveTemplatesThemedIcons/Th" +
-            "emedIcons.LiveTemplates.Generated.Xaml", 12, "ManageLayers")]
+            "emedIcons.LiveTemplates.Generated.Xaml", 2, "ManageLayers")]
         public sealed class ManageLayers : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.LiveTemplates;component/resources/LiveTemplatesThemedIcons/Th" +
-            "emedIcons.LiveTemplates.Generated.Xaml", 3, "MoveLiveTemplate")]
+            "emedIcons.LiveTemplates.Generated.Xaml", 6, "MoveLiveTemplate")]
         public sealed class MoveLiveTemplate : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.LiveTemplates;component/resources/LiveTemplatesThemedIcons/Th" +
-            "emedIcons.LiveTemplates.Generated.Xaml", 7, "NewFolderLiveTemplate")]
+            "emedIcons.LiveTemplates.Generated.Xaml", 10, "NewFolderLiveTemplate")]
         public sealed class NewFolderLiveTemplate : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.LiveTemplates;component/resources/LiveTemplatesThemedIcons/Th" +
-            "emedIcons.LiveTemplates.Generated.Xaml", 5, "ScopeVB")]
+            "emedIcons.LiveTemplates.Generated.Xaml", 9, "ScopeVB")]
         public sealed class ScopeVB : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.LiveTemplates;component/resources/LiveTemplatesThemedIcons/Th" +
-            "emedIcons.LiveTemplates.Generated.Xaml", 9, "ShowPredefinedTemplates")]
+            "emedIcons.LiveTemplates.Generated.Xaml", 11, "ShowPredefinedTemplates")]
         public sealed class ShowPredefinedTemplates : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
