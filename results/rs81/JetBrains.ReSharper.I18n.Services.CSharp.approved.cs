@@ -23,7 +23,6 @@ namespace JetBrains.ReSharper.I18n.Services.CSharp
     public class LocalizableManager
     {
         public static readonly JetBrains.ReSharper.Psi.IClrTypeName ComponentLocalizableAttribute;
-        public static readonly string LocalizationRequiredAttribute;
         public static JetBrains.ReSharper.I18n.Services.Localizable IsLocalizable([JetBrains.Annotations.NotNullAttribute()] JetBrains.ReSharper.Psi.CSharp.Tree.ICSharpExpression expression) { }
         public static JetBrains.ReSharper.I18n.Services.Localizable IsLocalizable([JetBrains.Annotations.NotNullAttribute()] JetBrains.ReSharper.Psi.CSharp.Tree.ICSharpExpression expression, out JetBrains.ReSharper.Psi.CSharp.Tree.ICSharpExpression localizableExpression) { }
         public static JetBrains.ReSharper.I18n.Services.Localizable IsLocalizable([JetBrains.Annotations.NotNullAttribute()] JetBrains.ReSharper.Psi.CSharp.Tree.ICSharpExpression expression, [JetBrains.Annotations.NotNullAttribute()] System.Collections.Generic.IDictionary<JetBrains.ReSharper.Psi.IDeclaredElement, JetBrains.ReSharper.I18n.Services.Localizable> cacheLocalizableItems) { }

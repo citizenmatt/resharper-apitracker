@@ -104,7 +104,6 @@ namespace JetBrains.ReSharper.I18n.Services.VB
     public class static LocalizableManager
     {
         public static readonly JetBrains.ReSharper.Psi.IClrTypeName ComponentLocalizableAttribute;
-        public static readonly string LocalizationRequiredAttribute;
         public static JetBrains.ReSharper.I18n.Services.Localizable IsLocalizable([JetBrains.Annotations.NotNullAttribute()] JetBrains.ReSharper.Psi.VB.Tree.IVBExpression expression) { }
         public static JetBrains.ReSharper.I18n.Services.Localizable IsLocalizable([JetBrains.Annotations.NotNullAttribute()] JetBrains.ReSharper.Psi.VB.Tree.IVBExpression expression, out JetBrains.ReSharper.Psi.VB.Tree.IVBExpression localizableExpression) { }
         public static JetBrains.ReSharper.I18n.Services.Localizable IsLocalizable([JetBrains.Annotations.NotNullAttribute()] JetBrains.ReSharper.Psi.VB.Tree.IVBExpression expression, [JetBrains.Annotations.NotNullAttribute()] System.Collections.Generic.IDictionary<JetBrains.ReSharper.Psi.IDeclaredElement, JetBrains.ReSharper.I18n.Services.Localizable> cacheLocalizableItems) { }

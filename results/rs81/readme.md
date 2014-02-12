@@ -21,7 +21,11 @@ Minor changes to APIs for internal implementation of decompiler. Not significant
 
 ## External Sources
 
-Minor implementation changes. Not significate for plugin authors.
+Minor implementation changes. Not significant for plugin authors.
+
+## I18n
+
+Minor implementation changes. Not significant for plugin authors.
 
 ## Live Templates
 
@@ -33,12 +37,9 @@ Minor implementation changes. Not significate for plugin authors.
 * Platform
 * PsiFeatures.VisualStudio
 * Daemon
-* ExternalSources
 * Feature.Services
 * Features
-* I18n
 * Intentions
-* Live Templates
 * Product
 * PSI
 * Refactorings

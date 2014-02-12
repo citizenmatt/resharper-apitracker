@@ -3,10 +3,10 @@
 [assembly: JetBrains.ReSharper.Daemon.RegisterConfigurableSeverityAttribute("ResourceItemNotResolved", null, "CodeSmell", "Cannot resolve resource item", "Cannot resolve resource item.", JetBrains.ReSharper.Daemon.Severity.ERROR, false, Internal=false)]
 [assembly: JetBrains.ReSharper.Daemon.RegisterConfigurableSeverityAttribute("PropertyNotResolved", null, "CodeSmell", "Cannot resolve property", "Cannot resolve property.", JetBrains.ReSharper.Daemon.Severity.ERROR, false, Internal=false)]
 [assembly: JetBrains.UI.Icons.CompiledIcons.CompiledIconsPackAttribute(IconNames=new string[] {
-        "BaseCulture",
         "SpecificCulture",
-        "Localization",
-        "SpecificAndBaseCulture"}, IconPackResourceIdentification="JetBrains.ReSharper.I18n.Services;component/resources/Services118nIcons/ThemedIco" +
+        "BaseCulture",
+        "SpecificAndBaseCulture",
+        "Localization"}, IconPackResourceIdentification="JetBrains.ReSharper.I18n.Services;component/resources/Services118nIcons/ThemedIco" +
     "ns.Services118n.Generated.Xaml")]
 [assembly: System.Runtime.InteropServices.ComVisibleAttribute(false)]
 [assembly: System.Windows.Markup.XmlnsDefinitionAttribute("urn:shemas-jetbrains-com:ui-application-icons-services118n", "JetBrains.ReSharper.I18n.Services.Resources")]
@@ -46,14 +46,14 @@ namespace JetBrains.ReSharper.I18n.Services.Actions
     public class GotoImplementationsResourceProvider : JetBrains.ReSharper.I18n.Services.Actions.ResourcesHierarchyProviderBase<JetBrains.ReSharper.I18n.Services.Actions.IImplementationsResourceContextSearch, JetBrains.ReSharper.Features.Finding.FindImplementations.SearchImplementationsDescriptor, JetBrains.ReSharper.I18n.Services.Actions.SearchResourceImplementationsRequest>, JetBrains.ReSharper.Feature.Services.ActionsMenu.IWorkflowProvider<JetBrains.ReSharper.Feature.Services.ContextNavigation.ContextNavigation, JetBrains.ReSharper.Feature.Services.ContextNavigation.NavigationActionGroup>, JetBrains.ReSharper.Feature.Services.ContextNavigation.INavigateFromHereProvider, JetBrains.ReSharper.Features.Finding.FindHierarchy.IGotoImplementationsProvider
     {
         public GotoImplementationsResourceProvider(JetBrains.ReSharper.Feature.Services.IFeaturePartsContainer manager) { }
-        protected override JetBrains.ReSharper.Features.Finding.FindImplementations.SearchImplementationsDescriptor CreateSearchDescriptor(JetBrains.ReSharper.I18n.Services.Actions.SearchResourceImplementationsRequest searchRequest, System.Collections.Generic.ICollection<JetBrains.ReSharper.Feature.Services.Search.IOccurence> occurences) { }
+        protected override JetBrains.ReSharper.Features.Finding.FindImplementations.SearchImplementationsDescriptor CreateSearchDescriptor(JetBrains.ReSharper.I18n.Services.Actions.SearchResourceImplementationsRequest searchRequest, System.Collections.Generic.ICollection<JetBrains.ReSharper.Feature.Services.Navigation.Search.IOccurence> occurences) { }
         public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Feature.Services.ContextNavigation.ContextNavigation> CreateWorkflow(JetBrains.Application.DataContext.IDataContext dataContext) { }
     }
     [JetBrains.ReSharper.Feature.Services.ContextNavigation.ContextNavigationProviderAttribute()]
     public class GotoInheritorsResourceProvider : JetBrains.ReSharper.I18n.Services.Actions.ResourcesHierarchyProviderBase<JetBrains.ReSharper.I18n.Services.Actions.IInheritorsResourceContextSearch, JetBrains.ReSharper.Features.Finding.FindHierarchy.SearchInheritorsDescriptor, JetBrains.ReSharper.I18n.Services.Actions.SearchResourceInheritorsRequest>, JetBrains.ReSharper.Feature.Services.ActionsMenu.IWorkflowProvider<JetBrains.ReSharper.Feature.Services.ContextNavigation.ContextNavigation, JetBrains.ReSharper.Feature.Services.ContextNavigation.NavigationActionGroup>, JetBrains.ReSharper.Feature.Services.ContextNavigation.INavigateFromHereProvider, JetBrains.ReSharper.Features.Finding.FindHierarchy.IGotoInheritorsProvider
     {
         public GotoInheritorsResourceProvider(JetBrains.ReSharper.Feature.Services.IFeaturePartsContainer manager) { }
-        protected override JetBrains.ReSharper.Features.Finding.FindHierarchy.SearchInheritorsDescriptor CreateSearchDescriptor(JetBrains.ReSharper.I18n.Services.Actions.SearchResourceInheritorsRequest searchRequest, System.Collections.Generic.ICollection<JetBrains.ReSharper.Feature.Services.Search.IOccurence> occurences) { }
+        protected override JetBrains.ReSharper.Features.Finding.FindHierarchy.SearchInheritorsDescriptor CreateSearchDescriptor(JetBrains.ReSharper.I18n.Services.Actions.SearchResourceInheritorsRequest searchRequest, System.Collections.Generic.ICollection<JetBrains.ReSharper.Feature.Services.Navigation.Search.IOccurence> occurences) { }
         public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Feature.Services.ContextNavigation.ContextNavigation> CreateWorkflow(JetBrains.Application.DataContext.IDataContext dataContext) { }
     }
     public interface IBaseResourceContextSearch : JetBrains.ReSharper.Feature.Services.ContextNavigation.ContextSearches.IContextSearch, JetBrains.ReSharper.Feature.Services.ContextNavigation.ContextSearches.IRequestContextSearch<JetBrains.ReSharper.I18n.Services.Actions.SearchResourceBaseRequest> { }
@@ -79,27 +79,27 @@ namespace JetBrains.ReSharper.I18n.Services.Actions
     }
     public abstract class ResourcesHierarchyProviderBase<TContextSearch, TDescriptor, TSearchRequest> : JetBrains.ReSharper.Features.Finding.NavigateFromHere.RequestContextSearchProvider<TContextSearch, TDescriptor, TSearchRequest>
         where TContextSearch :  class, JetBrains.ReSharper.Feature.Services.ContextNavigation.ContextSearches.IRequestContextSearch<>
-        where TDescriptor : JetBrains.ReSharper.Features.Finding.Search.SearchDescriptor
-        where TSearchRequest : JetBrains.ReSharper.Feature.Services.Search.SearchRequests.SearchRequest
+        where TDescriptor : JetBrains.ReSharper.Feature.Services.Navigation.SearchDescriptor
+        where TSearchRequest : JetBrains.ReSharper.Feature.Services.Navigation.Search.SearchRequests.SearchRequest
     {
         protected ResourcesHierarchyProviderBase(JetBrains.ReSharper.Feature.Services.IFeaturePartsContainer manager) { }
-        protected override System.Nullable<JetBrains.ReSharper.Feature.Services.Occurences.OccurencePresentationOptions> ProvideFeatureSpecificPresentationOptions() { }
-        protected override void ShowResults(JetBrains.Application.DataContext.IDataContext context, JetBrains.ReSharper.Features.Common.Occurences.ExecutionHosting.INavigationExecutionHost host, string title, System.Collections.Generic.ICollection<JetBrains.ReSharper.Feature.Services.Search.IOccurence> occurences, System.Func<TDescriptor> descriptorBuilder, System.Collections.Generic.IComparer<JetBrains.ReSharper.Feature.Services.Search.IOccurence> customSearchRequestComparer) { }
+        protected override System.Nullable<JetBrains.ReSharper.Feature.Services.Occurences.OccurencePresentationOptions> ProvideFeatureSpecificPresentationOptions(TSearchRequest searchRequest) { }
+        protected override void ShowResults(JetBrains.Application.DataContext.IDataContext context, JetBrains.ReSharper.Features.Common.Occurences.ExecutionHosting.INavigationExecutionHost host, TSearchRequest searchRequest, System.Collections.Generic.ICollection<JetBrains.ReSharper.Feature.Services.Navigation.Search.IOccurence> occurences, System.Func<TDescriptor> descriptorBuilder) { }
     }
-    public class SearchResourceBaseRequest : JetBrains.ReSharper.Feature.Services.Search.SearchRequests.SearchBasesRequest
+    public class SearchResourceBaseRequest : JetBrains.ReSharper.Feature.Services.Navigation.Search.SearchRequests.SearchBasesRequest
     {
         public SearchResourceBaseRequest(JetBrains.ReSharper.Psi.IDeclaredElement element) { }
-        public override System.Collections.Generic.ICollection<JetBrains.ReSharper.Feature.Services.Search.IOccurence> Search(JetBrains.Application.Progress.IProgressIndicator progressIndicator) { }
+        public override System.Collections.Generic.ICollection<JetBrains.ReSharper.Feature.Services.Navigation.Search.IOccurence> Search(JetBrains.Application.Progress.IProgressIndicator progressIndicator) { }
     }
-    public class SearchResourceImplementationsRequest : JetBrains.ReSharper.Feature.Services.Search.SearchRequests.SearchImplementationsRequest
+    public class SearchResourceImplementationsRequest : JetBrains.ReSharper.Feature.Services.Navigation.Search.SearchRequests.SearchImplementationsRequest
     {
         public SearchResourceImplementationsRequest(JetBrains.ReSharper.Psi.IDeclaredElement element, JetBrains.ReSharper.Psi.Search.ISearchDomain searchDomain) { }
-        public override System.Collections.Generic.ICollection<JetBrains.ReSharper.Feature.Services.Search.IOccurence> Search(JetBrains.Application.Progress.IProgressIndicator progressIndicator) { }
+        public override System.Collections.Generic.ICollection<JetBrains.ReSharper.Feature.Services.Navigation.Search.IOccurence> Search(JetBrains.Application.Progress.IProgressIndicator progressIndicator) { }
     }
-    public class SearchResourceInheritorsRequest : JetBrains.ReSharper.Feature.Services.Search.SearchRequests.SearchInheritorsRequest
+    public class SearchResourceInheritorsRequest : JetBrains.ReSharper.Feature.Services.Navigation.Search.SearchRequests.SearchInheritorsRequest
     {
         public SearchResourceInheritorsRequest(JetBrains.ReSharper.Psi.IDeclaredElement element, JetBrains.ReSharper.Psi.Search.ISearchDomain searchDomain) { }
-        public override System.Collections.Generic.ICollection<JetBrains.ReSharper.Feature.Services.Search.IOccurence> Search(JetBrains.Application.Progress.IProgressIndicator progressIndicator) { }
+        public override System.Collections.Generic.ICollection<JetBrains.ReSharper.Feature.Services.Navigation.Search.IOccurence> Search(JetBrains.Application.Progress.IProgressIndicator progressIndicator) { }
     }
 }
 namespace JetBrains.ReSharper.I18n.Services
@@ -580,27 +580,27 @@ namespace JetBrains.ReSharper.I18n.Services.Navigation
     [JetBrains.ReSharper.Psi.ShellFeaturePartAttribute()]
     public class ResourceItemDeclarationSearch : JetBrains.ReSharper.Feature.Services.ContextNavigation.ContextSearches.BaseSearches.DefaultDeclarationSearch
     {
-        protected override JetBrains.ReSharper.Feature.Services.Search.SearchRequests.SearchDeclarationsRequest CreateSearchRequest(JetBrains.Application.DataContext.IDataContext dataContext, JetBrains.ReSharper.Psi.IDeclaredElement declaredElement, JetBrains.ReSharper.Psi.IDeclaredElement initialTarget) { }
-        public override JetBrains.ReSharper.Feature.Services.Search.SearchRequests.SearchDeclarationsRequest GetDeclarationSearchRequest(JetBrains.ReSharper.Psi.IDeclaredElement declaredElement) { }
-        public override JetBrains.Util.JetTuple<System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Psi.IDeclaredElement>, JetBrains.ReSharper.Feature.Services.ContextNavigation.ContextSearches.GetSearchRequest<JetBrains.ReSharper.Feature.Services.Search.SearchRequests.SearchDeclarationsRequest>> GetElementsAndSearchRequest(JetBrains.Application.DataContext.IDataContext dataContext) { }
+        protected override JetBrains.ReSharper.Feature.Services.Navigation.Search.SearchRequests.SearchDeclarationsRequest CreateSearchRequest(JetBrains.Application.DataContext.IDataContext dataContext, JetBrains.ReSharper.Psi.IDeclaredElement declaredElement, JetBrains.ReSharper.Psi.IDeclaredElement initialTarget) { }
+        public override JetBrains.ReSharper.Feature.Services.Navigation.Search.SearchRequests.SearchDeclarationsRequest GetDeclarationSearchRequest(JetBrains.ReSharper.Psi.IDeclaredElement declaredElement, System.Func<bool> checkCancelled) { }
+        public override JetBrains.Util.JetTuple<System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Psi.IDeclaredElement>, JetBrains.ReSharper.Feature.Services.ContextNavigation.ContextSearches.GetSearchRequest<JetBrains.ReSharper.Feature.Services.Navigation.Search.SearchRequests.SearchDeclarationsRequest>> GetElementsAndSearchRequest(JetBrains.Application.DataContext.IDataContext dataContext) { }
         protected override bool IsAvailableInternal(JetBrains.Application.DataContext.IDataContext dataContext) { }
         public override bool IsContextApplicable(JetBrains.Application.DataContext.IDataContext dataContext) { }
         public override bool IsGotoDeclarationApplicable(JetBrains.ReSharper.Psi.IDeclaredElement declaredElement) { }
     }
-    public class ResourceItemDeclarationsSearchRequest : JetBrains.ReSharper.Feature.Services.Search.SearchRequests.SearchDeclarationsRequest
+    public class ResourceItemDeclarationsSearchRequest : JetBrains.ReSharper.Feature.Services.Navigation.Search.SearchRequests.SearchDeclarationsRequest
     {
         public ResourceItemDeclarationsSearchRequest(JetBrains.ReSharper.Psi.IDeclaredElement declaredElement) { }
-        public override System.Collections.Generic.ICollection<JetBrains.ReSharper.Feature.Services.Search.IOccurence> Search(JetBrains.Application.Progress.IProgressIndicator progressIndicator) { }
+        public override System.Collections.Generic.ICollection<JetBrains.ReSharper.Feature.Services.Navigation.Search.IOccurence> Search(JetBrains.Application.Progress.IProgressIndicator progressIndicator) { }
     }
-    public class ResourceItemOccurence : JetBrains.ReSharper.Feature.Services.Search.IOccurence
+    public class ResourceItemOccurence : JetBrains.ReSharper.Feature.Services.Navigation.Search.IOccurence
     {
         public ResourceItemOccurence([JetBrains.Annotations.NotNullAttribute()] JetBrains.ReSharper.Psi.Resx.IResourceItem resourceItem) { }
         public bool IsValid { get; }
-        public System.Collections.Generic.IList<JetBrains.ReSharper.Feature.Services.Search.IOccurence> MergedItems { get; }
+        public System.Collections.Generic.IList<JetBrains.ReSharper.Feature.Services.Navigation.Search.IOccurence> MergedItems { get; }
         public object MergeKey { get; }
         public string Name { get; }
         public JetBrains.ReSharper.Psi.DeclaredElementEnvoy<JetBrains.ReSharper.Psi.INamespace> Namespace { get; }
-        public JetBrains.ReSharper.Feature.Services.Search.OccurenceType OccurenceType { get; }
+        public JetBrains.ReSharper.Feature.Services.Navigation.Search.OccurenceType OccurenceType { get; }
         public JetBrains.ReSharper.Feature.Services.Occurences.OccurencePresentationOptions PresentationOptions { get; set; }
         public JetBrains.ProjectModel.ProjectModelElementEnvoy ProjectModelElementEnvoy { get; }
         public JetBrains.ReSharper.Psi.IPsiSourceFile SourceFile { get; }
@@ -650,7 +650,7 @@ namespace JetBrains.ReSharper.I18n.Services.Refactoring
         public bool RunCustomTool(JetBrains.ReSharper.Psi.IPsiSourceFile file, JetBrains.Application.Progress.IProgressIndicator progressIndicator) { }
         public override void UnsuccessfulFinish(JetBrains.Application.Progress.IProgressIndicator pi) { }
     }
-    public class ElementsPresenter : JetBrains.ReSharper.Features.Common.Occurences.OccurenceBrowserPresenter
+    public class ElementsPresenter : JetBrains.ReSharper.Feature.Services.Tree.OccurenceBrowserPresenter
     {
         public ElementsPresenter() { }
     }
@@ -1170,25 +1170,25 @@ namespace JetBrains.ReSharper.I18n.Services.Resources
     public sealed class Services118nThemedIcons
     {
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.I18n.Services;component/resources/Services118nIcons/ThemedIco" +
-            "ns.Services118n.Generated.Xaml", 0, "BaseCulture")]
+            "ns.Services118n.Generated.Xaml", 1, "BaseCulture")]
         public sealed class BaseCulture : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.I18n.Services;component/resources/Services118nIcons/ThemedIco" +
-            "ns.Services118n.Generated.Xaml", 2, "Localization")]
+            "ns.Services118n.Generated.Xaml", 3, "Localization")]
         public sealed class Localization : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.I18n.Services;component/resources/Services118nIcons/ThemedIco" +
-            "ns.Services118n.Generated.Xaml", 3, "SpecificAndBaseCulture")]
+            "ns.Services118n.Generated.Xaml", 2, "SpecificAndBaseCulture")]
         public sealed class SpecificAndBaseCulture : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.I18n.Services;component/resources/Services118nIcons/ThemedIco" +
-            "ns.Services118n.Generated.Xaml", 1, "SpecificCulture")]
+            "ns.Services118n.Generated.Xaml", 0, "SpecificCulture")]
         public sealed class SpecificCulture : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
