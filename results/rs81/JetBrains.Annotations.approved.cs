@@ -31,6 +31,21 @@ namespace JetBrains.Annotations
         [JetBrains.Annotations.NotNullAttribute()]
         public string AnonymousProperty { get; }
     }
+    [System.AttributeUsageAttribute(System.AttributeTargets.Assembly | System.AttributeTargets.All, AllowMultiple=true)]
+    public sealed class AspMvcAreaMasterLocationFormatAttribute : System.Attribute
+    {
+        public AspMvcAreaMasterLocationFormatAttribute(string format) { }
+    }
+    [System.AttributeUsageAttribute(System.AttributeTargets.Assembly | System.AttributeTargets.All, AllowMultiple=true)]
+    public sealed class AspMvcAreaPartialViewLocationFormatAttribute : System.Attribute
+    {
+        public AspMvcAreaPartialViewLocationFormatAttribute(string format) { }
+    }
+    [System.AttributeUsageAttribute(System.AttributeTargets.Assembly | System.AttributeTargets.All, AllowMultiple=true)]
+    public sealed class AspMvcAreaViewLocationFormatAttribute : System.Attribute
+    {
+        public AspMvcAreaViewLocationFormatAttribute(string format) { }
+    }
     [System.AttributeUsageAttribute(System.AttributeTargets.Method | System.AttributeTargets.Parameter | System.AttributeTargets.All)]
     public sealed class AspMvcControllerAttribute : System.Attribute
     {
@@ -44,16 +59,31 @@ namespace JetBrains.Annotations
     public sealed class AspMvcEditorTemplateAttribute : System.Attribute { }
     [System.AttributeUsageAttribute(System.AttributeTargets.Parameter | System.AttributeTargets.All)]
     public sealed class AspMvcMasterAttribute : System.Attribute { }
+    [System.AttributeUsageAttribute(System.AttributeTargets.Assembly | System.AttributeTargets.All, AllowMultiple=true)]
+    public sealed class AspMvcMasterLocationFormatAttribute : System.Attribute
+    {
+        public AspMvcMasterLocationFormatAttribute(string format) { }
+    }
     [System.AttributeUsageAttribute(System.AttributeTargets.Parameter | System.AttributeTargets.All)]
     public sealed class AspMvcModelTypeAttribute : System.Attribute { }
     [System.AttributeUsageAttribute(System.AttributeTargets.Method | System.AttributeTargets.Parameter | System.AttributeTargets.All)]
     public sealed class AspMvcPartialViewAttribute : JetBrains.Annotations.PathReferenceAttribute { }
+    [System.AttributeUsageAttribute(System.AttributeTargets.Assembly | System.AttributeTargets.All, AllowMultiple=true)]
+    public sealed class AspMvcPartialViewLocationFormatAttribute : System.Attribute
+    {
+        public AspMvcPartialViewLocationFormatAttribute(string format) { }
+    }
     [System.AttributeUsageAttribute(System.AttributeTargets.Class | System.AttributeTargets.Method | System.AttributeTargets.All)]
     public sealed class AspMvcSupressViewErrorAttribute : System.Attribute { }
     [System.AttributeUsageAttribute(System.AttributeTargets.Parameter | System.AttributeTargets.All)]
     public sealed class AspMvcTemplateAttribute : System.Attribute { }
     [System.AttributeUsageAttribute(System.AttributeTargets.Method | System.AttributeTargets.Parameter | System.AttributeTargets.All)]
     public sealed class AspMvcViewAttribute : JetBrains.Annotations.PathReferenceAttribute { }
+    [System.AttributeUsageAttribute(System.AttributeTargets.Assembly | System.AttributeTargets.All, AllowMultiple=true)]
+    public sealed class AspMvcViewLocationFormatAttribute : System.Attribute
+    {
+        public AspMvcViewLocationFormatAttribute(string format) { }
+    }
     [System.AttributeUsageAttribute(System.AttributeTargets.Class | System.AttributeTargets.All, AllowMultiple=true, Inherited=true)]
     public class AspRequiredAttributeAttribute : System.Attribute
     {
