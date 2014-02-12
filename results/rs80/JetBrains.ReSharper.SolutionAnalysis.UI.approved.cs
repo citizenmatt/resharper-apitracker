@@ -1,0 +1,819 @@
+﻿[assembly: JetBrains.ActionManagement.ActionsXmlAttribute("JetBrains.ReSharper.Daemon.SolutionAnalysis.UI.Resources.Actions.xml")]
+[assembly: JetBrains.UI.Icons.CompiledIcons.CompiledIconsPackAttribute(IconNames=new string[] {
+        "AnalyzingErrors3",
+        "Loading9",
+        "SolutionAnalysisOptions",
+        "AnimationLoading8",
+        "AnimationLoading7",
+        "CheckingForChanges1",
+        "AnalyzingNoErrors2",
+        "Loading6",
+        "AnimationLoading3",
+        "SolutionAnalysisToolWindow",
+        "IgnoreErrors",
+        "SolutionAnalysisContinue",
+        "AnalyzingNoErrors7",
+        "AnimationNoErrors3",
+        "AnalyzingNoErrors1",
+        "Loading1",
+        "AnimationLoading5",
+        "AnimationLoading6",
+        "InvalidError",
+        "Loading3",
+        "AnalyzingErrors7",
+        "CheckingForChanges3",
+        "AnimationErrors3",
+        "AnimationNoErrors6",
+        "AnalyzingErrors2",
+        "SkipFile",
+        "ShowIgnoredErrors",
+        "ErrorsGroupNode",
+        "AnimationErrors1",
+        "Loading8",
+        "AnalyzingErrors4",
+        "Loading4",
+        "AnalyzingNoErrors4",
+        "IssueGroup",
+        "AnalyzingNoErrors3",
+        "SolutionAnalysisNA",
+        "Loading7",
+        "AnalyzingErrors8",
+        "CheckingForChanges4",
+        "SolutionAnalysisSuggestion",
+        "StatusBarIndicatorBackground",
+        "AnalyzingNoErrors5",
+        "SolutionAnalysisPaused",
+        "AnimationErrors5",
+        "FilterIssues",
+        "AnimationNoErrors1",
+        "AnalyzingNoErrors8",
+        "AnimationNoErrors5",
+        "UnignoreErrors",
+        "AnalysisOff",
+        "FinishedNoErrors",
+        "AnimationLoading4",
+        "AnalyzingErrors9",
+        "SolutionAnalysisHint",
+        "AnalyzingErrors5",
+        "FinishedErrors",
+        "CheckingForChanges2",
+        "AnimationErrors2",
+        "SolutionAnalysisPause",
+        "FindSimilarIssues",
+        "SolutionAnalysisWarning",
+        "AnimationErrors4",
+        "AnimationErrors6",
+        "Loading2",
+        "AnimationNoErrors8",
+        "Loading5",
+        "CacheLocked",
+        "AnimationNoErrors2",
+        "AnimationLoading2",
+        "AnimationErrors8",
+        "ReanalyzeFilesWithErrors",
+        "AnimationLoading1",
+        "AnimationNoErrors4",
+        "AnalyzingNoErrors9",
+        "SolutionAnalysisRefresh",
+        "SolutionAnalysis",
+        "AnalyzingErrors1",
+        "AnalyzingErrors6",
+        "AnalyzingNoErrors6",
+        "SolutionAnalysisError",
+        "ReanalyzeAllFiles",
+        "AnimationErrors7",
+        "AnimationNoErrors7"}, IconPackResourceIdentification="JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+    "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml")]
+[assembly: System.Runtime.InteropServices.ComVisibleAttribute(false)]
+[assembly: System.Windows.Markup.XmlnsDefinitionAttribute("urn:shemas-jetbrains-com:ui-application-icons-solution-analysis", "JetBrains.ReSharper.Daemon.SolutionAnalysis.UI.Resources")]
+
+namespace JetBrains.ReSharper.Daemon.SolutionAnalysis.UI.Actions
+{
+    
+    [JetBrains.ActionManagement.ActionHandlerAttribute(new string[] {
+            "ErrorsView.ShowIgnoredIssues"})]
+    public class ShowIgnoredIssuesAction : JetBrains.ActionManagement.IActionHandler
+    {
+        public void Execute(JetBrains.Application.DataContext.IDataContext context, JetBrains.ActionManagement.DelegateExecute nextExecute) { }
+        public bool Update(JetBrains.Application.DataContext.IDataContext context, JetBrains.ActionManagement.ActionPresentation presentation, JetBrains.ActionManagement.DelegateUpdate nextUpdate) { }
+    }
+}
+namespace JetBrains.ReSharper.Daemon.SolutionAnalysis.UI.ErrorsView
+{
+    
+    [JetBrains.Application.ShellComponentAttribute()]
+    public class ErrorsViewExportProvider : JetBrains.IDE.TreeBrowser.ExportTreeProviderBase
+    {
+        public ErrorsViewExportProvider([JetBrains.Annotations.NotNullAttribute()] JetBrains.UI.Application.Progress.UITaskExecutorSwitchingImplementation uiTaskExecutorSwitchingImplementation, JetBrains.Application.IApplicationDescriptor product, JetBrains.UI.Application.IMainWindow mainWindow = null) { }
+        public System.Xml.Xsl.XslCompiledTransform XmlToHtmlTransformation { get; }
+        public System.Xml.Xsl.XslCompiledTransform XmlToTextTransformation { get; }
+        public override System.Action<JetBrains.Application.Progress.IProgressIndicator, System.IO.Stream> GetExporter(JetBrains.Application.DataContext.IDataContext context, JetBrains.IDE.TreeBrowser.ExportTreeViewFormat exportFormat, bool onlySelection, out string title, out System.Windows.Forms.IWin32Window uiParent) { }
+        public System.Action<JetBrains.Application.Progress.IProgressIndicator, System.IO.Stream> GetExporter(JetBrains.ProjectModel.ISolution solution, JetBrains.IDE.TreeBrowser.ExportTreeViewFormat exportFormat, System.Collections.Generic.IEnumerable<JetBrains.ProjectModel.IProjectModelElement> scope, System.Collections.Generic.ICollection<JetBrains.ReSharper.Daemon.SolutionAnalysis.IIssue> issues, string title) { }
+        public override bool IsApplicable(JetBrains.Application.DataContext.IDataContext context, JetBrains.IDE.TreeBrowser.ExportTreeViewFormat exportFormat) { }
+    }
+    [JetBrains.UI.ToolWindowManagement.ToolWindowDescriptorAttribute(Icon=typeof(JetBrains.ReSharper.Daemon.SolutionAnalysis.UI.Resources.SolutionAnalysisThemedIcons.SolutionAnalysisToolWindow), ProductNeutralId="ErrorsView", Text="Errors in Solution", Type=JetBrains.UI.ToolWindowManagement.ToolWindowType.SingleInstance, VisibilityPersistenceScope=JetBrains.UI.ToolWindowManagement.ToolWindowVisibilityPersistenceScope.Solution)]
+    public class ErrorsViewToolWindowDescriptor : JetBrains.UI.ToolWindowManagement.ToolWindowDescriptor
+    {
+        public ErrorsViewToolWindowDescriptor(JetBrains.Application.IApplicationDescriptor applicationDescriptor) { }
+    }
+    public interface IIssueOccurence : JetBrains.ReSharper.Feature.Services.Search.IOccurence
+    {
+        JetBrains.ReSharper.Daemon.SolutionAnalysis.IIssue Issue { get; }
+        bool Navigate(JetBrains.UI.PopupWindowManager.PopupWindowContextSource windowContext, bool transferFocus);
+    }
+}
+namespace JetBrains.ReSharper.Daemon.SolutionAnalysis.UI.Indicator
+{
+    
+    [JetBrains.Application.Settings.SettingsKeyAttribute(typeof(JetBrains.ReSharper.Daemon.HighlightingSettings), "SWEA indicator appearance settings")]
+    public class IndicatorAppearanceSettings
+    {
+        [JetBrains.Application.Settings.SettingsEntryAttribute(JetBrains.ReSharper.Daemon.SolutionAnalysis.UI.Indicator.ProgressIndicatorKind.ROUND, "Indicator shape")]
+        public JetBrains.ReSharper.Daemon.SolutionAnalysis.UI.Indicator.ProgressIndicatorKind IndicatorKind;
+        [JetBrains.Application.Settings.SettingsEntryAttribute(true, "Whether to show error count")]
+        public bool ShowErrorCount;
+    }
+    [JetBrains.Application.Configuration.Upgrade.GlobalSettingsUpgraderAttribute()]
+    public class IndicatorAppearanceSettingsUpgrader : JetBrains.Application.Configuration.SettingTablesUpgrader
+    {
+        public IndicatorAppearanceSettingsUpgrader(JetBrains.Application.Env.RunsProducts.ProductConfigurations productConfigurations) { }
+        protected override void DoUpgrade(JetBrains.Application.Configuration.IComponentSettingsProvider legacySettingsProvider, JetBrains.Application.Settings.IContextBoundSettingsStore boundSettingsStore, JetBrains.DataFlow.Lifetime upgradeLifetime, JetBrains.Application.Configuration.SettingsTableBase workspaceSettingsTable, JetBrains.Application.Configuration.SettingsTableBase globalSettingsTable) { }
+    }
+    public enum ProgressIndicatorKind
+    {
+        ROUND = 0,
+        BAR = 1,
+    }
+}
+namespace JetBrains.ReSharper.Daemon.SolutionAnalysis.UI.IssuesReport
+{
+    
+    public class IssuesReportDescriptor : JetBrains.ReSharper.Daemon.SolutionAnalysis.UI.RunInspection.InspectionResultDescriptorBase, JetBrains.ReSharper.Daemon.Impl.ProjectModelWrapper.IUpdatableTextRangesSource
+    {
+        public IssuesReportDescriptor(JetBrains.ProjectModel.ISolution solution, System.Collections.Generic.ICollection<JetBrains.ProjectModel.IProjectModelElement> scope, System.Collections.Generic.ICollection<JetBrains.ReSharper.Feature.Services.Search.IOccurence> results, [JetBrains.Annotations.NotNullAttribute()] string sourceMoniker) { }
+        public void UpdatableRangesInFile(JetBrains.ReSharper.Daemon.Impl.ProjectModelWrapper.IProjectFileWrapper file, System.Func<JetBrains.Util.TextRange, JetBrains.Util.TextRange> updateFunc) { }
+        public override void UpdateResults() { }
+    }
+    [JetBrains.ProjectModel.SolutionComponentAttribute()]
+    public class IssuesReportPresenter
+    {
+        public IssuesReportPresenter(JetBrains.ProjectModel.ISolution solution) { }
+        public void ShowIssueReport(JetBrains.Util.FileSystemPath fsp) { }
+    }
+    [JetBrains.ActionManagement.ActionHandlerAttribute()]
+    public class LoadIssuesReportActionHandler : JetBrains.ActionManagement.IActionHandler
+    {
+        public void Execute(JetBrains.Application.DataContext.IDataContext context, JetBrains.ActionManagement.DelegateExecute nextExecute) { }
+        public bool Update(JetBrains.Application.DataContext.IDataContext context, JetBrains.ActionManagement.ActionPresentation presentation, JetBrains.ActionManagement.DelegateUpdate nextUpdate) { }
+    }
+    [JetBrains.ActionManagement.ActionHandlerAttribute()]
+    public class SaveIssuesReportActionHandler : JetBrains.ActionManagement.IActionHandler
+    {
+        public void Execute(JetBrains.Application.DataContext.IDataContext context, JetBrains.ActionManagement.DelegateExecute nextExecute) { }
+        public bool Update(JetBrains.Application.DataContext.IDataContext context, JetBrains.ActionManagement.ActionPresentation presentation, JetBrains.ActionManagement.DelegateUpdate nextUpdate) { }
+    }
+}
+namespace JetBrains.ReSharper.Daemon.SolutionAnalysis.UI.Resources
+{
+    
+    public sealed class SolutionAnalysisThemedIcons
+    {
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 49, "AnalysisOff")]
+        public sealed class AnalysisOff : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 76, "AnalyzingErrors1")]
+        public sealed class AnalyzingErrors1 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 24, "AnalyzingErrors2")]
+        public sealed class AnalyzingErrors2 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 0, "AnalyzingErrors3")]
+        public sealed class AnalyzingErrors3 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 30, "AnalyzingErrors4")]
+        public sealed class AnalyzingErrors4 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 54, "AnalyzingErrors5")]
+        public sealed class AnalyzingErrors5 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 77, "AnalyzingErrors6")]
+        public sealed class AnalyzingErrors6 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 20, "AnalyzingErrors7")]
+        public sealed class AnalyzingErrors7 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 37, "AnalyzingErrors8")]
+        public sealed class AnalyzingErrors8 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 52, "AnalyzingErrors9")]
+        public sealed class AnalyzingErrors9 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 14, "AnalyzingNoErrors1")]
+        public sealed class AnalyzingNoErrors1 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 6, "AnalyzingNoErrors2")]
+        public sealed class AnalyzingNoErrors2 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 34, "AnalyzingNoErrors3")]
+        public sealed class AnalyzingNoErrors3 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 32, "AnalyzingNoErrors4")]
+        public sealed class AnalyzingNoErrors4 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 41, "AnalyzingNoErrors5")]
+        public sealed class AnalyzingNoErrors5 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 78, "AnalyzingNoErrors6")]
+        public sealed class AnalyzingNoErrors6 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 12, "AnalyzingNoErrors7")]
+        public sealed class AnalyzingNoErrors7 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 46, "AnalyzingNoErrors8")]
+        public sealed class AnalyzingNoErrors8 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 73, "AnalyzingNoErrors9")]
+        public sealed class AnalyzingNoErrors9 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 28, "AnimationErrors1")]
+        public sealed class AnimationErrors1 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 57, "AnimationErrors2")]
+        public sealed class AnimationErrors2 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 22, "AnimationErrors3")]
+        public sealed class AnimationErrors3 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 61, "AnimationErrors4")]
+        public sealed class AnimationErrors4 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 43, "AnimationErrors5")]
+        public sealed class AnimationErrors5 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 62, "AnimationErrors6")]
+        public sealed class AnimationErrors6 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 81, "AnimationErrors7")]
+        public sealed class AnimationErrors7 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 69, "AnimationErrors8")]
+        public sealed class AnimationErrors8 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 71, "AnimationLoading1")]
+        public sealed class AnimationLoading1 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 68, "AnimationLoading2")]
+        public sealed class AnimationLoading2 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 8, "AnimationLoading3")]
+        public sealed class AnimationLoading3 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 51, "AnimationLoading4")]
+        public sealed class AnimationLoading4 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 16, "AnimationLoading5")]
+        public sealed class AnimationLoading5 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 17, "AnimationLoading6")]
+        public sealed class AnimationLoading6 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 4, "AnimationLoading7")]
+        public sealed class AnimationLoading7 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 3, "AnimationLoading8")]
+        public sealed class AnimationLoading8 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 45, "AnimationNoErrors1")]
+        public sealed class AnimationNoErrors1 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 67, "AnimationNoErrors2")]
+        public sealed class AnimationNoErrors2 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 13, "AnimationNoErrors3")]
+        public sealed class AnimationNoErrors3 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 72, "AnimationNoErrors4")]
+        public sealed class AnimationNoErrors4 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 47, "AnimationNoErrors5")]
+        public sealed class AnimationNoErrors5 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 23, "AnimationNoErrors6")]
+        public sealed class AnimationNoErrors6 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 82, "AnimationNoErrors7")]
+        public sealed class AnimationNoErrors7 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 64, "AnimationNoErrors8")]
+        public sealed class AnimationNoErrors8 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 66, "CacheLocked")]
+        public sealed class CacheLocked : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 5, "CheckingForChanges1")]
+        public sealed class CheckingForChanges1 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 56, "CheckingForChanges2")]
+        public sealed class CheckingForChanges2 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 21, "CheckingForChanges3")]
+        public sealed class CheckingForChanges3 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 38, "CheckingForChanges4")]
+        public sealed class CheckingForChanges4 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 27, "ErrorsGroupNode")]
+        public sealed class ErrorsGroupNode : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 44, "FilterIssues")]
+        public sealed class FilterIssues : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 59, "FindSimilarIssues")]
+        public sealed class FindSimilarIssues : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 55, "FinishedErrors")]
+        public sealed class FinishedErrors : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 50, "FinishedNoErrors")]
+        public sealed class FinishedNoErrors : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 10, "IgnoreErrors")]
+        public sealed class IgnoreErrors : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 18, "InvalidError")]
+        public sealed class InvalidError : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 33, "IssueGroup")]
+        public sealed class IssueGroup : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 15, "Loading1")]
+        public sealed class Loading1 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 63, "Loading2")]
+        public sealed class Loading2 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 19, "Loading3")]
+        public sealed class Loading3 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 31, "Loading4")]
+        public sealed class Loading4 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 65, "Loading5")]
+        public sealed class Loading5 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 7, "Loading6")]
+        public sealed class Loading6 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 36, "Loading7")]
+        public sealed class Loading7 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 29, "Loading8")]
+        public sealed class Loading8 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 1, "Loading9")]
+        public sealed class Loading9 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 80, "ReanalyzeAllFiles")]
+        public sealed class ReanalyzeAllFiles : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 70, "ReanalyzeFilesWithErrors")]
+        public sealed class ReanalyzeFilesWithErrors : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 26, "ShowIgnoredErrors")]
+        public sealed class ShowIgnoredErrors : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 25, "SkipFile")]
+        public sealed class SkipFile : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 75, "SolutionAnalysis")]
+        public sealed class SolutionAnalysis : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 11, "SolutionAnalysisContinue")]
+        public sealed class SolutionAnalysisContinue : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 79, "SolutionAnalysisError")]
+        public sealed class SolutionAnalysisError : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 53, "SolutionAnalysisHint")]
+        public sealed class SolutionAnalysisHint : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 35, "SolutionAnalysisNA")]
+        public sealed class SolutionAnalysisNA : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 2, "SolutionAnalysisOptions")]
+        public sealed class SolutionAnalysisOptions : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 58, "SolutionAnalysisPause")]
+        public sealed class SolutionAnalysisPause : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 42, "SolutionAnalysisPaused")]
+        public sealed class SolutionAnalysisPaused : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 74, "SolutionAnalysisRefresh")]
+        public sealed class SolutionAnalysisRefresh : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 39, "SolutionAnalysisSuggestion")]
+        public sealed class SolutionAnalysisSuggestion : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 9, "SolutionAnalysisToolWindow")]
+        public sealed class SolutionAnalysisToolWindow : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 60, "SolutionAnalysisWarning")]
+        public sealed class SolutionAnalysisWarning : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 40, "StatusBarIndicatorBackground")]
+        public sealed class StatusBarIndicatorBackground : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+        [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionAnalysis.UI;component/Resources/SolutionAnalysisTheme" +
+            "dIcons/ThemedIcons.SolutionAnalysis.Generated.Xaml", 48, "UnignoreErrors")]
+        public sealed class UnignoreErrors : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
+        {
+            public static JetBrains.UI.Icons.IconId Id;
+        }
+    }
+}
+namespace JetBrains.ReSharper.Daemon.SolutionAnalysis.UI.RunInspection
+{
+    
+    [JetBrains.Application.Settings.SettingsKeyAttribute(typeof(JetBrains.ReSharper.Daemon.HighlightingSettings), "Code issue filters")]
+    public class CodeIssueFilterSettings
+    {
+        [JetBrains.Application.Settings.SettingsIndexedEntryAttribute("Issue types to hide")]
+        public JetBrains.Application.Settings.Store.IIndexedEntry<JetBrains.ReSharper.Daemon.SolutionAnalysis.IIssueType, JetBrains.ReSharper.Daemon.SolutionAnalysis.UI.RunInspection.DoHideIssue> IssueTypesToHide;
+    }
+    public enum DoHideIssue
+    {
+        Default = 0,
+        DoHide = 1,
+        DoShow = 2,
+    }
+    [JetBrains.ActionManagement.ActionHandlerAttribute(new string[] {
+            "InspectionResults.FilterIssues"})]
+    public class FilterIssuesAction : JetBrains.ActionManagement.IActionHandler
+    {
+        public void Execute(JetBrains.Application.DataContext.IDataContext context, JetBrains.ActionManagement.DelegateExecute nextExecute) { }
+        public bool Update(JetBrains.Application.DataContext.IDataContext context, JetBrains.ActionManagement.ActionPresentation presentation, JetBrains.ActionManagement.DelegateUpdate nextUpdate) { }
+    }
+    public abstract class InspectionResultDescriptorBase : JetBrains.ReSharper.Features.Common.Occurences.OccurenceBrowserDescriptor
+    {
+        protected InspectionResultDescriptorBase(JetBrains.ProjectModel.ISolution solution, System.Collections.Generic.ICollection<JetBrains.ProjectModel.IProjectModelElement> scope, System.Collections.Generic.ICollection<JetBrains.ReSharper.Feature.Services.Search.IOccurence> results, JetBrains.ReSharper.Daemon.SolutionAnalysis.UI.RunInspection.IssueTypeGroup issuesToShow = null) { }
+        public override string ActionBarID { get; }
+        public override string ContextMenuID { get; }
+        protected override int DefaultGroupingIndex { get; set; }
+        public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Daemon.SolutionAnalysis.IIssue> FilteredIssues { get; }
+        public bool IsShowingSpecificIssueTypesOnly { get; }
+        public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Daemon.SolutionAnalysis.IIssueType> IssuesToHide { get; set; }
+        public override JetBrains.TreeModels.TreeModel Model { get; }
+        public override JetBrains.UI.TreeView.StructuredPresenter<JetBrains.TreeModels.TreeModelNode, JetBrains.CommonControls.IPresentableItem> Presenter { get; }
+        public System.Collections.Generic.ICollection<JetBrains.ProjectModel.IProjectModelElement> Scope { get; }
+        public override void ExportTreeView(JetBrains.UI.TreeView.TreeModelView modelView, JetBrains.IDE.TreeBrowser.ExportTreeViewFormat format, bool onlySelection, System.IO.Stream output, JetBrains.Application.Progress.IProgressIndicator progress) { }
+        protected virtual void SetResults(System.Collections.Generic.ICollection<JetBrains.ReSharper.Feature.Services.Search.IOccurence> items, JetBrains.Application.Progress.IProgressIndicator indicator = null, bool mergeKinds = True) { }
+        public abstract void UpdateResults();
+    }
+    [JetBrains.ReSharper.Psi.ShellFeaturePartAttribute()]
+    public class InspectionResultGroupingProvider : JetBrains.ReSharper.Features.Common.Occurences.OccurenceBrowserGroupingProvider
+    {
+        public override System.Collections.Generic.ICollection<JetBrains.TreeModels.TreeModelGrouping<JetBrains.ReSharper.Feature.Services.Search.IOccurence>> GetGroupings(JetBrains.IDE.TreeBrowser.TreeModelBrowserDescriptorBase descriptor) { }
+        public override bool IsApplicable(JetBrains.IDE.TreeBrowser.TreeModelBrowserDescriptorBase descriptor) { }
+        protected class IssueCategoryAndTypeGroupProvider : JetBrains.TreeModels.ITreeGroupProvider<JetBrains.ReSharper.Feature.Services.Search.IOccurence>
+        {
+            public object ExtractGroupObject(JetBrains.ReSharper.Feature.Services.Search.IOccurence item) { }
+        }
+        protected class IssueCategoryGroupProvider : JetBrains.TreeModels.ITreeGroupProvider<JetBrains.ReSharper.Feature.Services.Search.IOccurence>
+        {
+            public object ExtractGroupObject(JetBrains.ReSharper.Feature.Services.Search.IOccurence item) { }
+        }
+        protected class IssueSeverityGroupProvider : JetBrains.TreeModels.ITreeGroupProvider<JetBrains.ReSharper.Feature.Services.Search.IOccurence>
+        {
+            public object ExtractGroupObject(JetBrains.ReSharper.Feature.Services.Search.IOccurence item) { }
+        }
+        protected class IssueTypeGroupProvider : JetBrains.TreeModels.ITreeGroupProvider<JetBrains.ReSharper.Feature.Services.Search.IOccurence>
+        {
+            public object ExtractGroupObject(JetBrains.ReSharper.Feature.Services.Search.IOccurence item) { }
+        }
+    }
+    [JetBrains.ReSharper.Psi.ShellFeaturePartAttribute()]
+    public class InspectionResultOccurenceSectionProvider : JetBrains.ReSharper.Features.Common.Occurences.OccurenceSectionProvider
+    {
+        public override System.Collections.Generic.ICollection<JetBrains.TreeModels.TreeSection> GetTreeSections(JetBrains.ReSharper.Features.Common.Occurences.OccurenceBrowserDescriptor descriptor) { }
+        public override bool IsApplicable(JetBrains.ReSharper.Features.Common.Occurences.OccurenceBrowserDescriptor descriptor) { }
+    }
+    [JetBrains.Application.Settings.SettingsKeyAttribute(typeof(JetBrains.UI.UserInterfaceSettings), "Inspection results view settings")]
+    public class InspectionResultViewSettings
+    {
+        [JetBrains.Application.Settings.SettingsEntryAttribute(7, "Group by")]
+        public int GroupingIndex;
+    }
+    [JetBrains.Application.Configuration.Upgrade.GlobalSettingsUpgraderAttribute()]
+    public class InspectionResultViewSettingsUpgrader : JetBrains.Application.Configuration.SettingTablesUpgrader
+    {
+        public InspectionResultViewSettingsUpgrader(JetBrains.Application.Env.RunsProducts.ProductConfigurations productConfigurations) { }
+        protected override void DoUpgrade(JetBrains.Application.Configuration.IComponentSettingsProvider legacySettingsProvider, JetBrains.Application.Settings.IContextBoundSettingsStore boundSettingsStore, JetBrains.DataFlow.Lifetime upgradeLifetime, JetBrains.Application.Configuration.SettingsTableBase workspaceSettingsTable, JetBrains.Application.Configuration.SettingsTableBase globalSettingsTable) { }
+    }
+    public class IssueSeverityGroup : System.IComparable<JetBrains.ReSharper.Daemon.SolutionAnalysis.UI.RunInspection.IssueSeverityGroup>
+    {
+        public IssueSeverityGroup(JetBrains.ReSharper.Daemon.Severity severity) { }
+        public JetBrains.ReSharper.Daemon.Severity Severity { get; }
+        public int CompareTo(JetBrains.ReSharper.Daemon.SolutionAnalysis.UI.RunInspection.IssueSeverityGroup other) { }
+        protected bool Equals(JetBrains.ReSharper.Daemon.SolutionAnalysis.UI.RunInspection.IssueSeverityGroup other) { }
+        public override bool Equals(object obj) { }
+        public override int GetHashCode() { }
+    }
+    public class IssueTypeGroup
+    {
+        public IssueTypeGroup(System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Daemon.SolutionAnalysis.IIssueType> issueTypes) { }
+        public IssueTypeGroup(JetBrains.ReSharper.Daemon.SolutionAnalysis.IIssueType issueType, bool mergeCompound) { }
+        public IssueTypeGroup(string groupId) { }
+        [JetBrains.Annotations.CanBeNullAttribute()]
+        public string GroupId { get; }
+        public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Daemon.SolutionAnalysis.IIssueType> IssueTypes { get; }
+        public string Name { get; }
+        public bool Equals(JetBrains.ReSharper.Daemon.SolutionAnalysis.UI.RunInspection.IssueTypeGroup other) { }
+        public override bool Equals(object obj) { }
+        public override int GetHashCode() { }
+    }
+    [JetBrains.ActionManagement.ActionHandlerAttribute(new string[] {
+            "InspectionResults.Update"})]
+    public class RefreshInspectionResultsAction : JetBrains.ActionManagement.IActionHandler
+    {
+        public void Execute(JetBrains.Application.DataContext.IDataContext context, JetBrains.ActionManagement.DelegateExecute nextExecute) { }
+        public bool Update(JetBrains.Application.DataContext.IDataContext context, JetBrains.ActionManagement.ActionPresentation presentation, JetBrains.ActionManagement.DelegateUpdate nextUpdate) { }
+    }
+    public class static RunInspection
+    {
+        public static void Execute(System.Collections.Generic.IList<JetBrains.ProjectModel.IProjectModelElement> scope, JetBrains.ReSharper.Daemon.SolutionAnalysis.UI.RunInspection.IssueTypeGroup issuesToShow = null) { }
+        public static bool IsAvailable(System.Collections.Generic.IList<JetBrains.ProjectModel.IProjectModelElement> scope) { }
+    }
+    [JetBrains.ActionManagement.ActionHandlerAttribute(new string[] {
+            "RunInspection"})]
+    public class RunInspectionAction : JetBrains.ActionManagement.IActionHandler
+    {
+        public void Execute(JetBrains.Application.DataContext.IDataContext context, JetBrains.ActionManagement.DelegateExecute nextExecute) { }
+        public bool Update(JetBrains.Application.DataContext.IDataContext context, JetBrains.ActionManagement.ActionPresentation presentation, JetBrains.ActionManagement.DelegateUpdate nextUpdate) { }
+    }
+    [JetBrains.ActionManagement.ActionHandlerAttribute(new string[] {
+            "RunInspection.CurrentProject"})]
+    public class RunInspectionInCurrentProjectAction : JetBrains.ActionManagement.IActionHandler
+    {
+        public void Execute(JetBrains.Application.DataContext.IDataContext context, JetBrains.ActionManagement.DelegateExecute nextExecute) { }
+        public bool Update(JetBrains.Application.DataContext.IDataContext context, JetBrains.ActionManagement.ActionPresentation presentation, JetBrains.ActionManagement.DelegateUpdate nextUpdate) { }
+    }
+    [JetBrains.ActionManagement.ActionHandlerAttribute(new string[] {
+            "RunInspection.Solution"})]
+    public class RunInspectionInSolutionAction : JetBrains.ActionManagement.IActionHandler
+    {
+        public void Execute(JetBrains.Application.DataContext.IDataContext context, JetBrains.ActionManagement.DelegateExecute nextExecute) { }
+        public bool Update(JetBrains.Application.DataContext.IDataContext context, JetBrains.ActionManagement.ActionPresentation presentation, JetBrains.ActionManagement.DelegateUpdate nextUpdate) { }
+    }
+    [JetBrains.Application.Configuration.Upgrade.GlobalSettingsUpgraderAttribute()]
+    public class RunInspectionSettingsUpgrader : JetBrains.Application.Configuration.Upgrade.IGlobalSettingsUpgrader, JetBrains.Application.Configuration.Upgrade.ISettingsUpgrader
+    {
+        public void Upgrade(JetBrains.Application.Configuration.IComponentSettingsProvider legacySettingsProvider, JetBrains.Application.Settings.IContextBoundSettingsStore boundSettingsStore, JetBrains.DataFlow.Lifetime upgradeLifetime) { }
+    }
+}
