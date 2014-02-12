@@ -37,6 +37,21 @@ namespace CitizenMatt.ReSharper.ApiTracker
             // Not a public API
             "JetBrains.ReSharper.ExternalProcessStorage.dll",
 
+            // Don't care if any APIs change in nunit, mstest or js test runners
+            "JetBrains.ReSharper.UnitTestProvider.JavaScript.dll",
+            "JetBrains.ReSharper.UnitTestProvider.MSTest.dll",
+            "JetBrains.ReSharper.UnitTestProvider.MSTest09.dll",
+            "JetBrains.ReSharper.UnitTestProvider.MSTest10.dll",
+            "JetBrains.ReSharper.UnitTestProvider.MSTest11.dll",
+            "JetBrains.ReSharper.UnitTestProvider.MSTest12.dll",
+            "JetBrains.ReSharper.UnitTestProvider.nUnit.dll",
+            "JetBrains.ReSharper.UnitTestRunner.JavaScript.dll",
+            "JetBrains.ReSharper.UnitTestRunner.MSTest09.dll",
+            "JetBrains.ReSharper.UnitTestRunner.MSTest10.dll",
+            "JetBrains.ReSharper.UnitTestRunner.MSTest11.dll",
+            "JetBrains.ReSharper.UnitTestRunner.MSTest12.dll",
+            "JetBrains.ReSharper.UnitTestRunner.nUnit.dll",
+
             // Test assemblies
             "JetBrains.ReSharper.Feature.Services.Tests.Common.dll",
             "JetBrains.ReSharper.Feature.Services.Tests.Basic.dll",
