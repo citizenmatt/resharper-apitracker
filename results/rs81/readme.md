@@ -32,6 +32,10 @@ Minor implementation changes. Not significant for plugin authors.
 * `HtmlMacroImplBase` now requires two type parameters, `TLanguage`, which must derive from `HtmlLanguage` and `TFile` which must implement `IHtmlFile`. Allows for macro to be used with HTML like languages, e.g. ASP.net + Razor
 * Addition of TypeScript scopes
 
+## Solution Builder
+
+No changes.
+
 ## Work in Progress
 
 * Platform
@@ -45,5 +49,4 @@ Minor implementation changes. Not significant for plugin authors.
 * Refactorings
 * Resources
 * Solution Analysis
-* Solution Builder
 * Unit Test

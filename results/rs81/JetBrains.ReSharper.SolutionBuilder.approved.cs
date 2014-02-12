@@ -1,23 +1,23 @@
 ﻿[assembly: JetBrains.ActionManagement.ActionsXmlAttribute("JetBrains.ReSharper.SolutionBuilder.resources.Actions.xml")]
 [assembly: JetBrains.UI.Icons.CompiledIcons.CompiledIconsPackAttribute(IconNames=new string[] {
-        "BuildProject",
-        "BuildError",
-        "BuildSolution",
-        "RebuildSolution",
-        "InProgressWarnings",
         "RebuildProject",
-        "InProgressErrors",
-        "CleanProject",
         "FinishedWarnings",
-        "CancelBuild",
-        "FinishedUpToDate",
-        "InProgressOK",
-        "FinishedOK",
-        "Output",
-        "BuildWarning",
         "ViewSource",
         "ClearSolution",
+        "InProgressErrors",
+        "BuildSolution",
+        "InProgressWarnings",
+        "CancelBuild",
+        "RebuildSolution",
+        "Output",
+        "FinishedOK",
+        "BuildWarning",
+        "BuildError",
+        "CleanProject",
+        "InProgressOK",
         "FinishedBuildErrors",
+        "BuildProject",
+        "FinishedUpToDate",
         "ViewOutput"}, IconPackResourceIdentification="JetBrains.ReSharper.SolutionBuilder;component/resources/SolutionBuilderCompilerTh" +
     "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml")]
 [assembly: System.Runtime.InteropServices.ComVisibleAttribute(false)]
@@ -272,103 +272,103 @@ namespace JetBrains.ReSharper.SolutionBuilder.Resources
     public sealed class SolutionBuilderCompilerThemedIcons
     {
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionBuilder;component/resources/SolutionBuilderCompilerTh" +
-            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 1, "BuildError")]
+            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 12, "BuildError")]
         public sealed class BuildError : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionBuilder;component/resources/SolutionBuilderCompilerTh" +
-            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 0, "BuildProject")]
+            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 16, "BuildProject")]
         public sealed class BuildProject : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionBuilder;component/resources/SolutionBuilderCompilerTh" +
-            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 2, "BuildSolution")]
+            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 5, "BuildSolution")]
         public sealed class BuildSolution : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionBuilder;component/resources/SolutionBuilderCompilerTh" +
-            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 14, "BuildWarning")]
+            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 11, "BuildWarning")]
         public sealed class BuildWarning : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionBuilder;component/resources/SolutionBuilderCompilerTh" +
-            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 9, "CancelBuild")]
+            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 7, "CancelBuild")]
         public sealed class CancelBuild : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionBuilder;component/resources/SolutionBuilderCompilerTh" +
-            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 7, "CleanProject")]
+            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 13, "CleanProject")]
         public sealed class CleanProject : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionBuilder;component/resources/SolutionBuilderCompilerTh" +
-            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 16, "ClearSolution")]
+            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 3, "ClearSolution")]
         public sealed class ClearSolution : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionBuilder;component/resources/SolutionBuilderCompilerTh" +
-            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 17, "FinishedBuildErrors")]
+            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 15, "FinishedBuildErrors")]
         public sealed class FinishedBuildErrors : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionBuilder;component/resources/SolutionBuilderCompilerTh" +
-            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 12, "FinishedOK")]
+            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 10, "FinishedOK")]
         public sealed class FinishedOK : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionBuilder;component/resources/SolutionBuilderCompilerTh" +
-            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 10, "FinishedUpToDate")]
+            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 17, "FinishedUpToDate")]
         public sealed class FinishedUpToDate : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionBuilder;component/resources/SolutionBuilderCompilerTh" +
-            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 8, "FinishedWarnings")]
+            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 1, "FinishedWarnings")]
         public sealed class FinishedWarnings : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionBuilder;component/resources/SolutionBuilderCompilerTh" +
-            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 6, "InProgressErrors")]
+            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 4, "InProgressErrors")]
         public sealed class InProgressErrors : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionBuilder;component/resources/SolutionBuilderCompilerTh" +
-            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 11, "InProgressOK")]
+            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 14, "InProgressOK")]
         public sealed class InProgressOK : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionBuilder;component/resources/SolutionBuilderCompilerTh" +
-            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 4, "InProgressWarnings")]
+            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 6, "InProgressWarnings")]
         public sealed class InProgressWarnings : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionBuilder;component/resources/SolutionBuilderCompilerTh" +
-            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 13, "Output")]
+            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 9, "Output")]
         public sealed class Output : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionBuilder;component/resources/SolutionBuilderCompilerTh" +
-            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 5, "RebuildProject")]
+            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 0, "RebuildProject")]
         public sealed class RebuildProject : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionBuilder;component/resources/SolutionBuilderCompilerTh" +
-            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 3, "RebuildSolution")]
+            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 8, "RebuildSolution")]
         public sealed class RebuildSolution : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
@@ -380,7 +380,7 @@ namespace JetBrains.ReSharper.SolutionBuilder.Resources
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.SolutionBuilder;component/resources/SolutionBuilderCompilerTh" +
-            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 15, "ViewSource")]
+            "emedIcons/ThemedIcons.SolutionBuilderCompiler.Generated.Xaml", 2, "ViewSource")]
         public sealed class ViewSource : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
