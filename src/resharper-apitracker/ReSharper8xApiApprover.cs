@@ -1,17 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using ApiApprover;
-using ApprovalTests.Reporters;
-using Xunit.Extensions;
 
 namespace CitizenMatt.ReSharper.ApiTracker
 {
-    public class ReSharperApiApprover
+    public abstract class ReSharperApiApprover
+    {
+        protected void ApprovePublicApi(string path, string assembly)
+        {
+            PublicApiApprover.ApprovePublicApi(Path.Combine(path, assembly), ResultsPath);
+        }
+
+        protected abstract string ResultsPath { get; }
+    }
+
+
+#if false
+    public class ReSharperApiApproverBase
     {
         private const string ReSharperPath80 = @"C:\work\sdk\v8.0\bin";
-        private const string ReSharperPath81 = @"C:\work\sdk\JetBrains.ReSharper.SDK.8.1.555\bin";
+        private const string AssemblyPath = @"C:\work\sdk\JetBrains.ReSharper.SDK.8.1.555\bin";
 
         [TheoryWithLimitedFailures(10)]
         [PropertyData("ReSharper80AssemblyPaths")]
@@ -54,7 +61,7 @@ namespace CitizenMatt.ReSharper.ApiTracker
         {
             get
             {
-                return GetReSharperAssemblies(ReSharperPath81);
+                return GetReSharperAssemblies(AssemblyPath);
                 //yield return new object[] { "JetBrains.ReSharper.Features.Architecture.yFiles.dll", ReSharperPath80 };
             }
         }
@@ -78,4 +85,6 @@ namespace CitizenMatt.ReSharper.ApiTracker
                    !assembly.EndsWith("Tests.Basic.dll", StringComparison.OrdinalIgnoreCase);
         }
     }
+
+#endif
 }
