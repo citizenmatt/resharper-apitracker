@@ -32,6 +32,11 @@ Minor implementation changes. Not significant for plugin authors.
 * `HtmlMacroImplBase` now requires two type parameters, `TLanguage`, which must derive from `HtmlLanguage` and `TFile` which must implement `IHtmlFile`. Allows for macro to be used with HTML like languages, e.g. ASP.net + Razor
 * Addition of TypeScript scopes
 
+## Resources (Part of Platform)
+
+* `ReSharperApplicationDescriptor+ProductVersionOverride` allows overriding product version in tests. You can use this in your test assembly's `ReSharperTestEnvironmentAssembly` class by overriding the `CreateApplicationDescriptor` method
+* Updated help IDs. Not significant to plugin authors
+
 ## Solution Analysis
 
 * `CheckForInterrupt` usage has been replace by `Func<bool>`
@@ -42,6 +47,7 @@ Minor implementation changes. Not significant for plugin authors.
 ## Solution Builder
 
 No changes.
+
 
 ## Work in Progress
 
@@ -54,5 +60,4 @@ No changes.
 * Product
 * PSI
 * Refactorings
-* Resources
 * Unit Test

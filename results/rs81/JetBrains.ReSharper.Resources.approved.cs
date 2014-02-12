@@ -1,39 +1,39 @@
 ﻿[assembly: JetBrains.ActionManagement.ActionsXmlAttribute("JetBrains.resources.actions.xml")]
 [assembly: JetBrains.Application.Install.InstallFromReferencesDirectoryAttribute("BundledPackages", JetBrains.Application.Install.InstallationData.InstallationTargetDirRoot.InstallDir, "packages", "plugins", JetBrains.Application.Install.InstallFromReferencesDirectoryAttribute.Recursive.No, true)]
 [assembly: JetBrains.UI.Icons.CompiledIcons.CompiledIconsPackAttribute(IconNames=new string[] {
-        "FuncZoneAnalyze",
-        "FindSymbolsExternalToScope",
-        "NavigateToSource",
-        "ExpandHaircomb",
-        "FuncZoneRefactoring",
-        "OverrideOptionsBack",
-        "OverrideOptions",
-        "FuncZoneGenerate",
         "Generate",
-        "RefactorQuickFix",
-        "AutoScrollToSource",
-        "FindDependentCode",
-        "AddFolder",
-        "FuncZoneGenerateQuickFix",
-        "AnalyzeReferences",
         "FuncZoneRefactoringQuickFix",
-        "FuncZoneNavigate",
-        "Refactor",
-        "Analyze",
-        "GenerateQuickFix",
         "Navigate",
-        "RemoveUnusedRefactoring"}, IconPackResourceIdentification="JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
+        "AddFolder",
+        "FuncZoneAnalyze",
+        "Refactor",
+        "AnalyzeReferences",
+        "FindSymbolsExternalToScope",
+        "GenerateQuickFix",
+        "ExpandHaircomb",
+        "Analyze",
+        "OverrideOptions",
+        "NavigateToSource",
+        "FuncZoneRefactoring",
+        "FuncZoneGenerateQuickFix",
+        "RemoveUnusedRefactoring",
+        "AutoScrollToSource",
+        "RefactorQuickFix",
+        "OverrideOptionsBack",
+        "FuncZoneGenerate",
+        "FuncZoneNavigate",
+        "FindDependentCode"}, IconPackResourceIdentification="JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
     "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml")]
 [assembly: JetBrains.UI.Icons.CompiledIcons.CompiledIconsPackAttribute(IconNames=new string[] {
-        "LineBreaks",
-        "Others",
-        "BlankLines",
+        "MvcOptionsPage",
         "Spaces",
-        "MvcOptionsPage"}, IconPackResourceIdentification="JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedOption" +
+        "BlankLines",
+        "Others",
+        "LineBreaks"}, IconPackResourceIdentification="JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedOption" +
     "sIcons/ThemedIcons.PsiFeaturesUnsortedOptions.Generated.Xaml")]
 [assembly: System.Runtime.InteropServices.ComVisibleAttribute(false)]
-[assembly: System.Windows.Markup.XmlnsDefinitionAttribute("urn:shemas-jetbrains-com:ui-application-icons-psi-features-unsorted-options", "JetBrains.Resources.Icons")]
 [assembly: System.Windows.Markup.XmlnsDefinitionAttribute("urn:shemas-jetbrains-com:ui-application-icons-psi-features-unsorted", "JetBrains.Resources.Icons")]
+[assembly: System.Windows.Markup.XmlnsDefinitionAttribute("urn:shemas-jetbrains-com:ui-application-icons-psi-features-unsorted-options", "JetBrains.Resources.Icons")]
 
 namespace JetBrains.Application
 {
@@ -113,6 +113,16 @@ namespace JetBrains.Application
         public static void Execute([JetBrains.Annotations.InstantHandleAttribute()] [JetBrains.Annotations.NotNullAttribute()] System.Action action) { }
     }
 }
+namespace JetBrains.ReSharper.Extenions.Settings
+{
+    
+    [JetBrains.Application.ShellComponentAttribute()]
+    public class DefaultExtensionManagerSettings : JetBrains.Application.Settings.IHaveDefaultSettingsStream
+    {
+        public string Name { get; }
+        public virtual System.IO.Stream GetDefaultSettingsStream(JetBrains.DataFlow.Lifetime lifetime) { }
+    }
+}
 namespace JetBrains.ReSharper
 {
     
@@ -128,6 +138,11 @@ namespace JetBrains.ReSharper
         public override System.Drawing.Image ProductDialogHeaderImage { get; }
         public override System.Drawing.Icon ProductIcon { get; }
         public override string SampleErrorReport { get; }
+        public class ProductVersionOverride : JetBrains.ReSharper.ReSharperApplicationDescriptor
+        {
+            public ProductVersionOverride([JetBrains.Annotations.NotNullAttribute()] System.Version versionOverride) { }
+            public override System.Version ProductVersion { get; }
+        }
     }
     public class static ReSharperEditions
     {
@@ -236,25 +251,20 @@ namespace JetBrains.ReSharper
         public const string Coding_Assistance__Quick_Documentation = "Coding_Assistance__Quick_Documentation";
         public const string Coding_Assistance__Surrounding_with_Region = "Coding_Assistance__Surrounding_with_Region";
         public const string Coding_Assistance__Syntax_Highlighting = "Coding_Assistance__Syntax_Highlighting";
+        public const string Configuring__Index = "Configuring__Index";
+        public const string Configuring_Caches_Location = "Configuring_Caches_Location";
+        public const string Configuring_Code_Completion = "Configuring_Code_Completion";
         public const string Configuring_Code_Viewer = "Configuring_Code_Viewer";
-        public const string Configuring_ReSharper__Configuring_Caches_Location = "Configuring_ReSharper__Configuring_Caches_Location";
-        public const string Configuring_ReSharper__Configuring_Code_Completion = "Configuring_ReSharper__Configuring_Code_Completion";
-        public const string Configuring_ReSharper__Configuring_Keyboard_Shortcuts = "Configuring_ReSharper__Configuring_Keyboard_Shortcuts";
-        public const string Configuring_ReSharper__Configuring_License_Server = "Configuring_ReSharper__Configuring_License_Server";
-        public const string Configuring_ReSharper__Configuring_Parameter_Information = "Configuring_ReSharper__Configuring_Parameter_Information";
-        public const string Configuring_ReSharper__Configuring_ReSharper_Options = "Configuring_ReSharper__Configuring_ReSharper_Options";
-        public const string Configuring_ReSharper__Configuring_Syntax_Highlighting = "Configuring_ReSharper__Configuring_Syntax_Highlighting";
-        public const string Configuring_ReSharper__Index = "Configuring_ReSharper__Index";
-        public const string Configuring_ReSharper__Managing_Color_Themes = "Configuring_ReSharper__Managing_Color_Themes";
-        public const string Configuring_ReSharper__Managing_Extensions = "Configuring_ReSharper__Managing_Extensions";
-        public const string Configuring_ReSharper__Resolving_Keyboard_Shortcut_Conflicts = "Configuring_ReSharper__Resolving_Keyboard_Shortcut_Conflicts";
-        public const string Configuring_ReSharper__Sharing_Configuration_Options = "Configuring_ReSharper__Sharing_Configuration_Options";
-        public const string Configuring_ReSharper__Using_IntelliSense = "Configuring_ReSharper__Using_IntelliSense";
+        public const string Configuring_Keyboard_Shortcuts = "Configuring_Keyboard_Shortcuts";
+        public const string Configuring_Parameter_Information = "Configuring_Parameter_Information";
+        public const string Configuring_Product_Options = "Configuring_Product_Options";
+        public const string Configuring_Syntax_Highlighting = "Configuring_Syntax_Highlighting";
         public const string Configuring_Unit_Testing_Support = "Configuring_Unit_Testing_Support";
         public const string Coverage_of_Selected_Unit_Tests = "Coverage_of_Selected_Unit_Tests";
         public const string Coverage_of_Unit_Test_Session = "Coverage_of_Unit_Test_Session";
         public const string Coverage_of_Unit_Tests_in_the_Solution_Part = "Coverage_of_Unit_Tests_in_the_Solution_Part";
         public const string Coverage_of_Unit_Tests_in_the_Whole_Solution = "Coverage_of_Unit_Tests_in_the_Whole_Solution";
+        public const string Design_time_Inspection = "Design_time_Inspection";
         public const string dotCover__Adjusting_Coverage_Filters = "dotCover__Adjusting_Coverage_Filters";
         public const string dotCover__Analyzing_Test_Coverage = "dotCover__Analyzing_Test_Coverage";
         public const string dotCover__Basic_Concepts = "dotCover__Basic_Concepts";
@@ -293,20 +303,21 @@ namespace JetBrains.ReSharper
         public const string Exploring_Assemblies = "Exploring_Assemblies";
         public const string Exploring_Folders = "Exploring_Folders";
         public const string Exporting_Assembly_to_Project = "Exporting_Assembly_to_Project";
-        public const string Help_Structure = "Help_Structure";
+        public const string Inspecting_Code_in_Specific_Scope = "Inspecting_Code_in_Specific_Scope";
         public const string Introduction__Concepts = "Introduction__Concepts";
         public const string Introduction__Conventions = "Introduction__Conventions";
         public const string Introduction__Editions = "Introduction__Editions";
         public const string Introduction__Feature_Map = "Introduction__Feature_Map";
-        public const string Introduction__Finding_Out_More = "Introduction__Finding_Out_More";
-        public const string Introduction__Help_on_Help = "Introduction__Help_on_Help";
         public const string Introduction__Index = "Introduction__Index";
         public const string Introduction__Network_Activity = "Introduction__Network_Activity";
         public const string Introduction__Overview = "Introduction__Overview";
         public const string Introduction__ReSharper_vs_Visual_Studio = "Introduction__ReSharper_vs_Visual_Studio";
         public const string Introduction__Supported_Languages = "Introduction__Supported_Languages";
+        public const string Introduction__Troubleshooting = "Introduction__Troubleshooting";
         public const string Introduction__Whats_New = "Introduction__Whats_New";
         public const string Managing_Assemblies = "Managing_Assemblies";
+        public const string Managing_Color_Themes = "Managing_Color_Themes";
+        public const string Managing_Extensions = "Managing_Extensions";
         public const string Matching_Coverage_Snapshot_with_Project_Structure = "Matching_Coverage_Snapshot_with_Project_Structure";
         public const string Navigation_and_Search__Bookmarks = "Navigation_and_Search__Bookmarks";
         public const string Navigation_and_Search__CamelHumps = "Navigation_and_Search__CamelHumps";
@@ -362,6 +373,7 @@ namespace JetBrains.ReSharper
         public const string Navigation_and_Search__Navigating_to_Recent_Files = "Navigation_and_Search__Navigating_to_Recent_Files";
         public const string Navigation_and_Search__Navigating_to_Recent_Locations = "Navigation_and_Search__Navigating_to_Recent_Locations";
         public const string Navigation_and_Search__Navigation_from_Symbols = "Navigation_and_Search__Navigation_from_Symbols";
+        public const string Navigation_and_Search__Peek_Definition = "Navigation_and_Search__Peek_Definition";
         public const string Navigation_and_Search__Search = "Navigation_and_Search__Search";
         public const string Navigation_and_Search__SSR__Creating_and_Managing_Patterns = "Navigation_and_Search__SSR__Creating_and_Managing_Patterns";
         public const string Navigation_and_Search__SSR__Replacing_Code_with_Pattern = "Navigation_and_Search__SSR__Replacing_Code_with_Pattern";
@@ -371,6 +383,7 @@ namespace JetBrains.ReSharper
         public const string Navigation_and_Search__Viewing_Type_Hierarchy = "Navigation_and_Search__Viewing_Type_Hierarchy";
         public const string Navigation_to_Covering_Tests = "Navigation_to_Covering_Tests";
         public const string Opening_Assembly_Files = "Opening_Assembly_Files";
+        public const string Project_Level_Assistance = "Project_Level_Assistance";
         public const string Refactorings__Adjust_Namespaces = "Refactorings__Adjust_Namespaces";
         public const string Refactorings__Change_Signature = "Refactorings__Change_Signature";
         public const string Refactorings__Convert_Abstract_Class_to_Interface = "Refactorings__Convert_Abstract_Class_to_Interface";
@@ -524,6 +537,13 @@ namespace JetBrains.ReSharper
         public const string Reference__Options__Languages__Razor__Context_Actions = "Reference__Options__Languages__Razor__Context_Actions";
         public const string Reference__Options__Languages__Razor__Editor = "Reference__Options__Languages__Razor__Editor";
         public const string Reference__Options__Languages__Razor__Namespace_Imports = "Reference__Options__Languages__Razor__Namespace_Imports";
+        public const string Reference__Options__Languages__TypeScript = "Reference__Options__Languages__TypeScript";
+        public const string Reference__Options__Languages__TypeScript__Formatting_Braces_Layout = "Reference__Options__Languages__TypeScript__Formatting_Braces_Layout";
+        public const string Reference__Options__Languages__TypeScript__Formatting_Line_Breaks = "Reference__Options__Languages__TypeScript__Formatting_Line_Breaks";
+        public const string Reference__Options__Languages__TypeScript__Formatting_Other = "Reference__Options__Languages__TypeScript__Formatting_Other";
+        public const string Reference__Options__Languages__TypeScript__Formatting_Spaces = "Reference__Options__Languages__TypeScript__Formatting_Spaces";
+        public const string Reference__Options__Languages__TypeScript__Formatting_Style = "Reference__Options__Languages__TypeScript__Formatting_Style";
+        public const string Reference__Options__Languages__TypeScript_Naming_Style = "Reference__Options__Languages__TypeScript_Naming_Style";
         public const string Reference__Options__Languages__Visual_Basic__NET = "Reference__Options__Languages__Visual_Basic__NET";
         public const string Reference__Options__Languages__Visual_Basic__NET__Context_Actions = "Reference__Options__Languages__Visual_Basic__NET__Context_Actions";
         public const string Reference__Options__Languages__Visual_Basic__NET__Formatting_Style = "Reference__Options__Languages__Visual_Basic__NET__Formatting_Style";
@@ -573,6 +593,7 @@ namespace JetBrains.ReSharper
         public const string Reference__Templates_Explorer__Surround_Templates = "Reference__Templates_Explorer__Surround_Templates";
         public const string Reference__Templates_Explorer__Surround_With_Templates__Predefined = "Reference__Templates_Explorer__Surround_With_Templates__Predefined";
         public const string Reference__Text_Editor_Features = "Reference__Text_Editor_Features";
+        public const string Reference__VS_Options_Page = "Reference__VS_Options_Page";
         public const string Reference__Windows = "Reference__Windows";
         public const string Reference__Windows__Analyze_References = "Reference__Windows__Analyze_References";
         public const string Reference__Windows__Errors_in_Solution = "Reference__Windows__Errors_in_Solution";
@@ -602,6 +623,8 @@ namespace JetBrains.ReSharper
         public const string ReSharper_by_Language__JavaScript__Refactorings = "ReSharper_by_Language__JavaScript__Refactorings";
         public const string ReSharper_by_Language__JavaScript__Templates = "ReSharper_by_Language__JavaScript__Templates";
         public const string ReSharper_by_Language__JavaScript__Unit_Testing = "ReSharper_by_Language__JavaScript__Unit_Testing";
+        public const string ReSharper_by_Language__MSBuild = "ReSharper_by_Language__MSBuild";
+        public const string ReSharper_by_Language__TypeScript = "ReSharper_by_Language__TypeScript";
         public const string ReSharper_by_Language__Visual_Basic = "ReSharper_by_Language__Visual_Basic";
         public const string ReSharper_by_Language__Visual_Basic__Code_Analysis_and_Coding_Assistance = "ReSharper_by_Language__Visual_Basic__Code_Analysis_and_Coding_Assistance";
         public const string ReSharper_by_Language__Visual_Basic__Code_Cleanup = "ReSharper_by_Language__Visual_Basic__Code_Cleanup";
@@ -614,6 +637,7 @@ namespace JetBrains.ReSharper
         public const string ReSharper_by_Language__XAML__Refactorings = "ReSharper_by_Language__XAML__Refactorings";
         public const string ReSharper_by_Language__XML = "ReSharper_by_Language__XML";
         public const string ReSharper_by_Language__XML__Code_Cleanup = "ReSharper_by_Language__XML__Code_Cleanup";
+        public const string Resolving_Keyboard_Shortcut_Conflicts = "Resolving_Keyboard_Shortcut_Conflicts";
         public const string Resources__Code_Completion = "Resources__Code_Completion";
         public const string Resources__Editing_Resource_Value = "Resources__Editing_Resource_Value";
         public const string Resources__Index = "Resources__Index";
@@ -632,7 +656,9 @@ namespace JetBrains.ReSharper
         public const string Resources__Refactorings__Safe_Delete = "Resources__Refactorings__Safe_Delete";
         public const string Running_Applications_under_dotCover_Control = "Running_Applications_under_dotCover_Control";
         public const string Saving_and_Loading_Coverage_Snapshot = "Saving_and_Loading_Coverage_Snapshot";
+        public const string Sharing_Configuration_Options = "Sharing_Configuration_Options";
         public const string Sharing_Unit_Test_Runner = "Sharing_Unit_Test_Runner";
+        public const string Specifying_License_Information = "Specifying_License_Information";
         public const string Starting_Manual_Test_Session = "Starting_Manual_Test_Session";
         public const string Starting_Manual_Test_Session_for_External_Applications = "Starting_Manual_Test_Session_for_External_Applications";
         public const string Templates__Applying_Templates = "Templates__Applying_Templates";
@@ -659,7 +685,6 @@ namespace JetBrains.ReSharper
         public const string Templates__Template_Basics__Template_Types = "Templates__Template_Basics__Template_Types";
         public const string Templates__Template_Basics__Template_Variables = "Templates__Template_Basics__Template_Variables";
         public const string Templates__Template_Scopes = "Templates__Template_Scopes";
-        public const string Troubleshooting__Index = "Troubleshooting__Index";
         public const string Troubleshooting__ReSharper_Exception_Browser = "Troubleshooting__ReSharper_Exception_Browser";
         public const string Unit_Testing__Analyzing_Code_Coverage_with_dotCover = "Unit_Testing__Analyzing_Code_Coverage_with_dotCover";
         public const string Unit_Testing__Index = "Unit_Testing__Index";
@@ -667,6 +692,7 @@ namespace JetBrains.ReSharper
         public const string Unit_Testing__Profiling_Unit_Tests = "Unit_Testing__Profiling_Unit_Tests";
         public const string Unit_Testing__Recognizing_Unit_Tests = "Unit_Testing__Recognizing_Unit_Tests";
         public const string Unit_Testing__Running_and_Debugging_Unit_Tests = "Unit_Testing__Running_and_Debugging_Unit_Tests";
+        public const string Using_IntelliSense = "Using_IntelliSense";
         public const string Viewing_Compiler_Generated_Code = "Viewing_Compiler_Generated_Code";
         public const string Viewing_Coverage_of_Particular_Unit_Test_Item = "Viewing_Coverage_of_Particular_Unit_Test_Item";
         public const string Viewing_References_Hierarchy = "Viewing_References_Hierarchy";
@@ -738,25 +764,25 @@ namespace JetBrains.Resources.Icons
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedOption" +
-            "sIcons/ThemedIcons.PsiFeaturesUnsortedOptions.Generated.Xaml", 0, "LineBreaks")]
+            "sIcons/ThemedIcons.PsiFeaturesUnsortedOptions.Generated.Xaml", 4, "LineBreaks")]
         public sealed class LineBreaks : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedOption" +
-            "sIcons/ThemedIcons.PsiFeaturesUnsortedOptions.Generated.Xaml", 4, "MvcOptionsPage")]
+            "sIcons/ThemedIcons.PsiFeaturesUnsortedOptions.Generated.Xaml", 0, "MvcOptionsPage")]
         public sealed class MvcOptionsPage : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedOption" +
-            "sIcons/ThemedIcons.PsiFeaturesUnsortedOptions.Generated.Xaml", 1, "Others")]
+            "sIcons/ThemedIcons.PsiFeaturesUnsortedOptions.Generated.Xaml", 3, "Others")]
         public sealed class Others : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedOption" +
-            "sIcons/ThemedIcons.PsiFeaturesUnsortedOptions.Generated.Xaml", 3, "Spaces")]
+            "sIcons/ThemedIcons.PsiFeaturesUnsortedOptions.Generated.Xaml", 1, "Spaces")]
         public sealed class Spaces : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
@@ -765,133 +791,133 @@ namespace JetBrains.Resources.Icons
     public sealed class PsiFeaturesUnsortedThemedIcons
     {
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
-            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 12, "AddFolder")]
+            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 3, "AddFolder")]
         public sealed class AddFolder : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
-            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 18, "Analyze")]
+            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 10, "Analyze")]
         public sealed class Analyze : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
-            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 14, "AnalyzeReferences")]
+            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 6, "AnalyzeReferences")]
         public sealed class AnalyzeReferences : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
-            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 10, "AutoScrollToSource")]
+            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 16, "AutoScrollToSource")]
         public sealed class AutoScrollToSource : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
-            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 3, "ExpandHaircomb")]
+            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 9, "ExpandHaircomb")]
         public sealed class ExpandHaircomb : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
-            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 11, "FindDependentCode")]
+            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 21, "FindDependentCode")]
         public sealed class FindDependentCode : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
-            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 1, "FindSymbolsExternalToScope")]
+            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 7, "FindSymbolsExternalToScope")]
         public sealed class FindSymbolsExternalToScope : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
-            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 0, "FuncZoneAnalyze")]
+            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 4, "FuncZoneAnalyze")]
         public sealed class FuncZoneAnalyze : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
-            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 7, "FuncZoneGenerate")]
+            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 19, "FuncZoneGenerate")]
         public sealed class FuncZoneGenerate : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
-            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 13, "FuncZoneGenerateQuickFix")]
+            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 14, "FuncZoneGenerateQuickFix")]
         public sealed class FuncZoneGenerateQuickFix : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
-            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 16, "FuncZoneNavigate")]
+            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 20, "FuncZoneNavigate")]
         public sealed class FuncZoneNavigate : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
-            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 4, "FuncZoneRefactoring")]
+            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 13, "FuncZoneRefactoring")]
         public sealed class FuncZoneRefactoring : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
-            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 15, "FuncZoneRefactoringQuickFix")]
+            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 1, "FuncZoneRefactoringQuickFix")]
         public sealed class FuncZoneRefactoringQuickFix : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
-            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 8, "Generate")]
+            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 0, "Generate")]
         public sealed class Generate : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
-            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 19, "GenerateQuickFix")]
+            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 8, "GenerateQuickFix")]
         public sealed class GenerateQuickFix : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
-            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 20, "Navigate")]
+            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 2, "Navigate")]
         public sealed class Navigate : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
-            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 2, "NavigateToSource")]
+            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 12, "NavigateToSource")]
         public sealed class NavigateToSource : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
-            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 6, "OverrideOptions")]
+            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 11, "OverrideOptions")]
         public sealed class OverrideOptions : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
-            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 5, "OverrideOptionsBack")]
+            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 18, "OverrideOptionsBack")]
         public sealed class OverrideOptionsBack : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
-            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 17, "Refactor")]
+            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 5, "Refactor")]
         public sealed class Refactor : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
-            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 9, "RefactorQuickFix")]
+            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 17, "RefactorQuickFix")]
         public sealed class RefactorQuickFix : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Resources;component/resources/icons/PsiFeaturesUnsortedIcons/" +
-            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 21, "RemoveUnusedRefactoring")]
+            "ThemedIcons.PsiFeaturesUnsorted.Generated.Xaml", 15, "RemoveUnusedRefactoring")]
         public sealed class RemoveUnusedRefactoring : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
