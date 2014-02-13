@@ -39,7 +39,7 @@ namespace JetBrains.ReSharper.Intentions.Xaml.ContextActions
     [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Switches between static and dynamic resource reference", Group="XAML", Name="Change resource reference from static to dynamic or vice versa", Priority=-10)]
     public class ChangeResourceUsageStaticnessAction : JetBrains.ReSharper.Intentions.Extensibility.IContextAction
     {
-        public ChangeResourceUsageStaticnessAction(JetBrains.ReSharper.Feature.Services.Xml.Bulbs.XmlContextActionDataProvider provider) { }
+        public ChangeResourceUsageStaticnessAction([JetBrains.Annotations.NotNullAttribute()] JetBrains.ReSharper.Feature.Services.Xml.Bulbs.XmlContextActionDataProvider provider) { }
         public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
         public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
@@ -67,7 +67,7 @@ namespace JetBrains.ReSharper.Intentions.Xaml.ContextActions
         protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
         public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
-    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Qualifies binding property path owner type. Available only in WPF", Group="XAML", Name="Qualify property path owner type")]
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Qualifies attached property binding path owner type. Available only in WPF", Group="XAML", Name="Qualify attached property path owner type")]
     public class QualifyPropertyPathTypeFix : JetBrains.ReSharper.Intentions.Extensibility.ContextActionBase
     {
         public QualifyPropertyPathTypeFix(JetBrains.ReSharper.Feature.Services.Xml.Bulbs.XmlContextActionDataProvider provider) { }
@@ -135,9 +135,9 @@ namespace JetBrains.ReSharper.Intentions.Xaml.QuickFixes
     [JetBrains.ReSharper.Feature.Services.Bulbs.QuickFixAttribute()]
     public class ChangeResourceUsageStaticnessQuickFix : JetBrains.ReSharper.Intentions.Extensibility.IQuickFix
     {
-        public static readonly JetBrains.Util.Key<object> QUICK_FIX_CREATED;
+        [JetBrains.Annotations.NotNullAttribute()]
+        public static readonly JetBrains.Util.Key<object> CREATED;
         public ChangeResourceUsageStaticnessQuickFix(JetBrains.ReSharper.Daemon.Xaml.Highlightings.XamlDynamicResourceNotAllowedErrorHighlighting highlighting) { }
-        public JetBrains.ReSharper.Intentions.Extensibility.IBulbAction[] Items { get; }
         public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
         public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
@@ -214,15 +214,6 @@ namespace JetBrains.ReSharper.Intentions.Xaml.QuickFixes
         public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
     [JetBrains.ReSharper.Feature.Services.Bulbs.QuickFixAttribute()]
-    public class QualifyPropertyPathTypeFix : JetBrains.ReSharper.Intentions.Extensibility.QuickFixBase
-    {
-        public QualifyPropertyPathTypeFix(JetBrains.ReSharper.Daemon.Xaml.Highlightings.XamlBindingWithContextNotResolvedHighlighting highlighting) { }
-        public QualifyPropertyPathTypeFix(JetBrains.ReSharper.Daemon.Xaml.Highlightings.XamlBindingWithoutContextNotResolvedHighlighting highlighting) { }
-        public override string Text { get; }
-        protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
-        public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
-    }
-    [JetBrains.ReSharper.Feature.Services.Bulbs.QuickFixAttribute()]
     public class RemoveElementQuickFix : JetBrains.ReSharper.Intentions.Extensibility.QuickFixBase
     {
         public RemoveElementQuickFix(JetBrains.ReSharper.Daemon.Xaml.Highlightings.XamlRedundantNamespaceAliasHighlighting highlighting) { }
@@ -262,10 +253,8 @@ namespace JetBrains.ReSharper.Intentions.Xaml.QuickFixes
     {
         public SpecifyDataContextTypeQuickFix([JetBrains.Annotations.NotNullAttribute()] JetBrains.ReSharper.Daemon.Xaml.Highlightings.XamlBindingWithContextNotResolvedHighlighting error) { }
         public SpecifyDataContextTypeQuickFix([JetBrains.Annotations.NotNullAttribute()] JetBrains.ReSharper.Daemon.Xaml.Highlightings.XamlBindingWithoutContextNotResolvedHighlighting error) { }
-        public JetBrains.ReSharper.Intentions.Extensibility.IBulbAction[] Items { get; }
         public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
         public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
-        protected static bool IsTopLevelBindingPropertyReference(JetBrains.ReSharper.Psi.Resolve.IReference reference) { }
     }
     [JetBrains.ReSharper.Feature.Services.Bulbs.QuickFixAttribute()]
     public class XamlChangePathMappingQuickFix : JetBrains.ReSharper.Intentions.Extensibility.IQuickFix
@@ -277,23 +266,19 @@ namespace JetBrains.ReSharper.Intentions.Xaml.QuickFixes
         public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
     [JetBrains.ReSharper.Feature.Services.Bulbs.QuickFixAttribute()]
-    public class XamlCreatePropertyQuickFix : JetBrains.ReSharper.Intentions.Extensibility.IQuickFix
+    public sealed class XamlCreatePropertyQuickFix : JetBrains.ReSharper.Intentions.Extensibility.IQuickFix
     {
         public XamlCreatePropertyQuickFix([JetBrains.Annotations.NotNullAttribute()] JetBrains.ReSharper.Daemon.Xaml.Highlightings.XamlNotResolvedError error) { }
         public XamlCreatePropertyQuickFix([JetBrains.Annotations.NotNullAttribute()] JetBrains.ReSharper.Daemon.Xaml.Highlightings.XamlBindingWithContextNotResolvedHighlighting error) { }
         public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
-        protected virtual JetBrains.Util.Pair<JetBrains.ReSharper.Psi.Tree.ITypeDeclaration, TIntention> GetTargetDeclaration<TIntention>(JetBrains.ReSharper.Psi.Resolve.IReference reference)
-            where TIntention :  class { }
         public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
     [JetBrains.ReSharper.Feature.Services.Bulbs.QuickFixAttribute()]
-    public class XamlCreateTypeMemberQuickFix : JetBrains.ReSharper.Intentions.Extensibility.IQuickFix
+    public sealed class XamlCreateTypeMemberQuickFix : JetBrains.ReSharper.Intentions.Extensibility.IQuickFix
     {
         public XamlCreateTypeMemberQuickFix([JetBrains.Annotations.NotNullAttribute()] JetBrains.ReSharper.Daemon.Xaml.Highlightings.XamlNotResolvedError highlighting) { }
         public XamlCreateTypeMemberQuickFix([JetBrains.Annotations.NotNullAttribute()] JetBrains.ReSharper.Daemon.Xaml.Highlightings.XamlBindingWithContextNotResolvedHighlighting highlighting) { }
         public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
-        [JetBrains.Annotations.ContractAnnotationAttribute("null=>null")]
-        protected virtual JetBrains.ReSharper.Psi.Tree.ITypeDeclaration GetTargetDeclaration([JetBrains.Annotations.CanBeNullAttribute()] JetBrains.ReSharper.Psi.Resolve.IReference reference) { }
         public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
     [JetBrains.ReSharper.Feature.Services.Bulbs.QuickFixAttribute()]

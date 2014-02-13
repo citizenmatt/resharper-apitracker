@@ -11,11 +11,15 @@ namespace JetBrains.ReSharper.Intentions.Html.ContextActions
         public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
         public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
+    public abstract class ExpandEmptyTagActionBase
+    {
+        protected JetBrains.ReSharper.Intentions.Extensibility.IBulbAction CreateBulbAction(JetBrains.ReSharper.Psi.Html.Tree.IHtmlTagHeader tagHeader) { }
+        protected bool IsAvailable(JetBrains.ReSharper.Psi.Html.Tree.IHtmlTagHeader tagHeader) { }
+    }
     [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Splits a self-closing tag into opening and closing tags", Group="HTML", Name="Expand empty tag", Priority=0)]
-    public class ExpandEmptyTagContextAction : JetBrains.ReSharper.Intentions.Extensibility.IContextAction
+    public class ExpandEmptyTagContextAction : JetBrains.ReSharper.Intentions.Html.ContextActions.ExpandEmptyTagActionBase, JetBrains.ReSharper.Intentions.Extensibility.IContextAction
     {
         public ExpandEmptyTagContextAction(JetBrains.ReSharper.Feature.Services.Html.Bulbs.IWebContextActionDataProvider<JetBrains.ReSharper.Psi.Html.Tree.IHtmlFile> dataProvider) { }
-        public JetBrains.ReSharper.Intentions.Extensibility.IBulbAction[] Items { get; }
         public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
         public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
@@ -23,11 +27,15 @@ namespace JetBrains.ReSharper.Intentions.Html.ContextActions
     {
         public const string GroupID = "HTML";
     }
+    public abstract class MakeEmptyTagActionBase
+    {
+        protected JetBrains.ReSharper.Intentions.Extensibility.IBulbAction CreateBulbAction(JetBrains.ReSharper.Psi.Html.Tree.IHtmlTag tag) { }
+        protected bool IsAvailable(JetBrains.ReSharper.Psi.Html.Tree.IHtmlTag tag) { }
+    }
     [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Converts from empty opening and closing tags into empty tag", Group="HTML", Name="Collapse empty tag")]
-    public class MakeEmptyTagContextAction : JetBrains.ReSharper.Intentions.Extensibility.IContextAction
+    public class MakeEmptyTagContextAction : JetBrains.ReSharper.Intentions.Html.ContextActions.MakeEmptyTagActionBase, JetBrains.ReSharper.Intentions.Extensibility.IContextAction
     {
         public MakeEmptyTagContextAction(JetBrains.ReSharper.Feature.Services.Html.Bulbs.IWebContextActionDataProvider<JetBrains.ReSharper.Psi.Html.Tree.IHtmlFile> dataProvider) { }
-        public JetBrains.ReSharper.Intentions.Extensibility.IBulbAction[] Items { get; }
         public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
         public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
@@ -81,6 +89,9 @@ namespace JetBrains.ReSharper.Intentions.Html.ContextActions
         protected JetBrains.ReSharper.Psi.Html.Tree.ITagNameContainer GetActiveTag() { }
         public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
+    [JetBrains.ActionManagement.ActionHandlerAttribute(new string[] {
+            "Rename"})]
+    public class ReplaceTagAsRenameAction : JetBrains.ReSharper.Intentions.ContextActions.ContextActionAsActionHandler<JetBrains.ReSharper.Intentions.Html.ContextActions.ReplaceTagContextAction> { }
     [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Replaces tag with different tag", Group="HTML", Name="Replace tag", Priority=-1)]
     public class ReplaceTagContextAction : JetBrains.ReSharper.Intentions.Html.ContextActions.ReplaceAllTagsContextAction
     {
@@ -120,10 +131,16 @@ namespace JetBrains.ReSharper.Intentions.Html.QuickFixes
 {
     
     [JetBrains.ReSharper.Feature.Services.Bulbs.QuickFixAttribute()]
+    public class ExpandEmptyTagQuickFix : JetBrains.ReSharper.Intentions.Html.ContextActions.ExpandEmptyTagActionBase, JetBrains.ReSharper.Intentions.Extensibility.IQuickFix
+    {
+        public ExpandEmptyTagQuickFix(JetBrains.ReSharper.Daemon.Html.Highlightings.HtmlTagShouldNotBeSelfClosedHighlighting highlighting) { }
+        public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
+        public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.QuickFixAttribute()]
     public class HtmlConditionalCommentQuickFix : JetBrains.ReSharper.Intentions.Extensibility.IQuickFix
     {
         public HtmlConditionalCommentQuickFix(JetBrains.ReSharper.Daemon.Html.Highlightings.HtmlConditionalCommentErrorHighlighting highlighting) { }
-        public JetBrains.ReSharper.Intentions.Extensibility.IBulbAction[] Items { get; }
         public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
         public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
@@ -138,7 +155,13 @@ namespace JetBrains.ReSharper.Intentions.Html.QuickFixes
     public class HtmlTagNotClosedQuickFix : JetBrains.ReSharper.Intentions.Extensibility.IQuickFix
     {
         public HtmlTagNotClosedQuickFix(JetBrains.ReSharper.Daemon.Html.Highlightings.HtmlTagNotClosedHighlighting highlighting) { }
-        public JetBrains.ReSharper.Intentions.Extensibility.IBulbAction[] Items { get; }
+        public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
+        public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.QuickFixAttribute()]
+    public class MakeEmptyTagQuickFix : JetBrains.ReSharper.Intentions.Html.ContextActions.MakeEmptyTagActionBase, JetBrains.ReSharper.Intentions.Extensibility.IQuickFix
+    {
+        public MakeEmptyTagQuickFix(JetBrains.ReSharper.Daemon.Html.Highlightings.HtmlTagShouldBeSelfClosedHighlighting highlighting) { }
         public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
         public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }

@@ -110,6 +110,9 @@ namespace JetBrains.ReSharper.Intentions.Xml.ContextActions
         public override string Text { get; }
         protected override System.Action<JetBrains.TextControl.ITextControl> ExecuteAfterPsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.ProjectModel.IProjectModelTransactionCookie cookie, JetBrains.Application.Progress.IProgressIndicator progress) { }
     }
+    [JetBrains.ActionManagement.ActionHandlerAttribute(new string[] {
+            "Rename"})]
+    public class ReplaceTagAsRenameAction : JetBrains.ReSharper.Intentions.ContextActions.ContextActionAsActionHandler<JetBrains.ReSharper.Intentions.Xml.ContextActions.ReplaceTagContextAction> { }
     [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Replace tag with different tag", Group="XML", Name="Replace tag", Priority=-10)]
     public class ReplaceTagContextAction : JetBrains.ReSharper.Intentions.Extensibility.ContextActionBase
     {

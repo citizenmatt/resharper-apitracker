@@ -232,7 +232,7 @@ namespace JetBrains.ReSharper.Intentions.JavaScript.ContextActions
         public static System.Action<JetBrains.TextControl.ITextControl> CreateRenameHotspot(JetBrains.ProjectModel.ISolution solution, System.Collections.Generic.IList<string> suggestions, JetBrains.Util.TextRange endRange, params JetBrains.DocumentModel.DocumentRange[] ranges) { }
         protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
         [JetBrains.Annotations.NotNullAttribute()]
-        public static System.Collections.Generic.IList<string> GetocalNameSuggestions(JetBrains.ReSharper.Psi.Naming.NamingManager manager, JetBrains.ReSharper.Psi.Tree.ITreeNode context, string fieldName, JetBrains.ReSharper.Psi.IPsiSourceFile sourceFile) { }
+        public static System.Collections.Generic.IList<string> GetLocalNameSuggestions(JetBrains.ReSharper.Psi.Naming.NamingManager manager, JetBrains.ReSharper.Psi.Tree.ITreeNode context, string fieldName, JetBrains.ReSharper.Psi.IPsiSourceFile sourceFile) { }
         public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
     [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Converts object literal property to ECMAScript 5 get-accessor", Group="JavaScript", Name="Convert object literal property to get-accessor")]
@@ -264,7 +264,7 @@ namespace JetBrains.ReSharper.Intentions.JavaScript.ContextActions
     {
         public ReplaceStringLiteralQuotesAction(JetBrains.ReSharper.Feature.Services.JavaScript.Bulbs.IJavaScriptContextActionDataProvider provider) { }
         public override string Text { get; }
-        [JetBrains.Annotations.NotNullAttribute()]
+        [JetBrains.Annotations.CanBeNullAttribute()]
         public static JetBrains.ReSharper.Psi.JavaScript.Tree.IJavaScriptLiteralExpression Execute([JetBrains.Annotations.NotNullAttribute()] JetBrains.ReSharper.Psi.Tree.ITreeNode token) { }
         protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
         public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
@@ -421,7 +421,7 @@ namespace JetBrains.ReSharper.Intentions.JavaScript.ContextActions.CreateFromUsa
     }
     public class static CreateFromUsageUtil
     {
-        public static string GetObjectLocationPresentation(JetBrains.ReSharper.Psi.JavaScript.Tree.IJavaScriptExpression expression) { }
+        public static string GetObjectLocationPresentation(JetBrains.ReSharper.Psi.Tree.ITreeNode expression) { }
         public static string GetObjectLocationPresentationStructured(JetBrains.ReSharper.Psi.JavaScript.Tree.IJavaScriptExpression expression) { }
     }
     public class CreatePropertyFromUsageItem : JetBrains.ReSharper.Intentions.Extensibility.BulbActionBase, JetBrains.ReSharper.Intentions.JavaScript.ContextActions.CreateFromUsage.IJsCreateFromUsageBulbItem
@@ -455,14 +455,26 @@ namespace JetBrains.ReSharper.Intentions.JavaScript.ContextActions.CreateFromUsa
     }
     public class UsageInfo : JetBrains.ReSharper.Intentions.JavaScript.ContextActions.CreateFromUsage.IPropertyInfo
     {
-        public UsageInfo(string name, bool isMethod, System.Collections.Generic.IList<JetBrains.ReSharper.Psi.JavaScript.Tree.IJavaScriptExpression> arguments, JetBrains.ReSharper.Psi.JavaScript.Resolve.IReferenceExpressionReference reference) { }
+        public UsageInfo(string name, bool isMethod, System.Collections.Generic.IList<JetBrains.ReSharper.Psi.JavaScript.Tree.IJavaScriptExpression> arguments, JetBrains.ReSharper.Psi.JavaScript.Resolve.IReferenceExpressionReference reference, JetBrains.ReSharper.Psi.JavaScript.Impl.Resolve.JavaScriptResolveContext context) { }
         public System.Collections.Generic.IList<JetBrains.ReSharper.Psi.JavaScript.Tree.IJavaScriptExpression> Arguments { get; }
+        public JetBrains.ReSharper.Psi.JavaScript.Impl.Resolve.JavaScriptResolveContext Context { get; }
         public object InitializerName { get; }
         public bool IsMethod { get; }
         public string Name { get; }
         public JetBrains.ReSharper.Psi.JavaScript.Resolve.IReferenceExpressionReference Reference { get; }
         [JetBrains.Annotations.CanBeNullAttribute()]
         public System.Action<JetBrains.TextControl.ITextControl> CreateInitializerExpression(JetBrains.ReSharper.Psi.JavaScript.Services.JavaScriptElementFactory factory, JetBrains.ReSharper.Psi.Tree.ITreeNode context, System.Func<JetBrains.ReSharper.Psi.JavaScript.Tree.IJavaScriptExpression, JetBrains.ReSharper.Psi.JavaScript.Tree.IJavaScriptExpression> addToUserCode) { }
+        public static void SetSelection(JetBrains.DocumentModel.IRangeMarker finishRangeMarker, JetBrains.ProjectModel.ISolution solution) { }
+    }
+}
+namespace JetBrains.ReSharper.Intentions.JavaScript.ContextActions.CreateFromUsage.TypeScript
+{
+    
+    public class static TsCreateFromUsageUtils
+    {
+        public static System.Collections.Generic.IList<System.Collections.Generic.IList<string>> AddParametersToMethod(JetBrains.ReSharper.Intentions.JavaScript.ContextActions.CreateFromUsage.UsageInfo usageInfo, JetBrains.ReSharper.Psi.JavaScript.Impl.Services.TypeScript.TsElementFactory factory, JetBrains.ReSharper.Psi.Tree.ITreeNode context, JetBrains.ReSharper.Psi.JavaScript.Tree.TypeScript.ITsSignatureNodeInPars signature) { }
+        public static System.Action<JetBrains.TextControl.ITextControl> MakeHotSpotsForCreatedMethod(JetBrains.ReSharper.Psi.JavaScript.Impl.Services.TypeScript.TsElementFactory factory, JetBrains.ReSharper.Psi.JavaScript.Tree.IJsSignatureNodeInPars newFunction, System.Collections.Generic.IList<System.Collections.Generic.IList<string>> allSuggestions, JetBrains.DocumentModel.DocumentRange bodyOrReturnTypeRange) { }
+        public static System.Action<JetBrains.TextControl.ITextControl> PositionAfterName(JetBrains.ReSharper.Psi.Tree.ITreeNode nameNode) { }
     }
 }
 namespace JetBrains.ReSharper.Intentions.JavaScript.ContextActions.DataProviders
@@ -470,6 +482,32 @@ namespace JetBrains.ReSharper.Intentions.JavaScript.ContextActions.DataProviders
     
     [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionDataBuilderAttribute(typeof(JetBrains.ReSharper.Feature.Services.JavaScript.Bulbs.IJavaScriptContextActionDataProvider))]
     public class JavaScriptContextActionDataBuilder : JetBrains.ReSharper.Feature.Services.Bulbs.IContextActionDataBuilder
+    {
+        public JetBrains.ReSharper.Feature.Services.Bulbs.IContextActionDataProvider Build(JetBrains.ProjectModel.ISolution solution, JetBrains.TextControl.ITextControl textControl) { }
+    }
+}
+namespace JetBrains.ReSharper.Intentions.JavaScript.ContextActions.TypeScript
+{
+    
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Infers type and generates interface", Group="TypeScript", Name="Change \'Any\' to type")]
+    public class ChangeAnyToTypeAction : JetBrains.ReSharper.Intentions.JavaScript.QuickFixes.TypeScript.GenerateInterfaceForJsVariable.GenerateInterfaceItemBase, JetBrains.ReSharper.Intentions.Extensibility.IContextAction
+    {
+        public ChangeAnyToTypeAction(JetBrains.ReSharper.Feature.Services.JavaScript.Bulbs.TypeScript.ITypeScriptContextActionDataProvider provider) { }
+        public override string Text { get; }
+        public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
+        protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
+        public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+    }
+    public class static TypeScriptContextActions
+    {
+        public const string GroupID = "TypeScript";
+    }
+}
+namespace JetBrains.ReSharper.Intentions.JavaScript.ContextActions.TypeScript.DataProviders
+{
+    
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionDataBuilderAttribute(typeof(JetBrains.ReSharper.Feature.Services.JavaScript.Bulbs.TypeScript.ITypeScriptContextActionDataProvider))]
+    public class TsContextActionDataBuilder : JetBrains.ReSharper.Feature.Services.Bulbs.IContextActionDataBuilder
     {
         public JetBrains.ReSharper.Feature.Services.Bulbs.IContextActionDataProvider Build(JetBrains.ProjectModel.ISolution solution, JetBrains.TextControl.ITextControl textControl) { }
     }
@@ -534,6 +572,13 @@ namespace JetBrains.ReSharper.Intentions.JavaScript.QuickFixes
         protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator pi) { }
         public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
+    public class RemoveRedundantLocalFunctionNameFix : JetBrains.ReSharper.Intentions.Extensibility.QuickFixBase
+    {
+        public RemoveRedundantLocalFunctionNameFix(JetBrains.ReSharper.Psi.Tree.IDeclaration declaration) { }
+        public override string Text { get; }
+        protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
+        public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+    }
     public class RemoveReturnValueFix : JetBrains.ReSharper.Intentions.Extensibility.QuickFixBase
     {
         public RemoveReturnValueFix(JetBrains.ReSharper.Daemon.JavaScript.Stages.ReturnFromGlobalScopetWithValueWarning warning) { }
@@ -589,5 +634,48 @@ namespace JetBrains.ReSharper.Intentions.JavaScript.QuickFixes.DisableWarnings
         protected abstract string OpeningText { get; }
         public abstract string Text { get; }
         public void Execute(JetBrains.ProjectModel.ISolution solution, JetBrains.TextControl.ITextControl textControl) { }
+    }
+}
+namespace JetBrains.ReSharper.Intentions.JavaScript.QuickFixes.TypeScript
+{
+    
+    public class ConvertJsFunctionFix : JetBrains.ReSharper.Intentions.Extensibility.QuickFixBase
+    {
+        public ConvertJsFunctionFix(JetBrains.ReSharper.Daemon.JavaScript.Stages.JsFunctionCanBeConvertedToLambdaWarning warning) { }
+        public override string Text { get; }
+        protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator pi) { }
+        public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+    }
+}
+namespace JetBrains.ReSharper.Intentions.JavaScript.QuickFixes.TypeScript.GenerateInterfaceForJsVariable
+{
+    
+    public class GenerateInterfaceForVariableFix : JetBrains.ReSharper.Intentions.Extensibility.IQuickFix
+    {
+        public GenerateInterfaceForVariableFix(JetBrains.ReSharper.Daemon.JavaScript.Stages.TsNotResolvedError error) { }
+        public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
+        public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+    }
+    public abstract class GenerateInterfaceItemBase : JetBrains.ReSharper.Intentions.Extensibility.BulbActionBase
+    {
+        protected JetBrains.ReSharper.Psi.JavaScript.Tree.TypeScript.ITsFile TargetFile { get; set; }
+        protected JetBrains.ReSharper.Psi.IPsiSourceFile TargetPsiSourceFile { get; set; }
+        protected void CreateFile(JetBrains.ReSharper.Psi.IPsiSourceFile sourcePsiSourceFile, JetBrains.ReSharper.Psi.Tree.ITreeNode contextNode, string jsFilename) { }
+        protected void DoGenerateInterface([JetBrains.Annotations.NotNullAttribute()] JetBrains.ReSharper.Psi.JavaScript.Resolve.FullJavaScriptType fullJavaScriptType, [JetBrains.Annotations.CanBeNullAttribute()] JetBrains.ReSharper.Psi.JavaScript.Tree.TypeScript.ITsDeclaredTypeUsage declaredTypeUsage, [JetBrains.Annotations.NotNullAttribute()] JetBrains.ReSharper.Psi.JavaScript.Impl.Resolve.JavaScriptResolveContext context, [JetBrains.Annotations.NotNullAttribute()] JetBrains.ReSharper.Psi.JavaScript.Tree.TypeScript.ITsStatement anchor, JetBrains.Application.Progress.IProgressIndicator progress) { }
+        protected virtual string RecursiveGenerateStub(JetBrains.ReSharper.Psi.JavaScript.Resolve.FullJavaScriptType fullJavaScriptType) { }
+        protected class static TsTypeUsageForJsGlobalVariableLookupItemFactory
+        {
+            public static JetBrains.ReSharper.Feature.Services.Lookup.ILookupItem CreateLookupItemByName(string nameInterface, JetBrains.ReSharper.Psi.JavaScript.Services.JavaScriptServices services, JetBrains.ReSharper.Feature.Services.Lookup.ILookupItemsOwner owner) { }
+            public static JetBrains.ReSharper.Feature.Services.Lookup.ILookupItem TryCreateLookupItemForStandartType(JetBrains.ReSharper.Feature.Services.Lookup.ILookupItemsOwner owner, JetBrains.ReSharper.Psi.JavaScript.Resolve.FullJavaScriptType fullJavaScriptType, JetBrains.ReSharper.Psi.JavaScript.Services.JavaScriptServices services) { }
+        }
+        protected sealed class TypeUsageHotspotExpression : JetBrains.ReSharper.Feature.Services.LiveTemplates.Hotspots.IHotspotExpression, System.ICloneable
+        {
+            public TypeUsageHotspotExpression([JetBrains.Annotations.NotNullAttribute()] System.Collections.Generic.IList<string> names, JetBrains.ReSharper.Psi.JavaScript.Resolve.FullJavaScriptType fullJavaScriptType, JetBrains.ReSharper.Psi.JavaScript.Services.JavaScriptServices javaScriptServices, JetBrains.TextControl.ITextControl textControl) { }
+            public object Clone() { }
+            public string EvaluateQuickResult(JetBrains.ReSharper.Feature.Services.LiveTemplates.Hotspots.IHotspotContext context) { }
+            public JetBrains.ReSharper.Feature.Services.LiveTemplates.Hotspots.HotspotItems GetLookupItems(JetBrains.ReSharper.Feature.Services.LiveTemplates.Hotspots.IHotspotContext context) { }
+            public void HandleExpansion(JetBrains.ReSharper.Feature.Services.LiveTemplates.Hotspots.IHotspotContext context) { }
+            public string Serialize() { }
+        }
     }
 }

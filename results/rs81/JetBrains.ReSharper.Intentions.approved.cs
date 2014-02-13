@@ -63,6 +63,9 @@ namespace JetBrains.ReSharper.Feature.Services.Bulbs
     {
         public abstract System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Feature.Services.Bulbs.IContextActionInfo> AllActions { get; }
         public abstract bool GetEnabled(JetBrains.Application.Settings.Store.IIndexedEntry<string, bool> disableActions, JetBrains.ReSharper.Feature.Services.Bulbs.IContextActionInfo caInfo);
+        [JetBrains.Annotations.CanBeNullAttribute()]
+        public abstract TAction InstantiateAction<TAction>(JetBrains.ProjectModel.ISolution solution, JetBrains.TextControl.ITextControl textControl)
+            where TAction :  class, JetBrains.ReSharper.Intentions.Extensibility.IContextAction;
         public abstract System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IContextAction> InstantiateAvailableActions(System.Func<JetBrains.DataFlow.Lifetime, JetBrains.Application.DataContext.DataContexts, JetBrains.Application.DataContext.IDataContext> fDataContext, System.Collections.Generic.IDictionary<System.Type, JetBrains.ReSharper.Feature.Services.Bulbs.IContextActionDataProvider> cache, JetBrains.Util.IUserDataHolder dataHolder);
     }
     [System.ObsoleteAttribute("Use IBulbAction. Retained for simplier migration from ReSharper 6 to ReSharper 7." +
@@ -183,7 +186,7 @@ namespace JetBrains.ReSharper.Intentions.Bulbs
     [JetBrains.ProjectModel.SolutionComponentAttribute()]
     public class GoodDaemonStateContextProvider
     {
-        public GoodDaemonStateContextProvider(JetBrains.DataFlow.Lifetime lifetime, JetBrains.ReSharper.Daemon.CaretDependentFeatures.ContextManager contextManager, JetBrains.ReSharper.Daemon.Daemon daemon) { }
+        public GoodDaemonStateContextProvider(JetBrains.DataFlow.Lifetime lifetime, JetBrains.ProjectModel.ISolution solution, JetBrains.ReSharper.Daemon.CaretDependentFeatures.ContextManager contextManager, JetBrains.ReSharper.Daemon.Daemon daemon) { }
     }
     public sealed class GoodDaemonStateKey : JetBrains.ReSharper.Daemon.CaretDependentFeatures.ContextKeyWithoutValueBase
     {
@@ -365,6 +368,12 @@ namespace JetBrains.ReSharper.Intentions.ContextActions
     public class static CommonContextActions
     {
         public const string GroupID = "Common";
+    }
+    public class ContextActionAsActionHandler<TAction> : JetBrains.ActionManagement.IActionHandler
+        where TAction :  class, JetBrains.ReSharper.Intentions.Extensibility.IContextAction
+    {
+        public void Execute(JetBrains.Application.DataContext.IDataContext context, JetBrains.ActionManagement.DelegateExecute nextExecute) { }
+        public bool Update(JetBrains.Application.DataContext.IDataContext context, JetBrains.ActionManagement.ActionPresentation presentation, JetBrains.ActionManagement.DelegateUpdate nextUpdate) { }
     }
     public class CustomizeStatementContextAction : JetBrains.ReSharper.Intentions.Extensibility.IBulbAction, JetBrains.ReSharper.Intentions.Extensibility.IContextAction
     {
@@ -1374,6 +1383,8 @@ namespace JetBrains.ReSharper.Intentions.QuickFixes.Naming
     }
     public class ChangeNamingRuleFix : JetBrains.ReSharper.Intentions.Extensibility.IQuickFix
     {
+        public static readonly JetBrains.UI.BulbMenu.IAnchorPosition AddAbbreviationPosition;
+        public static readonly JetBrains.UI.BulbMenu.IAnchorPosition ChangeNamePosition;
         public ChangeNamingRuleFix(JetBrains.ReSharper.Daemon.Specific.NamingConsistencyCheck.InconsistentNamingWarning error) { }
         public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
         public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
@@ -1608,6 +1619,7 @@ namespace JetBrains.ReSharper.Intentions.QuickFixes.UsageChecking
     [JetBrains.ReSharper.Feature.Services.CodeCleanup.HighlightingModule.HighlightingCleanupItemAttribute(new JetBrains.ReSharper.Daemon.Severity[0])]
     public class MakeReadonlyFix : JetBrains.ReSharper.Intentions.QuickFixes.ModifierFixBase, JetBrains.ReSharper.Feature.Services.CodeCleanup.HighlightingModule.IHighlightingsCleanupItem
     {
+        protected readonly JetBrains.ReSharper.Psi.Tree.ITypeMemberDeclaration myDeclaration;
         public MakeReadonlyFix(JetBrains.ReSharper.Daemon.UsageChecking.FieldCanBeMadeReadOnlyWarningBase error) { }
         protected MakeReadonlyFix(JetBrains.ReSharper.Psi.IField field) { }
         protected override string ModifiersText { get; }

@@ -27,6 +27,12 @@ Minor implementation changes. Not significant for plugin authors.
 
 Minor implementation changes. Not significant for plugin authors.
 
+## Intentions
+
+* Introduced and updated quick fix implementations
+* Introduced `ContextActionAsActionHandler` as a base class to implement `IActionHandler` with a context action's implementation
+* `ContextActionTable.InstantiateAction` introduced to allow creating an action handler. Used by `ContextActionAsActionHandler`
+
 ## Live Templates
 
 * `HtmlMacroImplBase` now requires two type parameters, `TLanguage`, which must derive from `HtmlLanguage` and `TFile` which must implement `IHtmlFile`. Allows for macro to be used with HTML like languages, e.g. ASP.net + Razor
@@ -74,7 +80,6 @@ No changes.
 * Daemon
 * Feature.Services
 * Features
-* Intentions
 * Product
 * PSI
 * Refactorings

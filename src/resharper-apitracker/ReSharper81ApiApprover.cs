@@ -77,7 +77,7 @@ namespace CitizenMatt.ReSharper.ApiTracker
 
         [TheoryWithLimitedFailures(10)]
         [GroupedAssemblies(AssemblyPath, "JetBrains.ReSharper.Intentions")]
-        public void Approver_resharper_intentionss(string assembly, string path)
+        public void Approver_resharper_intentions(string assembly, string path)
         {
             ApprovePublicApi(path, assembly);
         }

@@ -1,4 +1,4 @@
-﻿[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute(@"JetBrains.ReSharper.IntentionsTests, PublicKey=002400000480000094000000060200000024000052534131000400000100010087f63ba6a789c30e210e7ec987234ad9fe33baf7367993bab1b312d6f72ca296b91ed5c658964ffb9e7570eb184a527c68c6bdba41cfe67d8cfd3f888234206bf39205a3652d3af3445bb6f715fdac532e289fea41229bac37762b67eb16f58fee717d2465fca9ee17f08ed16772a1fc52c1c17022e1f0d9bdd004524a663aca")]
+﻿[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute(@"JetBrains.ReSharper.IntentionsTests, PublicKey=002400000480000094000000060200000024000052534131000400000100010087F63BA6A789C30E210E7EC987234AD9FE33BAF7367993BAB1B312D6F72CA296B91ED5C658964FFB9E7570EB184A527C68C6BDBA41CFE67D8CFD3F888234206BF39205A3652D3AF3445BB6F715FDAC532E289FEA41229BAC37762B67EB16F58FEE717D2465FCA9EE17F08ED16772A1FC52C1C17022E1F0D9BDD004524A663ACA")]
 [assembly: System.Runtime.InteropServices.ComVisibleAttribute(false)]
 
 namespace JetBrains.ReSharper.Intentions.CSharp.ContextActions
@@ -36,6 +36,14 @@ namespace JetBrains.ReSharper.Intentions.CSharp.ContextActions
         protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
         public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Replaces series of Add() method calls with collection initializer.", Group="C#", Name="Use collection initializer")]
+    public class AddsToCollectionInitializerAction : JetBrains.ReSharper.Intentions.Extensibility.IContextAction
+    {
+        public AddsToCollectionInitializerAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider provider) { }
+        public JetBrains.ReSharper.Intentions.Extensibility.IBulbAction[] Items { get; }
+        public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
+        public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+    }
     public class AddsToCollectionInitializerItem : JetBrains.ReSharper.Intentions.Extensibility.BulbActionBase
     {
         public override string Text { get; }
@@ -54,6 +62,34 @@ namespace JetBrains.ReSharper.Intentions.CSharp.ContextActions
         public override string Text { get; }
         protected override void ExecuteInternal() { }
         protected override bool IsAvailableInternal() { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Converts anonymous method to lambda", Group="C#", Name="Convert anonymous method to lambda")]
+    public class AnonymousToLambdaAction : JetBrains.ReSharper.Intentions.CSharp.ContextActions.Util.OneItemContextActionBase
+    {
+        public AnonymousToLambdaAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider dataProvider) { }
+        public override string Text { get; }
+        public static void Execute(JetBrains.ReSharper.Psi.CSharp.Tree.IAnonymousMethodExpression methodExpression, JetBrains.ReSharper.Psi.CSharp.CSharpElementFactory factory) { }
+        protected override void ExecuteInternal() { }
+        public static string GetText() { }
+        public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+        public static bool IsAvailable(JetBrains.ReSharper.Psi.CSharp.Tree.IAnonymousMethodExpression methodExpression) { }
+        protected override bool IsAvailableInternal() { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Extracts anonymous method as a private method of the containing type.", Group="C#", Name="Extract anonymous method to method of the containing type")]
+    public class AnonymousToNamedMethodAction : JetBrains.ReSharper.Intentions.CSharp.ContextActions.ToNamedMethodActionBase, JetBrains.ReSharper.Intentions.Extensibility.IContextAction
+    {
+        public AnonymousToNamedMethodAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider dataProvider) { }
+        public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
+        protected override JetBrains.ReSharper.Psi.CSharp.Tree.IAnonymousFunctionExpression GetFunctionExpression() { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Replaces ArrayList type of a local variable with generic List<T> type where T is " +
+        "guessed", Group="C#", Name="Replace ArrayList with List<T>")]
+    public class ArrayListToListAction : JetBrains.ReSharper.Intentions.Extensibility.ContextActionBase
+    {
+        public ArrayListToListAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider dataProvider) { }
+        public override string Text { get; }
+        protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
+        public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
     [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Adds assert statement that performs null reference check for a variable at the ca" +
         "ret. Assert expression can be customized by changing \'asrtn\' Live Template ", Group="C#", Name="Assert reference is not null")]
@@ -90,6 +126,24 @@ namespace JetBrains.ReSharper.Intentions.CSharp.ContextActions
         public static JetBrains.ReSharper.Psi.IField GetField(JetBrains.ReSharper.Psi.CSharp.Tree.IPropertyDeclaration propertyDeclaration) { }
         public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Converts catch(System.Exception) to catch.", Group="C#", Name="\'catch(Exception)\' to \'catch\'")]
+    public class CatchExceptionToCatchAction : JetBrains.ReSharper.Intentions.CSharp.ContextActions.Util.OneItemContextActionBase
+    {
+        public CatchExceptionToCatchAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider dataProvider) { }
+        public override string Text { get; }
+        protected override void ExecuteInternal() { }
+        protected override bool IsAvailableInternal() { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Converts catch to catch(System.Exception).", Group="C#", Name="\'catch\' to \'catch(Exception)\'")]
+    public class CatchToCatchExceptionAction : JetBrains.ReSharper.Intentions.CSharp.ContextActions.Util.OneItemContextActionBase
+    {
+        public CatchToCatchExceptionAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider dataProvider) { }
+        public override string Text { get; }
+        protected override void ExecuteInternal() { }
+        protected override object[] ExecuteInternalEx(params object[] param) { }
+        protected override object[] ExecuteInternalPostPSITransaction(params object[] data) { }
+        protected override bool IsAvailableInternal() { }
+    }
     [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Available on an access modifier keyword and allows changing access rights of a de" +
         "claration.", Group="C#", Name="Change member visibility", Priority=-1)]
     public class ChangeModifierAction : JetBrains.ReSharper.Intentions.Extensibility.IContextAction
@@ -111,6 +165,14 @@ namespace JetBrains.ReSharper.Intentions.CSharp.ContextActions
             public JetBrains.ReSharper.Psi.Services.StructuralSearch.ISequenceStructuralMatcher ThrowNewNotImplementedExMatcher { get; }
         }
     }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Checks function parameter for null.", Group="C#", Name="Check if parameter is null")]
+    public class CheckParamNullAction : JetBrains.ReSharper.Intentions.CSharp.ContextActions.Util.OneItemContextActionBase
+    {
+        public CheckParamNullAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider dataProvider) { }
+        public override string Text { get; }
+        protected override void ExecuteInternal() { }
+        protected override bool IsAvailableInternal() { }
+    }
     [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Puts the current statement under an \'if\' statement that performs null reference c" +
         "heck for a variable at the caret.", Group="C#", Name="Check if reference is not null", Priority=2)]
     public class CheckReferenceNullAction : JetBrains.ReSharper.Intentions.Extensibility.ContextActionBase
@@ -131,10 +193,41 @@ namespace JetBrains.ReSharper.Intentions.CSharp.ContextActions
             public ModificationResult(JetBrains.ReSharper.Psi.Tree.ITreeNode caretElement) { }
         }
     }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Checks variable for null.", Group="C#", Name="Check if variable is null")]
+    public class CheckVariableNullAction : JetBrains.ReSharper.Intentions.CSharp.ContextActions.Util.OneItemContextActionBase
+    {
+        public CheckVariableNullAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider dataProvider) { }
+        public override string Text { get; }
+        protected override void ExecuteInternal() { }
+        protected override object[] ExecuteInternalPostPSITransaction(params object[] data) { }
+        protected override bool IsAvailableInternal() { }
+    }
     [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Converts null coalescing operator to ternary conditional operator.", Group="C#", Name="Convert coalescing operator to ternary")]
     public class CoalescingToTernaryAction : JetBrains.ReSharper.Intentions.CSharp.ContextActions.Util.OneItemContextActionBase
     {
         public CoalescingToTernaryAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider dataProvider) { }
+        public override string Text { get; }
+        protected override void ExecuteInternal() { }
+        protected override bool IsAvailableInternal() { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Replaces collection or collection element initializer with series of Add method c" +
+        "alls.", Group="C#", Name="Use Add() method calls")]
+    public class CollectionInitializerToAddsAction : JetBrains.ReSharper.Intentions.CSharp.ContextActions.Util.OneItemContextActionBase
+    {
+        public CollectionInitializerToAddsAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider dataProvider) { }
+        public override string Text { get; }
+        public static System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Psi.CSharp.Tree.ICollectionElementInitializer> BuildElementInitializers(JetBrains.ReSharper.Psi.Tree.ITreeNode element) { }
+        public static JetBrains.ReSharper.Psi.CSharp.Tree.ICSharpStatement Execute(System.Func<System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Psi.CSharp.Tree.ICollectionElementInitializer>> initializers, JetBrains.ReSharper.Psi.CSharp.CSharpElementFactory factory) { }
+        protected override void ExecuteInternal() { }
+        public static string GetText() { }
+        public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+        public static bool IsAvailable(System.Func<System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Psi.CSharp.Tree.ICollectionElementInitializer>> initializers, JetBrains.ReSharper.Psi.CSharp.CSharpElementFactory factory) { }
+        protected override bool IsAvailableInternal() { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Copies comments from base to overriding members/types", Group="C#", Name="Copy comments from base", Priority=-10)]
+    public class CopyCommentsAction : JetBrains.ReSharper.Intentions.CSharp.ContextActions.Util.OneItemContextActionBase
+    {
+        public CopyCommentsAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider dataProvider) { }
         public override string Text { get; }
         protected override void ExecuteInternal() { }
         protected override bool IsAvailableInternal() { }
@@ -156,6 +249,14 @@ namespace JetBrains.ReSharper.Intentions.CSharp.ContextActions
         protected override object[] ExecuteInternalEx(params object[] param) { }
         protected override object[] ExecuteInternalPostPSITransaction(params object[] data) { }
         protected override bool IsAvailableInternal() { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Available on method invocation, creates overload with selected argument\'s type", Group="C#", Name="Create overload with selected argument\'s type", Priority=1)]
+    public class CreateOverloadForArgumentTypeAction : JetBrains.ReSharper.Intentions.Extensibility.IContextAction
+    {
+        public CreateOverloadForArgumentTypeAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider provider) { }
+        public JetBrains.ReSharper.Intentions.Extensibility.IBulbAction[] Items { get; }
+        public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
+        public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
     public class static CSharpContextActions
     {
@@ -376,6 +477,73 @@ namespace JetBrains.ReSharper.Intentions.CSharp.ContextActions
         public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
         public static bool IsAvailable(JetBrains.ReSharper.Psi.CSharp.Tree.IAssignmentExpression assignmentExpression, JetBrains.ReSharper.Psi.CSharp.Tree.ILocalVariableDeclaration localVariableDeclaration, System.Predicate<JetBrains.ReSharper.Psi.TreeTextRange> rangeChecker) { }
     }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Concatenates two string literals into one.", Group="C#", Name="Join string literals")]
+    public class JoinStringsAction : JetBrains.ReSharper.Intentions.CSharp.ContextActions.Util.OneItemContextActionBase
+    {
+        public JoinStringsAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider dataProvider) { }
+        public override string Text { get; }
+        protected override void ExecuteInternal() { }
+        protected override object[] ExecuteInternalEx(params object[] param) { }
+        protected override object[] ExecuteInternalPostPSITransaction(params object[] data) { }
+        protected override bool IsAvailableInternal() { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Converts expression of lambda body to return statement", Group="C#", Name="Convert lambda expression body to body with single return statement")]
+    public class LambdaExpressionToReturnAction : JetBrains.ReSharper.Intentions.CSharp.ContextActions.Util.OneItemContextActionBase
+    {
+        public LambdaExpressionToReturnAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider dataProvider) { }
+        public override string Text { get; }
+        protected override void ExecuteInternal() { }
+        protected override bool IsAvailableInternal() { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Converts return statement of lambda body to expression", Group="C#", Name="Convert lambda body with single return statement to expression")]
+    public class LambdaReturnToExpressionAction : JetBrains.ReSharper.Intentions.CSharp.ContextActions.Util.OneItemContextActionBase
+    {
+        public LambdaReturnToExpressionAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider dataProvider) { }
+        public override string Text { get; }
+        public static void Execute(JetBrains.ReSharper.Psi.CSharp.Tree.ILambdaExpression lambdaExpression, JetBrains.ReSharper.Psi.CSharp.CSharpElementFactory factory) { }
+        protected override void ExecuteInternal() { }
+        public static string GetText() { }
+        public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+        public static bool IsAvailable(JetBrains.ReSharper.Psi.CSharp.Tree.ILambdaExpression lambdaExpression) { }
+        protected override bool IsAvailableInternal() { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Converts lambda to anonymous method.", Group="C#", Name="Convert lambda to anonymous delegate")]
+    public class LambdaToAnonymousAction : JetBrains.ReSharper.Intentions.CSharp.ContextActions.Util.OneItemContextActionBase
+    {
+        public LambdaToAnonymousAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider dataProvider) { }
+        public override string Text { get; }
+        protected override void ExecuteInternal() { }
+        protected override bool IsAvailableInternal() { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Extracts lambda as a private method of the containing type.", Group="C#", Name="Extract lambda to method of the containing type")]
+    public class LambdaToNamedMethodAction : JetBrains.ReSharper.Intentions.CSharp.ContextActions.ToNamedMethodActionBase, JetBrains.ReSharper.Intentions.Extensibility.IContextAction
+    {
+        public LambdaToNamedMethodAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider dataProvider) { }
+        public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
+        protected override JetBrains.ReSharper.Psi.CSharp.Tree.IAnonymousFunctionExpression GetFunctionExpression() { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Converts method group to anonymous method.", Group="C#", Name="Convert method group to anonymous method", Priority=9)]
+    public class MethodGroupToAnonymousMethodAction : JetBrains.ReSharper.Intentions.CSharp.ContextActions.MethodGroupToFunctionBase, JetBrains.ReSharper.Intentions.Extensibility.IContextAction
+    {
+        public MethodGroupToAnonymousMethodAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider provider) { }
+        public override JetBrains.ReSharper.Intentions.Extensibility.IBulbAction[] Items { get; }
+        public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+    }
+    public abstract class MethodGroupToFunctionBase
+    {
+        protected MethodGroupToFunctionBase(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider provider) { }
+        public abstract JetBrains.ReSharper.Intentions.Extensibility.IBulbAction[] Items { get; }
+        protected JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider Provider { get; }
+        public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
+        public abstract bool IsAvailable(JetBrains.Util.IUserDataHolder cache);
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Converts method group to lambda expression.", Group="C#", Name="Convert method group to lambda", Priority=10)]
+    public class MethodGroupToLambdaAction : JetBrains.ReSharper.Intentions.CSharp.ContextActions.MethodGroupToFunctionBase, JetBrains.ReSharper.Intentions.Extensibility.IContextAction
+    {
+        public MethodGroupToLambdaAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider provider) { }
+        public override JetBrains.ReSharper.Intentions.Extensibility.IBulbAction[] Items { get; }
+        public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+    }
     public class static MethodGroupUtil
     {
         public static JetBrains.ReSharper.Psi.CSharp.Tree.IReferenceExpression FindReferenceExpression(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider provider) { }
@@ -389,6 +557,16 @@ namespace JetBrains.ReSharper.Intentions.CSharp.ContextActions
         public override string Text { get; }
         protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
         public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Moves selected declarations range or a single declaration (if invoked without sel" +
+        "ection on declaration name) to another type part of a partial type.", Group="C#", Name="Move declaration(s) to another type part")]
+    public class MoveToAnotherPartAction : JetBrains.ReSharper.Intentions.CSharp.ContextActions.Util.OneItemContextActionBase
+    {
+        public MoveToAnotherPartAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider dataProvider) { }
+        public override string Text { get; }
+        protected override void ExecuteInternal() { }
+        protected override object[] ExecuteInternalPostPSITransaction(params object[] data) { }
+        protected override bool IsAvailableInternal() { }
     }
     [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Moves variable to outer scope.", Group="C#", Name="Move to outer scope")]
     public class MoveToOuterScopeAction : JetBrains.ReSharper.Intentions.CSharp.ContextActions.Util.OneItemContextActionBase
@@ -434,6 +612,18 @@ namespace JetBrains.ReSharper.Intentions.CSharp.ContextActions
         public JetBrains.ReSharper.Intentions.Extensibility.IBulbAction[] Items { get; }
         public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
         public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Replaces initializer with series of assignments.", Group="C#", Name="To assignment statements")]
+    public class ObjectInitializerToAssignmentsAction : JetBrains.ReSharper.Intentions.Extensibility.ContextActionBase
+    {
+        public ObjectInitializerToAssignmentsAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider dataProvider) { }
+        public JetBrains.UI.RichText.RichText RichText { get; }
+        public override string Text { get; }
+        public override System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
+        protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
+        public static JetBrains.UI.RichText.RichText GetText(System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Psi.CSharp.Tree.IMemberInitializer> memberInitializers) { }
+        public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+        public static System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Psi.CSharp.Tree.IMemberInitializer> MemberInitializersFromSelectedNode(JetBrains.ReSharper.Psi.Tree.ITreeNode selectedElement) { }
     }
     [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Removes unnecessary braces around one or more statements in the code", Group="C#", Name="Remove braces")]
     public class RemoveBracesAction : JetBrains.ReSharper.Intentions.Extensibility.ContextActionBase
@@ -553,6 +743,16 @@ namespace JetBrains.ReSharper.Intentions.CSharp.ContextActions
         protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
         public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Splits string literal into two literals.", Group="C#", Name="Split string literal", Priority=9)]
+    public class SplitStringAction : JetBrains.ReSharper.Intentions.CSharp.ContextActions.Util.OneItemContextActionBase
+    {
+        public SplitStringAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider dataProvider) { }
+        public override string Text { get; }
+        protected override void ExecuteInternal() { }
+        protected override object[] ExecuteInternalEx(params object[] param) { }
+        protected override object[] ExecuteInternalPostPSITransaction(params object[] data) { }
+        protected override bool IsAvailableInternal() { }
+    }
     [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Replaces original variable with several ones declared in inner blocks of the curr" +
         "ent block.", Group="C#", Name="Splits variable into several ones")]
     public class SplitVariableAction : JetBrains.ReSharper.Intentions.CSharp.ContextActions.Util.OneItemContextActionBase
@@ -627,6 +827,25 @@ namespace JetBrains.ReSharper.Intentions.CSharp.ContextActions
         public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
         protected bool IsAvailableInternal() { }
     }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Replaces array initializer with array creation expression.", Group="C#", Name="Replace array initializer with creation expression", Priority=5)]
+    public class UseArrayCreationExpressionAction : JetBrains.ReSharper.Intentions.Extensibility.ContextActionBase
+    {
+        public UseArrayCreationExpressionAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider provider) { }
+        public override string Text { get; }
+        protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
+        public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Converts \'if(a is B) {}\' to \'var b = a as B; if(b != null) {}\' and updates usages" +
+        "", Group="C#", Name="Use \'as\' and check for null")]
+    public class UseAsAndCheckForNullAction : JetBrains.ReSharper.Intentions.Extensibility.ContextActionBase
+    {
+        public UseAsAndCheckForNullAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider provider) { }
+        public override string Text { get; }
+        public static System.Action<JetBrains.TextControl.ITextControl> Execute(JetBrains.ProjectModel.ISolution solution, JetBrains.ReSharper.Psi.CSharp.Tree.IIsExpression isExpression) { }
+        protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
+        public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+        public static bool IsAvailable(JetBrains.ReSharper.Psi.CSharp.Tree.IIsExpression isExpression) { }
+    }
     [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Adds explicit type specification to array creation expression.", Group="C#", Name="Specify array type explicitly")]
     public class UseExplicitArrayAction : JetBrains.ReSharper.Intentions.Extensibility.ContextActionBase
     {
@@ -635,6 +854,24 @@ namespace JetBrains.ReSharper.Intentions.CSharp.ContextActions
         protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
         public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
         protected bool IsAvailableImpl() { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Inserts method\'s inferred type arguments.", Group="C#", Name="Insert inferred type arguments")]
+    public class UseExplicitTypeParametersAction : JetBrains.ReSharper.Intentions.Extensibility.ContextActionBase
+    {
+        public UseExplicitTypeParametersAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider dataProvider) { }
+        public override string Text { get; }
+        protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
+        public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Replaces series of assignments with object initializer.", Group="C#", Name="Use object initializer")]
+    public class UseObjectInitializerAction : JetBrains.ReSharper.Intentions.Extensibility.ContextActionBase
+    {
+        public UseObjectInitializerAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider dataProvider) { }
+        public override string Text { get; }
+        public static System.Action<JetBrains.TextControl.ITextControl> Execute(System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Psi.CSharp.Tree.ICSharpExpression> assignments, JetBrains.ReSharper.Psi.CSharp.Tree.IObjectCreationExpression creationExpression) { }
+        protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
+        public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+        public static JetBrains.ReSharper.Psi.Tree.ITreeNode ProcessAssignments(System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Psi.CSharp.Tree.ICSharpExpression> expressions, JetBrains.ReSharper.Psi.CSharp.Tree.IObjectCreationExpression creationExpression) { }
     }
     [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Replace \'var\' with explicit type declaration.", Group="C#", Name="Replaces \'var\' with explicit type declaration", Priority=1)]
     public class VarToTypeAction : JetBrains.ReSharper.Intentions.Extensibility.ContextActionBase
@@ -681,6 +918,42 @@ namespace JetBrains.ReSharper.Intentions.CSharp.ContextActions.Annotations
 namespace JetBrains.ReSharper.Intentions.CSharp.ContextActions.Check
 {
     
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Checks index value for arrays", Group="C#", Name="Check array index value", Priority=1)]
+    public class CheckArrayIndexValueAction : JetBrains.ReSharper.Intentions.CSharp.ContextActions.Check.CheckArrayIndexValueActionBase
+    {
+        public CheckArrayIndexValueAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider provider) { }
+    }
+    public abstract class CheckArrayIndexValueActionBase : JetBrains.ReSharper.Intentions.CSharp.ContextActions.Misc.Check.CheckArgumentActionBase
+    {
+        protected CheckArrayIndexValueActionBase(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider provider) { }
+        protected override string ConditionalExpressionFormat { get; }
+        protected override string IfStatementFormat { get; }
+        protected override string ParameterName { get; }
+        protected override string SingleIfStatementFormat { get; }
+        protected virtual JetBrains.ReSharper.Psi.IClrTypeName SupportedType { get; }
+        protected override string SurroundIfStatementFormat { get; }
+        public override string Text { get; }
+        protected override bool IsSupportedArgument(JetBrains.Util.Pair<string, JetBrains.ReSharper.Intentions.CSharp.ContextActions.Check.MemberInfo> pair) { }
+        protected override bool IsSupportedParamenter(JetBrains.ReSharper.Psi.IParametersOwner parametersOwner) { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Checks index value for collections and lists", Group="C#", Name="Check collection index value", Priority=1)]
+    public class CheckCollectionIndexValueAction : JetBrains.ReSharper.Intentions.CSharp.ContextActions.Check.CheckCollectionIndexValueActionBase
+    {
+        public CheckCollectionIndexValueAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider provider) { }
+    }
+    public abstract class CheckCollectionIndexValueActionBase : JetBrains.ReSharper.Intentions.CSharp.ContextActions.Misc.Check.CheckArgumentActionBase
+    {
+        protected CheckCollectionIndexValueActionBase(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider provider) { }
+        protected virtual string ActionTextFormat { get; }
+        protected override string ConditionalExpressionFormat { get; }
+        protected override string IfStatementFormat { get; }
+        protected override string ParameterName { get; }
+        protected override string SingleIfStatementFormat { get; }
+        protected virtual System.Collections.Generic.JetHashSet<JetBrains.ReSharper.Psi.IClrTypeName> SupportedInterfaces { get; }
+        protected override string SurroundIfStatementFormat { get; }
+        public override string Text { get; }
+        protected override bool IsSupportedParamenter(JetBrains.ReSharper.Psi.IParametersOwner parametersOwner) { }
+    }
     public class MemberInfo
     {
         public string ElementName { get; }
@@ -756,9 +1029,41 @@ namespace JetBrains.ReSharper.Intentions.CSharp.ContextActions.ImplementOrOverri
         protected override string SelectPartText() { }
     }
 }
+namespace JetBrains.ReSharper.Intentions.CSharp.ContextActions.Misc.Check
+{
+    
+    public abstract class CheckArgumentActionBase : JetBrains.ReSharper.Intentions.Extensibility.ContextActionBase
+    {
+        protected JetBrains.ReSharper.Psi.Tree.IExpression myExpression;
+        protected readonly JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider myProvider;
+        protected JetBrains.ReSharper.Psi.Tree.IExpression myReferenceExpression;
+        protected CheckArgumentActionBase(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider provider) { }
+        protected abstract string ConditionalExpressionFormat { get; }
+        protected abstract string IfStatementFormat { get; }
+        protected abstract string ParameterName { get; }
+        protected abstract string SingleIfStatementFormat { get; }
+        protected abstract string SurroundIfStatementFormat { get; }
+        [JetBrains.Annotations.NotNullAttribute()]
+        protected static JetBrains.ReSharper.Psi.IDeclaredType CreateTypeByClrName(JetBrains.ReSharper.Psi.IClrTypeName name, [JetBrains.Annotations.NotNullAttribute()] JetBrains.ReSharper.Psi.Modules.IPsiModule psiModule, JetBrains.Metadata.Reader.API.IModuleReferenceResolveContext context) { }
+        protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
+        public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+        protected static bool IsStatic(JetBrains.ReSharper.Psi.IModifiersOwner modifiersOwner) { }
+        protected virtual bool IsSupportedArgument(JetBrains.Util.Pair<string, JetBrains.ReSharper.Intentions.CSharp.ContextActions.Check.MemberInfo> pair) { }
+        protected abstract bool IsSupportedParamenter(JetBrains.ReSharper.Psi.IParametersOwner parametersOwner);
+    }
+}
 namespace JetBrains.ReSharper.Intentions.CSharp.ContextActions.Misc
 {
     
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Computes value of the current expression and replaces it (e.g. 1 + 1 replaced by " +
+        "2).", Group="C#", Name="Compute constant value", Priority=15)]
+    public class ComputeConstantValueAction : JetBrains.ReSharper.Intentions.Extensibility.ContextActionBase
+    {
+        public ComputeConstantValueAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider provider) { }
+        public override string Text { get; }
+        protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
+        public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+    }
     [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Converts regular string \"\" to verbatim string @\"\".", Group="C#", Name="Convert to verbatim string", Priority=8)]
     public class ConvertRegularStringToVerbatimAction : JetBrains.ReSharper.Intentions.Extensibility.ContextActionBase
     {
@@ -772,6 +1077,58 @@ namespace JetBrains.ReSharper.Intentions.CSharp.ContextActions.Misc
         public static bool IsRegularString([JetBrains.Annotations.CanBeNullAttribute()] JetBrains.ReSharper.Psi.Tree.IExpression stringLiteral) { }
         public static bool IsString([JetBrains.Annotations.CanBeNullAttribute()] JetBrains.ReSharper.Psi.Tree.IExpression expression) { }
         public static bool IsVerbatimString([JetBrains.Annotations.CanBeNullAttribute()] JetBrains.ReSharper.Psi.Tree.IExpression stringLiteral) { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Flips the current invocation expression e.g. left.Equals(right) to right.Equals(l" +
+        "eft).", Group="C#", Name="Flip an invocation expression", Priority=-15)]
+    public class FlipInvocationAction : JetBrains.ReSharper.Intentions.Extensibility.ContextActionBase
+    {
+        public FlipInvocationAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider provider) { }
+        public override string Text { get; }
+        protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
+        public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Flips left and right arguments for selected operator e.g. null == list to list ==" +
+        " null.", Group="C#", Name="Flip an operator arguments", Priority=-15)]
+    public class FlipOperatorArgumentsAction : JetBrains.ReSharper.Intentions.Extensibility.ContextActionBase
+    {
+        public FlipOperatorArgumentsAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider provider) { }
+        public override string Text { get; }
+        protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
+        public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Flips the current relational expression e.g. list.Cont > 1 to list.Cont < 1.", Group="C#", Name="Flip an relational expression", Priority=-15)]
+    public class FlipRelationalExpressionAction : JetBrains.ReSharper.Intentions.Extensibility.ContextActionBase
+    {
+        public FlipRelationalExpressionAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider provider) { }
+        public override string Text { get; }
+        protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
+        public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+    }
+}
+namespace JetBrains.ReSharper.Intentions.CSharp.ContextActions.NonI18n
+{
+    
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Creates string literal of selection text.", Disabled=true, Group="C#", Name="Surround with \"\"", Priority=-20)]
+    public class CSharpSurroundWithQuotesAction : JetBrains.ReSharper.Intentions.ContextActions.SurroundWithQuotesActionBase
+    {
+        public CSharpSurroundWithQuotesAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider provider) { }
+        protected override string MakeStringLiteral(string text) { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Use System.String.Empty instead of \"\" literal.", Group="C#", Name="Use System.String.Empty", Priority=-20)]
+    public class CSharpUseStringEmptyAction : JetBrains.ReSharper.Intentions.ContextActions.UseStringEmptyActionBase
+    {
+        public CSharpUseStringEmptyAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider provider) { }
+        protected override JetBrains.ReSharper.Psi.Tree.IExpression CreateExpression() { }
+        protected override bool IsConstantExpression(JetBrains.ReSharper.Psi.Tree.IExpression expression) { }
+        protected override void OptimizeRefs(JetBrains.DocumentModel.IRangeMarker marker, JetBrains.ReSharper.Psi.Tree.IFile file) { }
+    }
+    [JetBrains.ReSharper.Feature.Services.Bulbs.ContextActionAttribute(Description="Use System.Environment.NewLine instead of \"\\n\", \"\\r\" or \"\\r\\n\" literal.", Group="C#", Name="Use System.Environment.NewLine", Priority=-20)]
+    public class UseEnvironmentNewLineAction : JetBrains.ReSharper.Intentions.Extensibility.ContextActionBase
+    {
+        public UseEnvironmentNewLineAction(JetBrains.ReSharper.Feature.Services.CSharp.Bulbs.ICSharpContextActionDataProvider provider) { }
+        public override string Text { get; }
+        protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
+        public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
 }
 namespace JetBrains.ReSharper.Intentions.CSharp.ContextActions.Partial
@@ -1435,6 +1792,13 @@ namespace JetBrains.ReSharper.Intentions.CSharp.QuickFixes
         public ChangeArrayElementTypeFix(JetBrains.ReSharper.Daemon.CSharp.Errors.CoVariantArrayConversionWarning error) { }
         protected override JetBrains.ReSharper.Psi.IClrDeclaredElement GetDeclaredElement() { }
         protected override JetBrains.ReSharper.Psi.IType GetTargetType() { }
+    }
+    public class ChangeCreatedArrayTypeFix : JetBrains.ReSharper.Intentions.Extensibility.QuickFixBase
+    {
+        public ChangeCreatedArrayTypeFix(JetBrains.ReSharper.Daemon.CSharp.Errors.CoVariantArrayConversionWarning warning) { }
+        public override string Text { get; }
+        protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
+        public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
     public class ChangeDelegateSignatureFix : JetBrains.ReSharper.Intentions.QuickFixes.ChangeSignatureFixBase
     {
@@ -2660,14 +3024,12 @@ namespace JetBrains.ReSharper.Intentions.CSharp.QuickFixes
     public class ImplementGenericIEnumerableForForeachStatementFix : JetBrains.ReSharper.Intentions.Extensibility.IQuickFix
     {
         public ImplementGenericIEnumerableForForeachStatementFix(JetBrains.ReSharper.Daemon.CSharp.Errors.TypeIsNotEnumerableError error) { }
-        public JetBrains.ReSharper.Intentions.Extensibility.IBulbAction[] Items { get; }
         public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
         public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
     public class ImplementGenericIEnumerableForQueryExpressionFix : JetBrains.ReSharper.Intentions.Extensibility.IQuickFix
     {
         public ImplementGenericIEnumerableForQueryExpressionFix(JetBrains.ReSharper.Daemon.CSharp.Errors.NotResolvedError error) { }
-        public JetBrains.ReSharper.Intentions.Extensibility.IBulbAction[] Items { get; }
         public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
         public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
@@ -2719,6 +3081,13 @@ namespace JetBrains.ReSharper.Intentions.CSharp.QuickFixes
         public string Text { get; }
         public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
         public void Execute(JetBrains.ProjectModel.ISolution solution, JetBrains.TextControl.ITextControl textControl) { }
+        public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+    }
+    public sealed class ImplementMembersByDelegationFix : JetBrains.ReSharper.Intentions.Extensibility.IQuickFix
+    {
+        public ImplementMembersByDelegationFix(JetBrains.ReSharper.Daemon.CSharp.Errors.AbstractInheritedMemberIsNotImplementedError error) { }
+        public ImplementMembersByDelegationFix(JetBrains.ReSharper.Daemon.CSharp.Errors.InterfaceMembersNotImplementedError error) { }
+        public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
         public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
     public class ImplementNotifyPropertyChangedFix : JetBrains.ReSharper.Intentions.Extensibility.QuickFixBase
@@ -4211,6 +4580,13 @@ namespace JetBrains.ReSharper.Intentions.CSharp.QuickFixes
         public JetBrains.ReSharper.Intentions.Extensibility.IBulbAction[] Items { get; }
         public System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Intentions.Extensibility.IntentionAction> CreateBulbItems() { }
         public bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
+    }
+    public class UseExplicitCastInForeachFix : JetBrains.ReSharper.Intentions.Extensibility.QuickFixBase
+    {
+        public UseExplicitCastInForeachFix(JetBrains.ReSharper.Psi.CSharp.Tree.IForeachStatement foreachStatement) { }
+        public override string Text { get; }
+        protected override System.Action<JetBrains.TextControl.ITextControl> ExecutePsiTransaction(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.Progress.IProgressIndicator progress) { }
+        public override bool IsAvailable(JetBrains.Util.IUserDataHolder cache) { }
     }
     public class UseIndexedPropertyFix : JetBrains.ReSharper.Intentions.Extensibility.QuickFixBase
     {
