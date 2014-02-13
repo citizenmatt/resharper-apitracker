@@ -19,7 +19,6 @@ namespace JetBrains.ReSharper.Features.Common.UI
 namespace JetBrains.ReSharper.Product.VisualStudio.Internal.ErrorStripeProto
 {
     
-    [JetBrains.Application.ShellComponentAttribute()]
     public class ErrorStripeProtoOptionsPage
     {
         public ErrorStripeProtoOptionsPage(JetBrains.DataFlow.Lifetime lifetime, JetBrains.UI.Application.IUIApplication environment) { }
@@ -69,18 +68,6 @@ namespace JetBrains.ReSharper.VSI.Actions
     {
         public UserControl666() { }
         public void InitializeComponent() { }
-    }
-}
-namespace JetBrains.ReSharper.VSI.Components
-{
-    
-    public class static SolutionWatchdog
-    {
-        [JetBrains.ProjectModel.SolutionComponentAttribute()]
-        public class SolCompo : System.IDisposable
-        {
-            public SolCompo([JetBrains.Annotations.NotNullAttribute()] JetBrains.ProjectModel.ISolution solution) { }
-        }
     }
 }
 namespace JetBrains.ReSharper.VSI.Misc

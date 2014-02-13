@@ -1,7 +1,7 @@
 ﻿[assembly: JetBrains.Application.ApplicationDescriptorAttribute(typeof(JetBrains.ReSharper.ReSharperApplicationDescriptor))]
 [assembly: JetBrains.UI.Icons.CompiledIcons.CompiledIconsPackAttribute(IconNames=new string[] {
-        "VsOptionsPage",
-        "ProductUsagePage"}, IconPackResourceIdentification="JetBrains.ReSharper.Product.VisualStudio.Core;component/Resources/ReSharperVisual" +
+        "ProductUsagePage",
+        "VsOptionsPage"}, IconPackResourceIdentification="JetBrains.ReSharper.Product.VisualStudio.Core;component/Resources/ReSharperVisual" +
     "StudioCoreThemedIcons/ThemedIcons.ReSharperVisualStudioCore.Generated.Xaml")]
 [assembly: System.Runtime.InteropServices.ComVisibleAttribute(false)]
 [assembly: System.Windows.Markup.XmlnsDefinitionAttribute("urn:shemas-jetbrains-com:ui-application-icons-re-sharper-visual-studio-core", "JetBrains.ReSharper.Product.VisualStudio.Core.Resources")]
@@ -60,16 +60,38 @@ namespace JetBrains.ReSharper.Product.VisualStudio.Core.Resources
     public sealed class ReSharperVisualStudioCoreThemedIcons
     {
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Product.VisualStudio.Core;component/Resources/ReSharperVisual" +
-            "StudioCoreThemedIcons/ThemedIcons.ReSharperVisualStudioCore.Generated.Xaml", 1, "ProductUsagePage")]
+            "StudioCoreThemedIcons/ThemedIcons.ReSharperVisualStudioCore.Generated.Xaml", 0, "ProductUsagePage")]
         public sealed class ProductUsagePage : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.ReSharper.Product.VisualStudio.Core;component/Resources/ReSharperVisual" +
-            "StudioCoreThemedIcons/ThemedIcons.ReSharperVisualStudioCore.Generated.Xaml", 0, "VsOptionsPage")]
+            "StudioCoreThemedIcons/ThemedIcons.ReSharperVisualStudioCore.Generated.Xaml", 1, "VsOptionsPage")]
         public sealed class VsOptionsPage : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
+        }
+    }
+}
+namespace JetBrains.ReSharper.Product.VisualStudio.Core.SolutionWatchdog
+{
+    
+    [JetBrains.Application.Settings.SettingsKeyAttribute(typeof(System.Reflection.Missing), "Solution watchdog settings")]
+    public class SolutionWatchdogSettingsKey
+    {
+        [JetBrains.Application.Settings.SettingsEntryAttribute(true, "Is solution watchdog enabled")]
+        public bool IsEnabled;
+    }
+}
+namespace JetBrains.ReSharper.VSI.Components
+{
+    
+    public class static SolutionWatchdog
+    {
+        [JetBrains.ProjectModel.SolutionComponentAttribute()]
+        public class SolCompo : System.IDisposable
+        {
+            public SolCompo([JetBrains.Annotations.NotNullAttribute()] JetBrains.ProjectModel.ISolution solution, JetBrains.DataFlow.Lifetime lt) { }
         }
     }
 }

@@ -26,8 +26,8 @@ namespace CitizenMatt.ReSharper.ApiTracker
             ApprovePublicApi(path, assembly);
         }
 
-        [TheoryWithLimitedFailures(40)]
-        [GroupedAssemblies(AssemblyPath, "JetBrains.Platform",
+        [TheoryWithLimitedFailures(10)]
+        [GroupedAssemblies(AssemblyPath, "JetBrains.Platform", "JetBrains.ReSharper.Product.UI",
             AssemblyPrefixesToIgnore = new[] { "JetBrains.Platform.ReSharper.VisualStudio" })]
         public void Approver_resharper_platform(string assembly, string path)
         {
@@ -36,7 +36,7 @@ namespace CitizenMatt.ReSharper.ApiTracker
 
         [TheoryWithLimitedFailures(10)]
         [GroupedAssemblies(AssemblyPath, "JetBrains.Platform.ReSharper.VisualStudio",
-            "JetBrains.PsiFeatures.VisualStudio")]
+            "JetBrains.PsiFeatures.VisualStudio", "JetBrains.ReSharper.Product.VisualStudio")]
         public void Approver_resharper_visual_studio_integration(string assembly, string path)
         {
             ApprovePublicApi(path, assembly);
@@ -87,13 +87,6 @@ namespace CitizenMatt.ReSharper.ApiTracker
         [TheoryWithLimitedFailures(10)]
         [GroupedAssemblies(AssemblyPath, "JetBrains.ReSharper.LiveTemplates")]
         public void Approver_resharper_live_templates(string assembly, string path)
-        {
-            ApprovePublicApi(path, assembly);
-        }
-
-        [TheoryWithLimitedFailures(10)]
-        [GroupedAssemblies(AssemblyPath, "JetBrains.ReSharper.Product")]
-        public void Approver_resharper_product(string assembly, string path)
         {
             ApprovePublicApi(path, assembly);
         }
