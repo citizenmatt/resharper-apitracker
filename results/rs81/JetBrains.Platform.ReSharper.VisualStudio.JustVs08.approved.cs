@@ -1,12 +1,22 @@
 ﻿[assembly: System.Runtime.InteropServices.ComVisibleAttribute(false)]
 
+namespace JetBrains.VsIntegration.JustVs08.IDE
+{
+    
+    [JetBrains.Application.ShellComponentAttribute()]
+    public class VsDebuggerMonitorVs08 : JetBrains.VsIntegration.IDE.VsDebuggerMonitor
+    {
+        public VsDebuggerMonitorVs08([JetBrains.Annotations.NotNullAttribute()] JetBrains.DataFlow.Lifetime lifetime, [JetBrains.Annotations.NotNullAttribute()] EnvDTE.DTE dte, JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.Shell.Interop.IVsDebugger> vsDebugger) { }
+        protected override bool GetEditAndContinue() { }
+    }
+}
 namespace JetBrains.VsIntegration.JustVs08.ProjectModel
 {
     
     [JetBrains.ProjectModel.Properties.ProjectModelExtensionAttribute()]
     public class VcxProjectPropertiesBuilder08 : JetBrains.VsIntegration.ProjectModel.ProjectProperties.VcxProjectPropertiesBuilder
     {
-        public VcxProjectPropertiesBuilder08() { }
+        public VcxProjectPropertiesBuilder08(JetBrains.VsIntegration.ProjectModel.ProjectProperties.ProjectActiveConfigurationAccessor activeConfigurationAccessor) { }
         protected override void ProcessVCProject(EnvDTE.Project project, JetBrains.ProjectModel.Properties.VCXProj.VCXBuildSettings vcxBuildSettings, EnvDTE.Configuration configuration, JetBrains.ProjectModel.Properties.VCXProj.VCXProjectConfiguration vcxProjectConfiguration) { }
     }
 }
@@ -73,8 +83,8 @@ namespace JetBrains.VsIntegration.VX.ProjectModel
     public class VcxProjectContentBuilderMirror : JetBrains.VsIntegration.ProjectModel.ProjectContent.VSDefaultProjectContentBuilder
     {
         public VcxProjectContentBuilderMirror(JetBrains.ProjectModel.ProjectFileExtensions projectFileExtensions) { }
-        public override void CreateMissingItems(JetBrains.VsIntegration.ProjectModel.VsHierarchyItem hitem, JetBrains.ProjectModel.Update.IProjectDescriptor projectDescriptor, JetBrains.VsIntegration.ProjectModel.IVSProjectFilePropertiesBuilder projectFilePropertiesBuilder, JetBrains.ProjectModel.Properties.IProjectFilePropertiesProvider filePropertiesProvider, JetBrains.VsIntegration.ProjectModel.ProjectModelStatistics statistics, JetBrains.Util.FileSystemPath solutionCacheFolder) { }
-        public override void FillProjectDescriptor(JetBrains.VsIntegration.ProjectModel.VsHierarchyItem rootItem, JetBrains.ProjectModel.Update.IProjectDescriptor projectDescriptor, JetBrains.VsIntegration.ProjectModel.IVSProjectFilePropertiesBuilder projectFilePropertiesBuilder, JetBrains.ProjectModel.Properties.IProjectFilePropertiesProvider filePropertiesProvider, JetBrains.VsIntegration.ProjectModel.ProjectModelStatistics statistics, JetBrains.Util.FileSystemPath solutionCacheFolder) { }
+        public override void CreateMissingItems(JetBrains.VsIntegration.ProjectModel.VsHierarchyItem hitem, JetBrains.ProjectModel.Update.IProjectDescriptor projectDescriptor, JetBrains.VsIntegration.ProjectModel.IVSProjectFilePropertiesBuilder projectFilePropertiesBuilder, JetBrains.ProjectModel.Properties.IProjectFilePropertiesProvider filePropertiesProvider, JetBrains.VsIntegration.ProjectModel.ProjectModelStatistics statistics, JetBrains.Util.FileSystemPath solutionCacheFolder, System.Collections.Generic.JetHashSet<JetBrains.VsIntegration.ProjectModel.VsHierarchyItem> modifiedFiles) { }
+        public override void FillProjectDescriptor(JetBrains.VsIntegration.ProjectModel.VsHierarchyItem rootItem, JetBrains.ProjectModel.Update.IProjectDescriptor projectDescriptor, JetBrains.VsIntegration.ProjectModel.IVSProjectFilePropertiesBuilder projectFilePropertiesBuilder, JetBrains.ProjectModel.Properties.IProjectFilePropertiesProvider filePropertiesProvider, JetBrains.VsIntegration.ProjectModel.ProjectModelStatistics statistics, JetBrains.Util.FileSystemPath solutionCacheFolder, System.Collections.Generic.JetHashSet<JetBrains.VsIntegration.ProjectModel.VsHierarchyItem> modifiedFiles) { }
         public override bool IsApplicable(JetBrains.ProjectModel.Properties.IProjectProperties projectProperties) { }
     }
     [JetBrains.ProjectModel.SolutionComponentAttribute()]

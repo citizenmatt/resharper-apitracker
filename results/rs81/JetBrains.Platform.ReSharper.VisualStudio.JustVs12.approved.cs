@@ -95,7 +95,7 @@ namespace JetBrains.Application.Extensions.UI
     public class ExtensionManagerWindow : Microsoft.VisualStudio.PlatformUI.DialogWindow, System.Windows.Markup.IComponentConnector
     {
         public ExtensionManagerWindow(JetBrains.DataFlow.Lifetime lifetime, JetBrains.Application.DataContext.IDataContext context) { }
-        public ExtensionManagerWindow(JetBrains.DataFlow.Lifetime lifetime, JetBrains.Application.Extensions.ExtensionManager extensionManager, JetBrains.Application.IApplicationDescriptor product, JetBrains.Application.Extensions.IExtensionCatalogProvider extensionCatalogProvider, JetBrains.Application.Extensions.ExtensionRepositoryManager extensionRepositoryManager, JetBrains.Application.Extensions.IProviderSettings providerSettings, JetBrains.Application.Extensions.UI.ExtensionManagerOptionsPageActivator optionsPageActivator, JetBrains.Application.Application.Environment.Components.IApplicationRestart applicationRestart) { }
+        public ExtensionManagerWindow(JetBrains.DataFlow.Lifetime lifetime, JetBrains.Application.Extensions.ExtensionManager extensionManager, JetBrains.Application.IApplicationDescriptor product, JetBrains.Application.Extensions.IExtensionCatalogProvider extensionCatalogProvider, JetBrains.Application.Extensions.ExtensionRepositoryManager extensionRepositoryManager, JetBrains.Application.Extensions.IProviderSettings providerSettings, JetBrains.Application.Extensions.UI.ExtensionManagerOptionsPageActivator optionsPageActivator, JetBrains.Application.Env.Components.IApplicationRestart applicationRestart) { }
         public void InitializeComponent() { }
     }
     public class ExtensionRecordSeverityToColorConverter : System.Windows.Data.IValueConverter
@@ -336,7 +336,7 @@ namespace JetBrains.Application.Extensions.UI
     }
     public class RestartRequiredBar : System.Windows.Controls.UserControl, System.Windows.Markup.IComponentConnector
     {
-        public RestartRequiredBar(JetBrains.Application.Extensions.ExtensionRepositoryManager extensionRepositoryManager, JetBrains.Application.Application.Environment.Components.IApplicationRestart applicationRestart) { }
+        public RestartRequiredBar(JetBrains.Application.Extensions.ExtensionRepositoryManager extensionRepositoryManager, JetBrains.Application.Env.Components.IApplicationRestart applicationRestart) { }
         public void CheckForUnsuccessfulUninstall() { }
         public void InitializeComponent() { }
     }
@@ -419,7 +419,7 @@ namespace JetBrains.Application.Extensions.UI
     }
     public class static VSExtensionsExplorerCtlEx
     {
-        public static System.Tuple<JetBrains.Application.Extensions.UI.RestartRequiredBar, JetBrains.Application.Extensions.UI.UpdateAllExtensionsBar> FutzWithTemplates(this Microsoft.VisualStudio.ExtensionsExplorer.UI.VSExtensionsExplorerCtl extensionsExplorer, JetBrains.Application.Extensions.UI.ExtensionManagerWindow extensionManagerWindow, JetBrains.DataFlow.IProperty<bool> includePrerelease, JetBrains.Application.Extensions.ExtensionRepositoryManager extensionRepositoryManager, JetBrains.Application.Application.Environment.Components.IApplicationRestart applicationRestart) { }
+        public static System.Tuple<JetBrains.Application.Extensions.UI.RestartRequiredBar, JetBrains.Application.Extensions.UI.UpdateAllExtensionsBar> FutzWithTemplates(this Microsoft.VisualStudio.ExtensionsExplorer.UI.VSExtensionsExplorerCtl extensionsExplorer, JetBrains.Application.Extensions.UI.ExtensionManagerWindow extensionManagerWindow, JetBrains.DataFlow.IProperty<bool> includePrerelease, JetBrains.Application.Extensions.ExtensionRepositoryManager extensionRepositoryManager, JetBrains.Application.Env.Components.IApplicationRestart applicationRestart) { }
         public static void ShowPrereleaseComboBox(this Microsoft.VisualStudio.ExtensionsExplorer.UI.VSExtensionsExplorerCtl extensionsExplorer, bool show) { }
     }
     public abstract class VsExtensionsTreeNodeBase : JetBrains.Application.Extensions.UI.IPageDataLoadingCallback, Microsoft.VisualStudio.ExtensionsExplorer.IVsExtensionsTreeNode, Microsoft.VisualStudio.ExtensionsExplorer.IVsMessagePaneConsumer, Microsoft.VisualStudio.ExtensionsExplorer.IVsPageDataSource, Microsoft.VisualStudio.ExtensionsExplorer.IVsProgressPaneConsumer, Microsoft.VisualStudio.ExtensionsExplorer.IVsSortDataSource, System.ComponentModel.INotifyPropertyChanged
@@ -482,8 +482,17 @@ namespace JetBrains.VsIntegration.JustVs12.ProjectModel
     [JetBrains.ProjectModel.Properties.ProjectModelExtensionAttribute()]
     public class VcxProjectPropertiesBuilder12 : JetBrains.VsIntegration.ProjectModel.ProjectProperties.VcxProjectPropertiesBuilder
     {
-        public VcxProjectPropertiesBuilder12() { }
+        public VcxProjectPropertiesBuilder12(JetBrains.VsIntegration.ProjectModel.ProjectProperties.ProjectActiveConfigurationAccessor activeConfigurationAccessor) { }
         protected override void ProcessVCProject(EnvDTE.Project project, JetBrains.ProjectModel.Properties.VCXProj.VCXBuildSettings vcxBuildSettings, EnvDTE.Configuration configuration, JetBrains.ProjectModel.Properties.VCXProj.VCXProjectConfiguration vcxProjectConfiguration) { }
+    }
+}
+namespace JetBrains.VsIntegration.JustVs12.TabStrip
+{
+    
+    [JetBrains.Application.ShellComponentAttribute()]
+    public class TabbedToolWindowOptionsJustVs12 : JetBrains.UI.ToolWindowManagement.TabbedToolWindowOptions
+    {
+        public TabbedToolWindowOptionsJustVs12(JetBrains.DataFlow.Lifetime lifetime) { }
     }
 }
 namespace JetBrains.VsIntegration.JustVs12.TextControl
@@ -492,7 +501,7 @@ namespace JetBrains.VsIntegration.JustVs12.TextControl
     [JetBrains.Application.ShellComponentAttribute()]
     public class VsTextControlDevTenIncrementalSearchClientJustVs12 : JetBrains.VsIntegration.SinceVs11.TextControl.VsTextControlDevTenIncrementalSearchClientSinceVs11
     {
-        public VsTextControlDevTenIncrementalSearchClientJustVs12([JetBrains.Annotations.NotNullAttribute()] Microsoft.VisualStudio.Text.IncrementalSearch.IIncrementalSearchFactoryService incrementalSearchFactoryService, [JetBrains.Annotations.NotNullAttribute()] Microsoft.VisualStudio.Editor.Implementation.IVsFindManagerHelper vsFindManagerHelper) { }
+        public VsTextControlDevTenIncrementalSearchClientJustVs12([JetBrains.Annotations.NotNullAttribute()] JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.Text.IncrementalSearch.IIncrementalSearchFactoryService> incrementalSearchFactoryService, [JetBrains.Annotations.NotNullAttribute()] Microsoft.VisualStudio.Editor.Implementation.IVsFindManagerHelper vsFindManagerHelper) { }
         protected override Microsoft.VisualStudio.Shell.Interop.IVsUIDataSource GetDataSourceFromFindManager() { }
     }
 }
@@ -559,8 +568,8 @@ namespace JetBrains.VsIntegration.VX.ProjectModel
     public class VcxProjectContentBuilderMirror : JetBrains.VsIntegration.ProjectModel.ProjectContent.VSDefaultProjectContentBuilder
     {
         public VcxProjectContentBuilderMirror(JetBrains.ProjectModel.ProjectFileExtensions projectFileExtensions) { }
-        public override void CreateMissingItems(JetBrains.VsIntegration.ProjectModel.VsHierarchyItem hitem, JetBrains.ProjectModel.Update.IProjectDescriptor projectDescriptor, JetBrains.VsIntegration.ProjectModel.IVSProjectFilePropertiesBuilder projectFilePropertiesBuilder, JetBrains.ProjectModel.Properties.IProjectFilePropertiesProvider filePropertiesProvider, JetBrains.VsIntegration.ProjectModel.ProjectModelStatistics statistics, JetBrains.Util.FileSystemPath solutionCacheFolder) { }
-        public override void FillProjectDescriptor(JetBrains.VsIntegration.ProjectModel.VsHierarchyItem rootItem, JetBrains.ProjectModel.Update.IProjectDescriptor projectDescriptor, JetBrains.VsIntegration.ProjectModel.IVSProjectFilePropertiesBuilder projectFilePropertiesBuilder, JetBrains.ProjectModel.Properties.IProjectFilePropertiesProvider filePropertiesProvider, JetBrains.VsIntegration.ProjectModel.ProjectModelStatistics statistics, JetBrains.Util.FileSystemPath solutionCacheFolder) { }
+        public override void CreateMissingItems(JetBrains.VsIntegration.ProjectModel.VsHierarchyItem hitem, JetBrains.ProjectModel.Update.IProjectDescriptor projectDescriptor, JetBrains.VsIntegration.ProjectModel.IVSProjectFilePropertiesBuilder projectFilePropertiesBuilder, JetBrains.ProjectModel.Properties.IProjectFilePropertiesProvider filePropertiesProvider, JetBrains.VsIntegration.ProjectModel.ProjectModelStatistics statistics, JetBrains.Util.FileSystemPath solutionCacheFolder, System.Collections.Generic.JetHashSet<JetBrains.VsIntegration.ProjectModel.VsHierarchyItem> modifiedFiles) { }
+        public override void FillProjectDescriptor(JetBrains.VsIntegration.ProjectModel.VsHierarchyItem rootItem, JetBrains.ProjectModel.Update.IProjectDescriptor projectDescriptor, JetBrains.VsIntegration.ProjectModel.IVSProjectFilePropertiesBuilder projectFilePropertiesBuilder, JetBrains.ProjectModel.Properties.IProjectFilePropertiesProvider filePropertiesProvider, JetBrains.VsIntegration.ProjectModel.ProjectModelStatistics statistics, JetBrains.Util.FileSystemPath solutionCacheFolder, System.Collections.Generic.JetHashSet<JetBrains.VsIntegration.ProjectModel.VsHierarchyItem> modifiedFiles) { }
         public override bool IsApplicable(JetBrains.ProjectModel.Properties.IProjectProperties projectProperties) { }
     }
     [JetBrains.ProjectModel.SolutionComponentAttribute()]

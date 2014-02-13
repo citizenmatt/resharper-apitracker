@@ -19,7 +19,7 @@ namespace JetBrains.Application.Extensions
     [JetBrains.Application.ShellComponentAttribute()]
     public class ExtensionManagerUpdatesAlerts
     {
-        public ExtensionManagerUpdatesAlerts(JetBrains.DataFlow.Lifetime lifetime, JetBrains.Threading.IThreading threading, JetBrains.UI.Icons.IThemedIconManager themedIconManager, JetBrains.Application.Extensions.IExtensionCatalogProvider extensionCatalogProvider, JetBrains.Application.IApplicationDescriptor product, JetBrains.ActionManagement.IActionManager actionManager, JetBrains.Application.Extensions.IProviderSettings providerSettings, JetBrains.UI.Application.IMainWindow mainWindow = null) { }
+        public ExtensionManagerUpdatesAlerts(JetBrains.DataFlow.Lifetime lifetime, JetBrains.Threading.IThreading threading, JetBrains.UI.Icons.IThemedIconManager themedIconManager, JetBrains.Application.Extensions.IExtensionCatalogProvider extensionCatalogProvider, JetBrains.Application.IProductNameAndVersion product, JetBrains.ActionManagement.IActionManager actionManager, JetBrains.Application.Extensions.IProviderSettings providerSettings, JetBrains.UI.Application.IMainWindow mainWindow = null) { }
     }
     public interface IProviderSettings
     {
@@ -34,7 +34,7 @@ namespace JetBrains.Application.Extensions
     [JetBrains.Application.Env.EnvironmentComponentAttribute(JetBrains.Application.Sharing.Product)]
     public class VsExtensionLocations : JetBrains.Application.Extensions.ExtensionLocations
     {
-        public VsExtensionLocations(JetBrains.Application.IApplicationDescriptor product, JetBrains.Application.Env.Components.ProductSettingsLocation settingsLocation, JetBrains.VsIntegration.Application.IVsEnvironmentInformation vsEnvironmentInformation) { }
+        public VsExtensionLocations(JetBrains.DataFlow.Lifetime lifetime, JetBrains.DataFlow.IViewable<JetBrains.Application.Extensions.IExtensionManagerSupportedProductsProvider> supportedProductsProviders, JetBrains.Application.Env.Components.ProductSettingsLocation settingsLocation, JetBrains.VsIntegration.Application.IVsEnvironmentInformation vsEnvironmentInformation) { }
     }
     [JetBrains.Application.ShellComponentAttribute()]
     public class WindowSettingsManager : JetBrains.Application.Extensions.IWindowSettingsManager
@@ -309,6 +309,7 @@ namespace JetBrains.VsIntegration.DevTen.Interop.Extension
         public static JetBrains.VsIntegration.Interop.Shim.Shell.IVsWindowFrame GetWindowFrame([JetBrains.Annotations.NotNullAttribute()] this Microsoft.VisualStudio.Text.Editor.IWpfTextView view, [JetBrains.Annotations.NotNullAttribute()] Microsoft.VisualStudio.Editor.IVsEditorAdaptersFactoryService vsEditorAdaptersFactoryService) { }
         [JetBrains.Annotations.NotNullAttribute()]
         public static JetBrains.DataFlow.IProperty<JetBrains.TextControl.ITextControl> JetTextControl([JetBrains.Annotations.NotNullAttribute()] this Microsoft.VisualStudio.Text.Editor.ITextView view) { }
+        public static System.Windows.Rect ToTextBoundsRect(this Microsoft.VisualStudio.Text.Formatting.TextBounds bounds) { }
         [JetBrains.Annotations.CanBeNullAttribute()]
         public static Microsoft.VisualStudio.Text.Editor.IWpfTextView TryGetITextView([JetBrains.Annotations.NotNullAttribute()] this JetBrains.VsIntegration.Interop.Shim.TextManager.IVsTextView vsView, [JetBrains.Annotations.NotNullAttribute()] Microsoft.VisualStudio.Editor.IVsEditorAdaptersFactoryService vsEditorAdaptersFactoryService) { }
         [JetBrains.Annotations.CanBeNullAttribute()]
@@ -352,26 +353,20 @@ namespace JetBrains.VsIntegration.DevTen.Local
     [JetBrains.Application.ShellComponentAttribute(JetBrains.Application.Sharing.Product, JetBrains.Application.Lifecycle.Deferred, JetBrains.Application.Creation.PrimaryThread, JetBrains.Application.Access.None)]
     public class JumpVsixFromMachineToPerUser
     {
-        public JumpVsixFromMachineToPerUser(JetBrains.DataFlow.Lifetime lifetime, JetBrains.Threading.IThreading invocator, JetBrains.Application.Env.RunsProducts.ProductConfigurations productConfigurations, JetBrains.VsIntegration.Application.IVsEnvironmentInformation vsEnvironmentInformation, JetBrains.Application.Settings.ISettingsStore settingsStore, JetBrains.Application.IApplicationDescriptor applicationDescriptor) { }
+        public JumpVsixFromMachineToPerUser(JetBrains.DataFlow.Lifetime lifetime, JetBrains.Threading.IThreading threading, JetBrains.Application.Env.RunsProducts.ProductConfigurations productConfigurations, JetBrains.VsIntegration.Application.IVsEnvironmentInformation vsEnvironmentInformation, JetBrains.Application.Settings.ISettingsStore settingsStore, JetBrains.Application.IApplicationDescriptor applicationDescriptor, JetBrains.Application.Env.Components.IApplicationRestart applicationRestart) { }
         public JetBrains.DataFlow.IProperty<bool> IsEnabled { get; }
         public JetBrains.DataFlow.IProperty<bool> IsRelocatingAutomatically { get; }
-    }
-    public class JumpVsixFromMachineToPerUserRemote
-    {
-        public string ProductName { get; set; }
-        public System.Version ProductVersion { get; set; }
-        public string VsRootSuffix { get; set; }
-        public System.Version VsVersion { get; set; }
-        public void Run() { }
-        public static void RunRemote([JetBrains.Annotations.NotNullAttribute()] JetBrains.Application.IProductNameAndVersion product, [JetBrains.Annotations.NotNullAttribute()] JetBrains.VsIntegration.Application.IVsEnvironmentInformation vsenv) { }
+        public JetBrains.DataFlow.IProperty<bool> IsRelocatingAutomaticallyOnce { get; }
     }
     [JetBrains.Application.Settings.SettingsKeyAttribute(typeof(JetBrains.Application.Settings.HousekeepingSettings), "JumpVsixFromMachineToPerUser settings")]
     public class JumpVsixFromMachineToPerUserSettings
     {
         [JetBrains.Application.Settings.SettingsEntryAttribute(true, "Whether enabled")]
         public bool IsEnabled;
-        [JetBrains.Application.Settings.SettingsEntryAttribute(false, "Whether relocation is automatical")]
+        [JetBrains.Application.Settings.SettingsEntryAttribute(false, "Whether relocation is automatic")]
         public bool IsRelocatingAutomatically;
+        [JetBrains.Application.Settings.SettingsEntryAttribute(false, "Whether relocation is automatic (applied only once)")]
+        public bool IsRelocatingAutomaticallyOnce;
     }
     [JetBrains.Application.Configuration.Upgrade.GlobalSettingsUpgraderAttribute()]
     public class JumpVsixFromMachineToPerUserSettingsUpgrader : JetBrains.Application.Configuration.SettingTablesUpgrader
@@ -402,8 +397,6 @@ namespace JetBrains.VsIntegration.DevTen.Markup
         public override JetBrains.DocumentModel.IDocument Document { get; }
         public override bool IsValid { get; }
         public override JetBrains.Util.TextRange Range { get; }
-        public TTagType CreateTag<TTagType>()
-            where TTagType :  class, Microsoft.VisualStudio.Text.Tagging.ITag { }
     }
     [JetBrains.Application.ShellComponentAttribute()]
     public class Vs10HighlighterTags
@@ -426,21 +419,22 @@ namespace JetBrains.VsIntegration.DevTen.Markup
     [JetBrains.Application.ShellComponentAttribute()]
     public class VsDocumentMarkupTaggerComponent
     {
-        public VsDocumentMarkupTaggerComponent(JetBrains.DataFlow.Lifetime lifetime, JetBrains.TextControl.TextControlManager textControlManager, JetBrains.TextControl.DocumentMarkup.IDocumentMarkupManager documentMarkupManager, Microsoft.VisualStudio.Editor.IVsEditorAdaptersFactoryService service) { }
+        public VsDocumentMarkupTaggerComponent(JetBrains.DataFlow.Lifetime lifetime, JetBrains.TextControl.TextControlManager textControlManager, JetBrains.TextControl.DocumentMarkup.IDocumentMarkupManager documentMarkupManager, JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.Editor.IVsEditorAdaptersFactoryService> service) { }
         public JetBrains.TextControl.DocumentMarkup.IDocumentMarkupManager DocumentMarkupManager { get; }
         public static JetBrains.VsIntegration.DevTen.Markup.VsDocumentMarkupTaggerComponent.Context GetShellContext(JetBrains.VsIntegration.Interop.Shim.TextManager.IVsTextBuffer textBuffer) { }
         public void ResetTagger(JetBrains.VsIntegration.Interop.Shim.TextManager.IVsTextBuffer textBuffer) { }
-        public class Context : System.IDisposable
+        public class Context
         {
+            public readonly JetBrains.DataFlow.Property<JetBrains.VsIntegration.DevTen.Markup.VsDocumentMarkupTaggerComponent> Component;
             public Context() { }
-            public JetBrains.DataFlow.Property<JetBrains.VsIntegration.DevTen.Markup.VsDocumentMarkupTaggerComponent> Component { get; }
-            public void Dispose() { }
+            public void ReleaseComponent() { }
+            public void SetComponent(JetBrains.VsIntegration.DevTen.Markup.VsDocumentMarkupTaggerComponent component) { }
         }
     }
+    [Microsoft.VisualStudio.Text.Tagging.TagTypeAttribute(typeof(JetBrains.VsIntegration.DevTen.Markup.VsGlyphMarginTag))]
+    [Microsoft.VisualStudio.Text.Tagging.TagTypeAttribute(typeof(JetBrains.VsIntegration.DevTen.Markup.VsClassificationTag))]
     [Microsoft.VisualStudio.Text.Tagging.TagTypeAttribute(typeof(JetBrains.VsIntegration.DevTen.Markup.VsGutterMarginTag))]
     [Microsoft.VisualStudio.Text.Tagging.TagTypeAttribute(typeof(JetBrains.VsIntegration.DevTen.Markup.VsTextAdornmentTag))]
-    [Microsoft.VisualStudio.Text.Tagging.TagTypeAttribute(typeof(JetBrains.VsIntegration.DevTen.Markup.VsClassificationTag))]
-    [Microsoft.VisualStudio.Text.Tagging.TagTypeAttribute(typeof(JetBrains.VsIntegration.DevTen.Markup.VsGlyphMarginTag))]
     [Microsoft.VisualStudio.Utilities.ContentTypeAttribute("text")]
     [System.ComponentModel.Composition.ExportAttribute(typeof(Microsoft.VisualStudio.Text.Tagging.ITaggerProvider))]
     public class VsDocumentMarkupTaggerProvider : Microsoft.VisualStudio.Text.Tagging.ITaggerProvider
@@ -463,6 +457,7 @@ namespace JetBrains.VsIntegration.DevTen.Markup
         protected override JetBrains.TextControl.DocumentMarkup.HighlighterAttributes ApplyVsCustomizations([JetBrains.Annotations.NotNullAttribute()] JetBrains.TextControl.DocumentMarkup.HighlighterAttributes sample, [JetBrains.Annotations.NotNullAttribute()] string sRegisteredHighlighterAttributeId) { }
     }
     [Microsoft.VisualStudio.Text.Editor.TextViewRoleAttribute("DOCUMENT")]
+    [Microsoft.VisualStudio.Text.Editor.TextViewRoleAttribute("EMBEDDED_PEEK_TEXT_VIEW")]
     [Microsoft.VisualStudio.Utilities.ContentTypeAttribute("text")]
     [System.ComponentModel.Composition.ExportAttribute(typeof(Microsoft.VisualStudio.Text.Editor.IWpfTextViewCreationListener))]
     [System.ComponentModel.Composition.PartCreationPolicyAttribute(System.ComponentModel.Composition.CreationPolicy.Shared)]
@@ -519,7 +514,7 @@ namespace JetBrains.VsIntegration.DevTen.NuGet
     [JetBrains.ProjectModel.SolutionInstanceComponentAttribute()]
     public class NuGetReferenceManager
     {
-        public NuGetReferenceManager(JetBrains.DataFlow.Lifetime lifetime, JetBrains.Util.ILogger logger, JetBrains.Util.Lazy.Lazy<NuGet.VisualStudio.IVsPackageInstallerEvents> vsPackageInstalerEvents, JetBrains.Util.Lazy.Lazy<NuGet.VisualStudio.IVsPackageInstallerServices> vsPackageInstallerServices) { }
+        public NuGetReferenceManager(JetBrains.DataFlow.Lifetime lifetime, JetBrains.Util.ILogger logger, JetBrains.Util.Lazy.Lazy<JetBrains.Application.Components.Optional<NuGet.VisualStudio.IVsPackageInstallerEvents>> vsPackageInstalerEvents, JetBrains.Util.Lazy.Lazy<JetBrains.Application.Components.Optional<NuGet.VisualStudio.IVsPackageInstallerServices>> vsPackageInstallerServices) { }
         public System.Collections.Generic.JetHashSet<JetBrains.Util.FileSystemPath> InstalledPackagePaths { get; }
         public JetBrains.DataFlow.ISignal<string> NugetReferencesAdded { get; }
         public bool IsPackageInstalled([JetBrains.Annotations.NotNullAttribute()] EnvDTE.Project project, [JetBrains.Annotations.NotNullAttribute()] string packageId) { }
@@ -546,6 +541,7 @@ namespace JetBrains.VsIntegration.DevTen.ProjectModel
     {
         public VsSolutionManager10(
                     JetBrains.DataFlow.Lifetime lifetime, 
+                    JetBrains.Util.ILogger logger, 
                     JetBrains.Application.Parts.IPartsCatalogueSet catalogueSet, 
                     JetBrains.Application.Components.IComponentContainer componentContainer, 
                     JetBrains.Application.IShellLocks locks, 
@@ -617,7 +613,7 @@ namespace JetBrains.VsIntegration.DevTen.ProjectModel.SqlServerDatabaseProject
     public class SqlServerDatabaseProjectContentBuilder : JetBrains.VsIntegration.ProjectModel.ProjectContent.VSDefaultProjectContentBuilder
     {
         public SqlServerDatabaseProjectContentBuilder(JetBrains.ProjectModel.ProjectFileExtensions projectFileExtensions) { }
-        protected override JetBrains.ProjectModel.Update.IProjectItemDescriptor CreateChildItemDescriptor(JetBrains.VsIntegration.ProjectModel.VsHierarchyItem childHitem, JetBrains.ProjectModel.Update.IProjectFolderDescriptor parentFolderDescriptor, JetBrains.VsIntegration.ProjectModel.IVSProjectFilePropertiesBuilder projectFilePropertiesBuilder, JetBrains.ProjectModel.Properties.IProjectFilePropertiesProvider filePropertiesProvider, JetBrains.VsIntegration.ProjectModel.ProjectModelStatistics statistics) { }
+        protected override JetBrains.ProjectModel.Update.IProjectItemDescriptor CreateChildItemDescriptor(JetBrains.VsIntegration.ProjectModel.VsHierarchyItem childHitem, JetBrains.ProjectModel.Update.IProjectFolderDescriptor parentFolderDescriptor, JetBrains.VsIntegration.ProjectModel.IVSProjectFilePropertiesBuilder projectFilePropertiesBuilder, JetBrains.ProjectModel.Properties.IProjectFilePropertiesProvider filePropertiesProvider, JetBrains.VsIntegration.ProjectModel.ProjectModelStatistics statistics, System.Collections.Generic.JetHashSet<JetBrains.VsIntegration.ProjectModel.VsHierarchyItem> modifiedFiles) { }
         public override bool IsApplicable(JetBrains.ProjectModel.Properties.IProjectProperties projectProperties) { }
     }
     [JetBrains.ProjectModel.SolutionComponentAttribute()]
@@ -667,9 +663,11 @@ namespace JetBrains.VsIntegration.DevTen.Src.ProjectModel
     [JetBrains.ProjectModel.SolutionInstanceComponentAttribute()]
     public class ProjectModelSynchronizer10 : JetBrains.VsIntegration.ProjectModel.ProjectModelSynchronizer
     {
+        public const string ImplicitlyExpandTargetFrameworkTarget = "ImplicitlyExpandTargetFramework";
         public const string ResolveAssemblyReferencesTarget = "ResolveAssemblyReferences";
-        public const string ResolveProjectReferencesTarget = "ResolveProjectReferences";
+        public const string ResolveComReferencesTarget = "ResolveComReferences";
         public const string ResolveReferencesTarget = "ResolveReferences";
+        public const string ResolveSDKReferencesTarget = "ResolveSDKReferences";
         public ProjectModelSynchronizer10(
                     JetBrains.DataFlow.Lifetime lifetime, 
                     JetBrains.ProjectModel.ISolution solution, 
@@ -702,12 +700,18 @@ namespace JetBrains.VsIntegration.DevTen.Src.ProjectModel
                     JetBrains.VsIntegration.ProjectModel.ProjectReferencesProvider referencesProvider, 
                     JetBrains.ProjectModel.Properties.ProjectModelExtensionsContainer projectModelExtensionsContainer, 
                     JetBrains.VsIntegration.Settings.VsSaveMonitor vsSaveMonitor, 
+                    JetBrains.VsIntegration.ProjectModel.ProjectProperties.ProjectActiveConfigurationAccessor activeConfigurationAccessor, 
+                    [JetBrains.Annotations.NotNullAttribute()] JetBrains.Util.Lazy.Lazy<JetBrains.Application.Components.Optional<NuGet.VisualStudio.IVsPackageInstallerEvents>> vsPackageInstalerEvents, 
+                    [JetBrains.Annotations.NotNullAttribute()] JetBrains.Util.Lazy.Lazy<JetBrains.Application.Components.Optional<NuGet.VisualStudio.IVsPackageInstallerServices>> vsPackageInstallerServices, 
                     JetBrains.VsIntegration.ProjectModel.VsSolutionWrapper vsSolutionWrapper = null) { }
+        protected override bool DoUseMsbuildToResolveAssemblyReferences(JetBrains.VsIntegration.ProjectModel.VSProjectInfo projectInfo) { }
         protected override void EnsureProjectLoadedAndSync(JetBrains.ProjectModel.IProject project) { }
         protected override void EnsureProjectSync(Microsoft.VisualStudio.Shell.Interop.IVsHierarchy hierarchy) { }
+        protected override void RemoveMapping(Microsoft.VisualStudio.Shell.Interop.IVsHierarchy hierarchy, JetBrains.VsIntegration.ProjectModel.VSProjectInfo projectInfo) { }
         [JetBrains.Annotations.CanBeNullAttribute()]
-        public static System.Collections.Generic.List<string> ResolveAssemblyReferencesUsingMsBuild(JetBrains.VsIntegration.ProjectModel.VSProjectInfo projectInfo, string targetName) { }
+        public System.Collections.Generic.List<string> ResolveAssemblyReferencesUsingMsBuild(JetBrains.VsIntegration.ProjectModel.VSProjectInfo projectInfo, params string[] targetNames) { }
         protected override System.Collections.Generic.List<string> TryResolveAssemblyReferencesUsingMsBuildInternal(JetBrains.VsIntegration.ProjectModel.VSProjectInfo projectInfo) { }
+        public override void UpdateAllProjectsReferences() { }
     }
 }
 namespace JetBrains.VsIntegration.DevTen.TextControl
@@ -730,14 +734,31 @@ namespace JetBrains.VsIntegration.DevTen.TextControl
     }
     public class VsCodeEditorDevTen : JetBrains.Application.IChangeProvider, JetBrains.TextControl.ITextControl, JetBrains.Util.IUserDataHolder, Microsoft.VisualStudio.OLE.Interop.IOleCommandTarget, System.IDisposable
     {
-        public VsCodeEditorDevTen([JetBrains.Annotations.NotNullAttribute()] JetBrains.VsIntegration.Application.RawVsServiceProvider serviceProvider, [JetBrains.Annotations.NotNullAttribute()] Microsoft.VisualStudio.Editor.IVsEditorAdaptersFactoryService adaptersFactory, [JetBrains.Annotations.NotNullAttribute()] Microsoft.VisualStudio.Shell.Interop.ILocalRegistry localRegistry, [JetBrains.Annotations.NotNullAttribute()] Microsoft.VisualStudio.Shell.Interop.IVsFilterKeys2 filterKeys2, [JetBrains.Annotations.NotNullAttribute()] Microsoft.VisualStudio.Shell.Interop.IVsRegisterPriorityCommandTarget registerPriorityCommandTarget, [JetBrains.Annotations.NotNullAttribute()] JetBrains.Threading.IThreading threading, JetBrains.VsIntegration.Interop.Shim.TextManager.IVsTextBuffer vsTextBuffer, [JetBrains.Annotations.NotNullAttribute()] JetBrains.UI.CrossFramework.EitherControl parentControl) { }
+        public VsCodeEditorDevTen([JetBrains.Annotations.NotNullAttribute()] JetBrains.VsIntegration.Application.RawVsServiceProvider serviceProvider, [JetBrains.Annotations.NotNullAttribute()] JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.Editor.IVsEditorAdaptersFactoryService> adaptersFactory, [JetBrains.Annotations.NotNullAttribute()] Microsoft.VisualStudio.Shell.Interop.ILocalRegistry localRegistry, [JetBrains.Annotations.NotNullAttribute()] Microsoft.VisualStudio.Shell.Interop.IVsFilterKeys2 filterKeys2, [JetBrains.Annotations.NotNullAttribute()] Microsoft.VisualStudio.Shell.Interop.IVsRegisterPriorityCommandTarget registerPriorityCommandTarget, [JetBrains.Annotations.NotNullAttribute()] JetBrains.Threading.IThreading threading, JetBrains.VsIntegration.Interop.Shim.TextManager.IVsTextBuffer vsTextBuffer, [JetBrains.Annotations.NotNullAttribute()] JetBrains.UI.CrossFramework.EitherControl parentControl) { }
         public bool IsDisposed { get; }
+        public bool IsReadOnly { get; }
         public JetBrains.TextControl.ITextControl TextControl { get; }
         public Microsoft.VisualStudio.Text.Editor.IWpfTextView WpfTextView { get; }
         public event System.EventHandler<JetBrains.DataFlow.EventArgs<JetBrains.TextControl.ITextControl>> JetBrains.TextControl.ITextControl.BeforeDispose;
         public void AttachToTextControl([JetBrains.Annotations.NotNullAttribute()] JetBrains.TextControl.ITextControl textcontrol) { }
         public void Dispose() { }
         public void SetReadonly(bool fReadonly) { }
+    }
+    public class VsErrorStripeLayouterDevTen : JetBrains.TextControl.ErrorStripe.WpfErrorStripeLayouter
+    {
+        public VsErrorStripeLayouterDevTen([JetBrains.Annotations.NotNullAttribute()] JetBrains.DataFlow.Lifetime lifetime, [JetBrains.Annotations.NotNullAttribute()] JetBrains.Threading.IThreading threading, [JetBrains.Annotations.NotNullAttribute()] JetBrains.TextControl.ErrorStripe.WpfErrorStripeControl errorStripe, [JetBrains.Annotations.NotNullAttribute()] Microsoft.VisualStudio.Text.Editor.IWpfTextView textView, [JetBrains.Annotations.NotNullAttribute()] System.Windows.FrameworkElement verticalScrollBarElement) { }
+    }
+    [JetBrains.Application.ShellComponentAttribute()]
+    public class VsErrorStripeLayoutManagerDevTen : JetBrains.TextControl.ErrorStripe.ErrorStripeLayoutManager
+    {
+        protected readonly JetBrains.Threading.IThreading Threading;
+        public VsErrorStripeLayoutManagerDevTen([JetBrains.Annotations.NotNullAttribute()] JetBrains.DataFlow.Lifetime lifetime, [JetBrains.Annotations.NotNullAttribute()] JetBrains.Threading.IThreading threading, [JetBrains.Annotations.NotNullAttribute()] JetBrains.Application.Settings.Store.Implementation.SettingsStore settingsStore, [JetBrains.Annotations.NotNullAttribute()] JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.Editor.IVsEditorAdaptersFactoryService> vsEditorAdaptersFactoryService, [JetBrains.Annotations.NotNullAttribute()] JetBrains.UI.Theming.ITheming theming) { }
+        public override JetBrains.TextControl.ErrorStripe.ErrorStripeLayout AvailableLayouts { get; }
+        protected virtual JetBrains.TextControl.ErrorStripe.WpfErrorStripeLayouter CreateLayouter(JetBrains.DataFlow.Lifetime lifetime, Microsoft.VisualStudio.Text.Editor.IWpfTextView textView, JetBrains.TextControl.ErrorStripe.WpfErrorStripeControl errorStripeControl) { }
+        public void DoLayout(JetBrains.DataFlow.Lifetime lifetime, Microsoft.VisualStudio.Text.Editor.IWpfTextView textView, JetBrains.TextControl.ErrorStripe.WpfErrorStripeControl errorStripe) { }
+        protected Microsoft.VisualStudio.Text.Editor.IWpfTextViewHost GetTextViewHost(Microsoft.VisualStudio.Text.Editor.IWpfTextView textView) { }
+        public Microsoft.VisualStudio.Text.Editor.IVerticalScrollBar GetVerticalScrollBar(Microsoft.VisualStudio.Text.Editor.IWpfTextView textView) { }
+        protected Microsoft.VisualStudio.Text.Editor.IWpfTextViewMargin GetVerticalScrollBarMargin(Microsoft.VisualStudio.Text.Editor.IWpfTextView textView) { }
     }
     public sealed class VsTextControlDevTen : JetBrains.VsIntegration.TextControl.VsTextControlCommon
     {
@@ -749,7 +770,7 @@ namespace JetBrains.VsIntegration.DevTen.TextControl
                     [JetBrains.Annotations.NotNullAttribute()] Microsoft.VisualStudio.Text.Editor.IWpfTextView vstextview, 
                     [JetBrains.Annotations.NotNullAttribute()] JetBrains.VsIntegration.DocumentModel.Whidbey.VsDocumentWhidbey document, 
                     [JetBrains.Annotations.NotNullAttribute()] JetBrains.UI.WindowManagement.WindowFrame frame, 
-                    JetBrains.Application.IShellLocks locks, 
+                    [JetBrains.Annotations.NotNullAttribute()] JetBrains.Application.IShellLocks locks, 
                     JetBrains.TextControl.Impl.TextControlTypingHandlers textControlTypingHandlers, 
                     JetBrains.VsIntegration.Application.VsCommandProcessor vsCommandProcessor, 
                     JetBrains.VsIntegration.ActionManagement.VsActionManager vsActionManager, 
@@ -757,17 +778,19 @@ namespace JetBrains.VsIntegration.DevTen.TextControl
                     JetBrains.DocumentModel.Impl.DocumentChangeManager documentChangeManager, 
                     JetBrains.VsIntegration.DocumentModel.VsDocumentManagerSynchronization vsDocumentManagerSynchronization, 
                     JetBrains.TextControl.DefaultTextControlSchemeManager defaultTextControlSchemeManager, 
-                    Microsoft.VisualStudio.Editor.IVsEditorAdaptersFactoryService vsEditorAdaptersFactoryService, 
-                    Microsoft.VisualStudio.Text.Outlining.IOutliningManagerService outliningManagerService, 
-                    Microsoft.VisualStudio.Text.Operations.IEditorOperationsFactoryService editorOperationsFactoryService, 
+                    JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.Editor.IVsEditorAdaptersFactoryService> vsEditorAdaptersFactoryService, 
+                    JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.Text.Outlining.IOutliningManagerService> outliningManagerService, 
+                    JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.Text.Operations.IEditorOperationsFactoryService> editorOperationsFactoryService, 
                     JetBrains.TextControl.DocumentMarkup.IDocumentMarkupManager documentMarkupManager, 
                     JetBrains.TextControl.DocumentMarkup.IHighlighterCustomization highlighterCustomization, 
                     JetBrains.Application.Interop.NativeHook.IWindowsHookManager windowsHookManager, 
                     JetBrains.UI.PopupWindowManager.MainWindowPopupWindowContext mainWindowPopupWindowContext, 
                     JetBrains.VsIntegration.DevTen.TextControl.IVsTextControlDevTenIncrementalSearchClient vsTextControlDevTenIncrementalSearchClient, 
-                    JetBrains.UI.Application.IUIApplication environment) { }
+                    JetBrains.UI.Application.IUIApplication environment, 
+                    [JetBrains.Annotations.NotNullAttribute()] JetBrains.VsIntegration.DevTen.TextControl.VsErrorStripeLayoutManagerDevTen errorStripeLayoutManager) { }
         public override JetBrains.TextControl.ITextControlCaret Caret { get; }
         public override JetBrains.TextControl.Coords.ITextControlCoords Coords { get; }
+        public override bool IsReadOnly { get; }
         public override JetBrains.TextControl.ITextControlScrolling Scrolling { get; }
         public override JetBrains.TextControl.ITextControlSelection Selection { get; }
         public override JetBrains.TextControl.ITextControlWindow Window { get; }
@@ -824,13 +847,12 @@ namespace JetBrains.VsIntegration.DevTen.TextControl.GutterMargin
         public Microsoft.VisualStudio.Text.Editor.ITextViewMargin GetTextViewMargin(string marginName) { }
     }
     [JetBrains.Application.ShellComponentAttribute()]
-    public class VsGutterMarginComponent10 : JetBrains.TextControl.GutterMargin.GutterMarginImpl
+    public class VsGutterMarginComponentDisabledByDefault : JetBrains.TextControl.GutterMargin.GutterMarginImpl
     {
-        public VsGutterMarginComponent10(JetBrains.Application.Settings.Store.Implementation.SettingsStore settingsStore) { }
+        public VsGutterMarginComponentDisabledByDefault(JetBrains.DataFlow.Lifetime lifetime) { }
         public override JetBrains.UI.IAnchoringRect GetAnchorForLine(JetBrains.TextControl.ITextControl textControl, JetBrains.DocumentModel.DocumentCoords line, JetBrains.DataFlow.Lifetime lifetime) { }
         public static JetBrains.DataFlow.Property<JetBrains.VsIntegration.DevTen.TextControl.GutterMargin.VsGutterMargin> GetOrCreateSingletonProperty(Microsoft.VisualStudio.Text.Editor.IWpfTextView wpfTextView) { }
         public override bool IsApplicable() { }
-        public override bool IsEnabled(JetBrains.TextControl.ITextControl textControl) { }
     }
     public class VsGutterMarginControl : System.Windows.Controls.Canvas
     {
@@ -841,12 +863,12 @@ namespace JetBrains.VsIntegration.DevTen.TextControl.GutterMargin
     [Microsoft.VisualStudio.Text.Editor.MarginContainerAttribute("Left")]
     [Microsoft.VisualStudio.Text.Editor.TextViewRoleAttribute("INTERACTIVE")]
     [Microsoft.VisualStudio.Utilities.ContentTypeAttribute("text")]
-    [Microsoft.VisualStudio.Utilities.NameAttribute("VsTextControlMarginProvider2")]
+    [Microsoft.VisualStudio.Utilities.NameAttribute("ReSharperVsTextControlMarginProvider2")]
     [Microsoft.VisualStudio.Utilities.OrderAttribute(After="Glyph", Before="LeftSelection")]
     [System.ComponentModel.Composition.ExportAttribute(typeof(Microsoft.VisualStudio.Text.Editor.IWpfTextViewMarginProvider))]
     public class VsGutterMarginProvider : Microsoft.VisualStudio.Text.Editor.IWpfTextViewMarginProvider, System.IDisposable
     {
-        public const string MargniName = "VsTextControlMarginProvider2";
+        public const string MargniName = "ReSharperVsTextControlMarginProvider2";
         [System.ComponentModel.Composition.ImportAttribute()]
         public Microsoft.VisualStudio.Editor.IVsEditorAdaptersFactoryService myEditorService;
         [System.ComponentModel.Composition.ImportAttribute()]
@@ -857,14 +879,16 @@ namespace JetBrains.VsIntegration.DevTen.TextControl.GutterMargin
     [JetBrains.Application.ShellComponentAttribute()]
     public class VsTextViewComponent
     {
-        public VsTextViewComponent(JetBrains.DataFlow.Lifetime lifetime, JetBrains.TextControl.TextControlManager textControlManager, JetBrains.Application.Settings.Store.Implementation.SettingsStore settingsStore, JetBrains.VsIntegration.DevTen.Markup.VsDocumentMarkupTaggerComponent vsDocumentMarkupTagger, JetBrains.UI.Application.IUIApplication environment, JetBrains.UI.BulbMenu.BulbMenuComponent bulbMenuComponent, JetBrains.UI.PopupWindowManager.MainWindowPopupWindowContext mainWindowPopupWindowContext) { }
+        public VsTextViewComponent(JetBrains.DataFlow.Lifetime lifetime, JetBrains.TextControl.TextControlManager textControlManager, JetBrains.Application.Settings.Store.Implementation.SettingsStore settingsStore, JetBrains.VsIntegration.DevTen.Markup.VsDocumentMarkupTaggerComponent vsDocumentMarkupTagger, JetBrains.UI.Application.IUIApplication environment, JetBrains.UI.BulbMenu.BulbMenuComponent bulbMenuComponent, JetBrains.UI.PopupWindowManager.MainWindowPopupWindowContext mainWindowPopupWindowContext, JetBrains.TextControl.GutterMargin.IGutterMargin gutterMargin, JetBrains.Application.Interop.NativeHook.IWindowsHookManager hooksManager) { }
         public static JetBrains.DataFlow.Property<JetBrains.VsIntegration.DevTen.TextControl.GutterMargin.VsTextViewComponentContext> GetOrCreateSingletonProperty(Microsoft.VisualStudio.Text.Editor.IWpfTextView wpfTextView) { }
     }
     public class VsTextViewComponentContext
     {
-        public VsTextViewComponentContext(JetBrains.DataFlow.Lifetime lifetime, JetBrains.TextControl.ITextControl textControl, JetBrains.Application.Settings.Store.Implementation.SettingsStore settingsStore, JetBrains.VsIntegration.DevTen.Markup.VsDocumentMarkupTaggerComponent vsDocumentMarkupTagger, JetBrains.UI.Application.IUIApplication environment, JetBrains.UI.BulbMenu.BulbMenuComponent bulbMenuComponent, JetBrains.UI.PopupWindowManager.MainWindowPopupWindowContext mainWindowPopupWindowContext) { }
+        public VsTextViewComponentContext(JetBrains.TextControl.GutterMargin.IGutterMargin gutterMargin, JetBrains.TextControl.ITextControl textControl, JetBrains.Application.Settings.Store.Implementation.SettingsStore settingsStore, JetBrains.VsIntegration.DevTen.Markup.VsDocumentMarkupTaggerComponent vsDocumentMarkupTagger, JetBrains.UI.Application.IUIApplication environment, JetBrains.UI.BulbMenu.BulbMenuComponent bulbMenuComponent, JetBrains.UI.PopupWindowManager.MainWindowPopupWindowContext mainWindowPopupWindowContext, JetBrains.DataFlow.Lifetime textControlLifetime, JetBrains.Application.Interop.NativeHook.IWindowsHookManager hooksManager) { }
         public JetBrains.UI.BulbMenu.BulbMenuComponent BulbMenuComponent { get; }
         public JetBrains.UI.Application.IUIApplication Environment { get; }
+        public JetBrains.TextControl.GutterMargin.IGutterMargin GutterMargin { get; }
+        public JetBrains.Application.Interop.NativeHook.IWindowsHookManager HooksManager { get; }
         public JetBrains.DataFlow.IProperty<bool> IsMarginEnabled { get; }
         public JetBrains.UI.PopupWindowManager.MainWindowPopupWindowContext MainWindowPopupWindowContext { get; }
         public JetBrains.Application.Settings.Store.Implementation.SettingsStore SettingsStore { get; }
@@ -936,6 +960,16 @@ namespace JetBrains.VsIntegration.DevTen.UI
         public VsStatusBarIndicatorsDevTen(JetBrains.DataFlow.Lifetime lifetime, JetBrains.UI.StatusBar.IStatusBar statusBar, JetBrains.UI.Application.IMainWindow mainwin, JetBrains.Threading.IThreading threading, JetBrains.UI.PopupWindowManager.MainWindowPopupWindowContext mainWindowPopupWindowContext, JetBrains.UI.PopupMenu.JetPopupMenus jetPopupMenus, JetBrains.Application.Interop.NativeHook.IWindowsHookManager windowsHookManager, JetBrains.UI.Theming.ITheming environment) { }
     }
 }
+namespace JetBrains.VsIntegration.SinceVs10.Diagnostics
+{
+    
+    [JetBrains.Application.ShellComponentAttribute()]
+    public class TextControlDebugMonitorDevTen : JetBrains.TextControl.Diagnostics.TextControlDebugMonitor
+    {
+        public TextControlDebugMonitorDevTen(JetBrains.DataFlow.Lifetime lifetime, JetBrains.UI.Application.IMainWindow mainwin, JetBrains.TextControl.ITextControlManager textControlManager, JetBrains.Application.IApplicationDescriptor applicationDescriptor, JetBrains.Application.IShellLocks locks) { }
+        protected override string GetTextControlRoles(JetBrains.TextControl.ITextControl textcontrol) { }
+    }
+}
 namespace JetBrains.VsIntegration.SinceVs10.Interop
 {
     
@@ -960,6 +994,26 @@ namespace JetBrains.VsIntegration.SinceVs10.NuGet
         public void Register(JetBrains.VsIntegration.Application.VsServiceProviderResolver.VsServiceMap map) { }
     }
 }
+namespace JetBrains.VsIntegration.SinceVs10.ProjectModel
+{
+    
+    public class UnloadedProjectOutputPathsCache
+    {
+        public UnloadedProjectOutputPathsCache() { }
+        public static void CreateTemporary(JetBrains.DataFlow.Lifetime lifetime) { }
+        [JetBrains.Annotations.NotNullAttribute()]
+        public static JetBrains.Util.FileSystemPath GetOutputPath(JetBrains.Util.FileSystemPath projectPath) { }
+    }
+}
+namespace JetBrains.VsIntegration.SinceVs10.Shell
+{
+    
+    [JetBrains.Application.Env.EnvironmentComponentAttribute(JetBrains.Application.Sharing.Common)]
+    public class VsSkipFirstLaunchSetupProductCanBeStarted : JetBrains.Application.Env.IProductCanBeStarted
+    {
+        public VsSkipFirstLaunchSetupProductCanBeStarted([JetBrains.Annotations.NotNullAttribute()] Microsoft.VisualStudio.Shell.Interop.IVsAppCommandLine vsAppCommandLine) { }
+    }
+}
 namespace JetBrains.VsIntegration.SinceVs10.TextControl
 {
     
@@ -977,7 +1031,7 @@ namespace JetBrains.VsIntegration.SinceVs10.TextControl
     [JetBrains.Application.ShellComponentAttribute()]
     public class VsTextControlDevTenIncrementalSearchClientSinceVs10 : JetBrains.VsIntegration.DevTen.TextControl.IVsTextControlDevTenIncrementalSearchClient
     {
-        public VsTextControlDevTenIncrementalSearchClientSinceVs10([JetBrains.Annotations.NotNullAttribute()] Microsoft.VisualStudio.Text.IncrementalSearch.IIncrementalSearchFactoryService incrementalSearchFactoryService) { }
+        public VsTextControlDevTenIncrementalSearchClientSinceVs10([JetBrains.Annotations.NotNullAttribute()] JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.Text.IncrementalSearch.IIncrementalSearchFactoryService> incrementalSearchFactoryService) { }
         protected virtual bool IsVsIncrementalSearchActive([JetBrains.Annotations.NotNullAttribute()] Microsoft.VisualStudio.Text.Editor.IWpfTextView wpfTextView) { }
     }
 }

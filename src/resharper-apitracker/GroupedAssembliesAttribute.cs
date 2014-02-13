@@ -9,14 +9,21 @@ namespace CitizenMatt.ReSharper.ApiTracker
 {
     public class GroupedAssembliesAttribute : DataAttribute
     {
-        private readonly string[] assemblyPrefix;
+        private readonly string[] assemblyPrefixes;
         private readonly string assemblyPath;
 
-        public GroupedAssembliesAttribute(string assemblyPath, params string[] assemblyPrefix)
+        public GroupedAssembliesAttribute(string assemblyPath, params string[] assemblyPrefixes)
         {
-            this.assemblyPrefix = assemblyPrefix;
+            this.assemblyPrefixes = assemblyPrefixes;
             this.assemblyPath = assemblyPath;
         }
+
+        public string[] AssemblyPrefixesToIgnore { get; set; }
+
+        private IEnumerable<string> SafeAssemblyPrefixesToIgnore
+        {
+            get { return AssemblyPrefixesToIgnore ?? new string[0]; }
+        } 
 
         public override IEnumerable<object[]> GetData(MethodInfo methodUnderTest, Type[] parameterTypes)
         {
@@ -61,7 +68,8 @@ namespace CitizenMatt.ReSharper.ApiTracker
 
         private bool ShouldInclude(string assembly)
         {
-            return assemblyPrefix.Any(p => assembly.StartsWith(p, StringComparison.OrdinalIgnoreCase)) &&
+            return !SafeAssemblyPrefixesToIgnore.Any(prefix => assembly.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)) &&
+                    assemblyPrefixes.Any(prefix => assembly.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)) &&
                    !IgnoredAssemblies.Contains(assembly) &&
                    !assembly.EndsWith("Tests.dll", StringComparison.OrdinalIgnoreCase) &&
                    !assembly.StartsWith("JetBrains.ReSharper.Refactorings.Test.", StringComparison.OrdinalIgnoreCase) &&

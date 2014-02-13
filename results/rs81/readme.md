@@ -73,10 +73,19 @@ No changes.
 * `TestFrameworkUtil.DumpReferencePositions` is now obsolete. Use override which takes `IBuffer`
 * Updates to testable versions of classes. Mostly useful for testing ReSharper implementation, not plugins. 
 
+## Visual Studio Integration
+
+These assemblies are not usually referenced by plugins - they make plugins Visual Studio version specific. However, it is possible to reference JetBrains.Platform.ReSharper.VisualStudio.Core for version agnostic functionality.
+
+* VS interfaces added to the component model can be exposed as "Optional", using `VsServiceMap.QueryService<SService>.As<IService>.Optional()`. This means the service might not exist on the end user's machine at runtime. When consuming the component in a constructor, it should be consumed as `Optional<IService>`, which is similar to `Nullable<T>`.
+* `ConnectionPointCookie<T>` no longer derive from `IDisposable` and takes a `Lifetime` parameter instead for more flexibility for cleanup
+* Added `VsConstants.HtmlXLanguageServiceGuid`
+* Visual Studio integration implementation changes (e.g. Peek Definition support)
+* Support for Html + Xaml typing assistance
+
 ## Work in Progress
 
 * Platform
-* PsiFeatures.VisualStudio
 * Daemon
 * Feature.Services
 * Features

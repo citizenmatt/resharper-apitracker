@@ -1,21 +1,21 @@
-﻿[assembly: JetBrains.Application.Install.InstallFromReferencesDirectoryAttribute("dotTraceProfilingTool", JetBrains.Application.Install.InstallationData.InstallationTargetDirRoot.InstallDir, "dotTraceProfilingTool", "dotTraceProfilingTool", JetBrains.Application.Install.InstallFromReferencesDirectoryAttribute.Recursive.No, false)]
-[assembly: JetBrains.UI.Icons.CompiledIcons.CompiledIconsPackAttribute(IconNames=new string[] {
-        "PathMappingRuleDelete1",
-        "PathMappingRuleDelete2",
-        "PathMappingRuleCreate",
-        "PathMappingRuleIgnore",
-        "PathMappingRuleSubstitute"}, IconPackResourceIdentification="JetBrains.PsiFeatures.VisualStudio.Core;component/Src/ProjectModel/PropertiesExte" +
-    "nder/WebProperties/UI/PathMappingControlIcons/ThemedIcons.PathMappingControl.Gen" +
-    "erated.Xaml")]
+﻿[assembly: JetBrains.Application.Install.InstallFromReferencesDirectoryAttribute("dotTraceProfilingTool", JetBrains.Application.Install.InstallationData.InstallationTargetDirRoot.InstallDir, "dotTraceProfilingTool", "dotTraceProfilingTool", JetBrains.Application.Install.InstallFromReferencesDirectoryAttribute.Recursive.Yes, false)]
 [assembly: JetBrains.UI.Icons.CompiledIcons.CompiledIconsPackAttribute(IconNames=new string[] {
         "Ignore",
-        "GeneralOptionsPage",
+        "Substitute",
         "RuleDelete2",
         "RuleCreate",
-        "Substitute",
-        "RuleDelete1",
-        "NewFolder"}, IconPackResourceIdentification="JetBrains.PsiFeatures.VisualStudio.Core;component/Resources/PsiFeaturesVisualStud" +
+        "NewFolder",
+        "GeneralOptionsPage",
+        "RuleDelete1"}, IconPackResourceIdentification="JetBrains.PsiFeatures.VisualStudio.Core;component/Resources/PsiFeaturesVisualStud" +
     "ioCoreIcons/ThemedIcons.PsiFeaturesVisualStudioCore.Generated.Xaml")]
+[assembly: JetBrains.UI.Icons.CompiledIcons.CompiledIconsPackAttribute(IconNames=new string[] {
+        "PathMappingRuleIgnore",
+        "PathMappingRuleSubstitute",
+        "PathMappingRuleDelete1",
+        "PathMappingRuleCreate",
+        "PathMappingRuleDelete2"}, IconPackResourceIdentification="JetBrains.PsiFeatures.VisualStudio.Core;component/Src/ProjectModel/PropertiesExte" +
+    "nder/WebProperties/UI/PathMappingControlIcons/ThemedIcons.PathMappingControl.Gen" +
+    "erated.Xaml")]
 [assembly: System.Runtime.InteropServices.ComVisibleAttribute(false)]
 [assembly: System.Windows.Markup.XmlnsDefinitionAttribute("urn:shemas-jetbrains-com:ui-application-icons-psi-features-visual-studio-core", "JetBrains.PsiFeatures.VisualStudio.Core.Resources")]
 [assembly: System.Windows.Markup.XmlnsDefinitionAttribute("urn:shemas-jetbrains-com:ui-application-icons-path-mapping-control", "JetBrains.PsiFeatures.VisualStudio.Core.Src.ProjectModel.PropertiesExtender.WebPr" +
@@ -39,6 +39,12 @@ namespace JetBrains.PsiFeatures.VisualStudio.Core.Actions.DataRules
 namespace JetBrains.PsiFeatures.VisualStudio.Core.Actions
 {
     
+    [JetBrains.ActionManagement.ActionHandlerAttribute()]
+    public class DumpActivityLogActionHandler : JetBrains.ActionManagement.IActionHandler
+    {
+        public void Execute(JetBrains.Application.DataContext.IDataContext context, JetBrains.ActionManagement.DelegateExecute nextExecute) { }
+        public bool Update(JetBrains.Application.DataContext.IDataContext context, JetBrains.ActionManagement.ActionPresentation presentation, JetBrains.ActionManagement.DelegateUpdate nextUpdate) { }
+    }
     [JetBrains.ActionManagement.ActionHandlerAttribute()]
     public class DumpActivityTrackingTimingActionHandler : JetBrains.ActionManagement.IActionHandler
     {
@@ -215,30 +221,46 @@ namespace JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties
         [JetBrains.Application.Settings.SettingsIndexedEntryAttribute("Override Parameter Info")]
         public JetBrains.Application.Settings.Store.IIndexedEntry<string, JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.VsValueOldValue> OverrideParameterInfo;
     }
-    public abstract class VsSettingOverrideAutocompletionBase<TVsSettingOverrider> : JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.VsSettingOverrideBase<TVsSettingOverrider>
+    public abstract class VsSettingOverrideAutocompletionBase<TVsSettingOverrider> : JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.VsSettingOverrideBase<TVsSettingOverrider, JetBrains.ReSharper.Feature.Services.CodeCompletion.ICodeCompletionDisabler>
         where TVsSettingOverrider :  class, JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.IVsSettingOverrider
     {
-        protected VsSettingOverrideAutocompletionBase(JetBrains.DataFlow.Lifetime lifetime, System.Collections.Generic.IEnumerable<TVsSettingOverrider> overriders, JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.TextManager.Interop.IVsTextManager> textManager, JetBrains.Application.Settings.ISettingsStore settingsStore) { }
+        protected VsSettingOverrideAutocompletionBase(JetBrains.DataFlow.Lifetime lifetime, System.Collections.Generic.IEnumerable<TVsSettingOverrider> overriders, JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.TextManager.Interop.IVsTextManager> textManager, JetBrains.Application.Settings.ISettingsStore settingsStore, System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Feature.Services.CodeCompletion.ICodeCompletionDisabler> disablers) { }
         protected override System.Linq.Expressions.Expression<System.Func<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.VsSavedAutocompletionValueSetting, JetBrains.Application.Settings.Store.IIndexedEntry<string, JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.VsValueOldValue>>> Key { get; }
         protected override bool EnableSetting(bool enable) { }
         protected abstract System.Guid LangaugeGuid();
     }
-    public abstract class VsSettingOverrideBase<TVsSettingOverrider>
+    public abstract class VsSettingOverrideBase<TVsSettingOverrider, TFeatureDisabler>
         where TVsSettingOverrider :  class, JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.IVsSettingOverrider
+        where TFeatureDisabler :  class, JetBrains.ReSharper.Feature.Services.CodeCompletion.IFeatureDisabler
     {
-        protected VsSettingOverrideBase(JetBrains.Application.Settings.ISettingsStore settingsStore, JetBrains.DataFlow.Lifetime lifetime, System.Collections.Generic.IEnumerable<TVsSettingOverrider> overriders, JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.TextManager.Interop.IVsTextManager> textManager) { }
+        protected VsSettingOverrideBase(JetBrains.Application.Settings.ISettingsStore settingsStore, JetBrains.DataFlow.Lifetime lifetime, System.Collections.Generic.IEnumerable<TVsSettingOverrider> overriders, JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.TextManager.Interop.IVsTextManager> textManager, System.Collections.Generic.IEnumerable<TFeatureDisabler> disablers) { }
         protected abstract System.Linq.Expressions.Expression<System.Func<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.VsSavedAutocompletionValueSetting, JetBrains.Application.Settings.Store.IIndexedEntry<string, JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.VsValueOldValue>>> Key { get; }
         protected abstract string NameOfKey { get; }
         protected JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.TextManager.Interop.IVsTextManager> TextManager { get; }
         protected abstract bool EnableSetting(bool enable);
     }
-    public abstract class VsSettingOverrideParameterInfoBase<TVsSettingOverrider> : JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.VsSettingOverrideBase<TVsSettingOverrider>
+    public abstract class VsSettingOverrideParameterInfoBase<TVsSettingOverrider> : JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.VsSettingOverrideBase<TVsSettingOverrider, JetBrains.ReSharper.Feature.Services.ParameterInfo.IParameterInfoDisabler>
         where TVsSettingOverrider :  class, JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.IVsSettingOverrider
     {
-        protected VsSettingOverrideParameterInfoBase(JetBrains.DataFlow.Lifetime lifetime, System.Collections.Generic.IEnumerable<TVsSettingOverrider> overriders, [JetBrains.Annotations.NotNullAttribute()] JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.TextManager.Interop.IVsTextManager> textManager, JetBrains.Application.Settings.ISettingsStore settingsStore) { }
+        protected VsSettingOverrideParameterInfoBase(JetBrains.DataFlow.Lifetime lifetime, System.Collections.Generic.IEnumerable<TVsSettingOverrider> overriders, [JetBrains.Annotations.NotNullAttribute()] JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.TextManager.Interop.IVsTextManager> textManager, JetBrains.Application.Settings.ISettingsStore settingsStore, System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Feature.Services.ParameterInfo.IParameterInfoDisabler> disablers) { }
         protected override System.Linq.Expressions.Expression<System.Func<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.VsSavedAutocompletionValueSetting, JetBrains.Application.Settings.Store.IIndexedEntry<string, JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.VsValueOldValue>>> Key { get; }
         protected override bool EnableSetting(bool enable) { }
         protected abstract System.Guid LangaugeGuid();
+    }
+    [JetBrains.ProjectModel.SolutionComponentAttribute()]
+    public class VsTextControlContainsReadonlyRegionsCodeCompletionDisabler : JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.VsTextControlContainsReadonlyRegionsDisabler, JetBrains.ReSharper.Feature.Services.CodeCompletion.ICodeCompletionDisabler, JetBrains.ReSharper.Feature.Services.CodeCompletion.IFeatureDisabler
+    {
+        public VsTextControlContainsReadonlyRegionsCodeCompletionDisabler([JetBrains.Annotations.NotNullAttribute()] JetBrains.DataFlow.Lifetime lifetime, [JetBrains.Annotations.NotNullAttribute()] JetBrains.Threading.IThreading threading, [JetBrains.Annotations.NotNullAttribute()] JetBrains.TextControl.ITextControlManager textControlManager, [JetBrains.Annotations.NotNullAttribute()] JetBrains.VsIntegration.IDE.VsDebuggerMonitor debuggerMonitor) { }
+    }
+    public class VsTextControlContainsReadonlyRegionsDisabler : JetBrains.ReSharper.Feature.Services.CodeCompletion.IFeatureDisabler
+    {
+        protected VsTextControlContainsReadonlyRegionsDisabler([JetBrains.Annotations.NotNullAttribute()] JetBrains.DataFlow.Lifetime lifetime, [JetBrains.Annotations.NotNullAttribute()] JetBrains.Threading.IThreading threading, [JetBrains.Annotations.NotNullAttribute()] JetBrains.TextControl.ITextControlManager textControlManager, [JetBrains.Annotations.NotNullAttribute()] JetBrains.VsIntegration.IDE.VsDebuggerMonitor debuggerMonitor) { }
+        public JetBrains.DataFlow.IProperty<bool> IsDisabled { get; }
+    }
+    [JetBrains.ProjectModel.SolutionComponentAttribute()]
+    public class VsTextControlContainsReadonlyRegionsParameterInfoDisabler : JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.VsTextControlContainsReadonlyRegionsDisabler, JetBrains.ReSharper.Feature.Services.CodeCompletion.IFeatureDisabler, JetBrains.ReSharper.Feature.Services.ParameterInfo.IParameterInfoDisabler
+    {
+        public VsTextControlContainsReadonlyRegionsParameterInfoDisabler([JetBrains.Annotations.NotNullAttribute()] JetBrains.DataFlow.Lifetime lifetime, [JetBrains.Annotations.NotNullAttribute()] JetBrains.Threading.IThreading threading, [JetBrains.Annotations.NotNullAttribute()] JetBrains.TextControl.ITextControlManager textControlManager, [JetBrains.Annotations.NotNullAttribute()] JetBrains.VsIntegration.IDE.VsDebuggerMonitor debuggerMonitor) { }
     }
     public enum VsValueOldValue
     {
@@ -250,6 +272,31 @@ namespace JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties
     public class XamlLookupIsShownEnabled : JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.LookupIsShownEnabledBase<JetBrains.ProjectModel.XamlProjectFileType>, JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.IVsSettingOverrider, JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.Xaml.IVsSettingXamlAutocompletionOverrider, JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.Xaml.IVsSettingXamlParameterInfoOverrider
     {
         public XamlLookupIsShownEnabled(JetBrains.DataFlow.Lifetime lifetime, JetBrains.ReSharper.Feature.Services.Lookup.ILookupWindowManager lookupWindowManager, JetBrains.TextControl.TextControlManager textControlManager, JetBrains.DocumentManagers.DocumentManager documentManager) { }
+    }
+}
+namespace JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.CsHtml
+{
+    
+    [JetBrains.ProjectModel.SolutionComponentAttribute()]
+    public class HasActiveTextControlWithReSharperAutopopupCsHtml : JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.HasActiveTextControlWithReSharperAutomaticIntellisenceBase<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.Html.IHtmlAutomaticCompletionIsSupported>, JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.CsHtml.IVsSettingCsHtmlAutocompletionOverrider, JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.CsHtml.IVsSettingCsHtmlParameterInfoOverrider, JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.IVsSettingOverrider
+    {
+        public HasActiveTextControlWithReSharperAutopopupCsHtml(JetBrains.DataFlow.Lifetime lifetime, JetBrains.Application.IShellLocks locks, JetBrains.TextControl.TextControlManager textControlManager, JetBrains.DocumentManagers.DocumentManager documentManager, JetBrains.ProjectModel.FileTypes.IProjectFileTypeServices services, JetBrains.Application.Settings.ISettingsStore settingsStore, JetBrains.ReSharper.Feature.Services.CodeCompletion.IntellisenseManager intellisenseManager) { }
+    }
+    public interface IVsSettingCsHtmlAutocompletionOverrider : JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.IVsSettingOverrider { }
+    public interface IVsSettingCsHtmlParameterInfoOverrider : JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.IVsSettingOverrider { }
+    [JetBrains.ProjectModel.SolutionComponentAttribute()]
+    public class VsSettingOverrideAutocompletionCsHtml : JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.VsSettingOverrideAutocompletionBase<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.CsHtml.IVsSettingCsHtmlAutocompletionOverrider>
+    {
+        public VsSettingOverrideAutocompletionCsHtml(JetBrains.DataFlow.Lifetime lifetime, System.Collections.Generic.IEnumerable<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.CsHtml.IVsSettingCsHtmlAutocompletionOverrider> overriders, JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.TextManager.Interop.IVsTextManager> textManager, JetBrains.Application.Settings.ISettingsStore settingsStore, System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Feature.Services.CodeCompletion.ICodeCompletionDisabler> disablers) { }
+        protected override string NameOfKey { get; }
+        protected override System.Guid LangaugeGuid() { }
+    }
+    [JetBrains.ProjectModel.SolutionComponentAttribute()]
+    public class VsSettingOverrideParameterInfoCsHtml : JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.VsSettingOverrideParameterInfoBase<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.CsHtml.IVsSettingCsHtmlParameterInfoOverrider>
+    {
+        public VsSettingOverrideParameterInfoCsHtml(JetBrains.DataFlow.Lifetime lifetime, System.Collections.Generic.IEnumerable<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.CsHtml.IVsSettingCsHtmlParameterInfoOverrider> overriders, [JetBrains.Annotations.NotNullAttribute()] JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.TextManager.Interop.IVsTextManager> textManager, JetBrains.Application.Settings.ISettingsStore settingsStore, System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Feature.Services.ParameterInfo.IParameterInfoDisabler> disablers) { }
+        protected override string NameOfKey { get; }
+        protected override System.Guid LangaugeGuid() { }
     }
 }
 namespace JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.Css
@@ -278,14 +325,14 @@ namespace JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.Html
     [JetBrains.ProjectModel.SolutionComponentAttribute()]
     public class VsSettingOverrideAutocompletionHtml : JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.VsSettingOverrideAutocompletionBase<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.Html.IVsSettingHtmlAutocompletionOverrider>
     {
-        public VsSettingOverrideAutocompletionHtml(JetBrains.DataFlow.Lifetime lifetime, System.Collections.Generic.IEnumerable<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.Html.IVsSettingHtmlAutocompletionOverrider> overriders, JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.TextManager.Interop.IVsTextManager> textManager, JetBrains.Application.Settings.ISettingsStore settingsStore) { }
+        public VsSettingOverrideAutocompletionHtml(JetBrains.DataFlow.Lifetime lifetime, System.Collections.Generic.IEnumerable<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.Html.IVsSettingHtmlAutocompletionOverrider> overriders, JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.TextManager.Interop.IVsTextManager> textManager, JetBrains.Application.Settings.ISettingsStore settingsStore, System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Feature.Services.CodeCompletion.ICodeCompletionDisabler> disablers) { }
         protected override string NameOfKey { get; }
         protected override System.Guid LangaugeGuid() { }
     }
     [JetBrains.ProjectModel.SolutionComponentAttribute()]
     public class VsSettingOverrideParameterInfoHtml : JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.VsSettingOverrideParameterInfoBase<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.Html.IVsSettingHtmlParameterInfoOverrider>
     {
-        public VsSettingOverrideParameterInfoHtml(JetBrains.DataFlow.Lifetime lifetime, System.Collections.Generic.IEnumerable<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.Html.IVsSettingHtmlParameterInfoOverrider> overriders, [JetBrains.Annotations.NotNullAttribute()] JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.TextManager.Interop.IVsTextManager> textManager, JetBrains.Application.Settings.ISettingsStore settingsStore) { }
+        public VsSettingOverrideParameterInfoHtml(JetBrains.DataFlow.Lifetime lifetime, System.Collections.Generic.IEnumerable<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.Html.IVsSettingHtmlParameterInfoOverrider> overriders, [JetBrains.Annotations.NotNullAttribute()] JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.TextManager.Interop.IVsTextManager> textManager, JetBrains.Application.Settings.ISettingsStore settingsStore, System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Feature.Services.ParameterInfo.IParameterInfoDisabler> disablers) { }
         protected override string NameOfKey { get; }
         protected override System.Guid LangaugeGuid() { }
     }
@@ -304,14 +351,14 @@ namespace JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.JavaScript
     [JetBrains.ProjectModel.SolutionComponentAttribute()]
     public class VsSettingOverrideAutocompletionJavaScript : JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.VsSettingOverrideAutocompletionBase<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.JavaScript.IVsSettingJavaScriptAutocompletionOverrider>
     {
-        public VsSettingOverrideAutocompletionJavaScript(JetBrains.DataFlow.Lifetime lifetime, System.Collections.Generic.IEnumerable<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.JavaScript.IVsSettingJavaScriptAutocompletionOverrider> overriders, JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.TextManager.Interop.IVsTextManager> textManager, JetBrains.Application.Settings.ISettingsStore settingsStore) { }
+        public VsSettingOverrideAutocompletionJavaScript(JetBrains.DataFlow.Lifetime lifetime, System.Collections.Generic.IEnumerable<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.JavaScript.IVsSettingJavaScriptAutocompletionOverrider> overriders, JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.TextManager.Interop.IVsTextManager> textManager, JetBrains.Application.Settings.ISettingsStore settingsStore, System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Feature.Services.CodeCompletion.ICodeCompletionDisabler> disablers) { }
         protected override string NameOfKey { get; }
         protected override System.Guid LangaugeGuid() { }
     }
     [JetBrains.ProjectModel.SolutionComponentAttribute()]
     public class VsSettingOverrideParameterInfoJavaScript : JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.VsSettingOverrideParameterInfoBase<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.JavaScript.IVsSettingJavaScriptParameterInfoOverrider>
     {
-        public VsSettingOverrideParameterInfoJavaScript(JetBrains.DataFlow.Lifetime lifetime, System.Collections.Generic.IEnumerable<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.JavaScript.IVsSettingJavaScriptParameterInfoOverrider> overriders, JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.TextManager.Interop.IVsTextManager> textManager, JetBrains.Application.Settings.ISettingsStore settingsStore) { }
+        public VsSettingOverrideParameterInfoJavaScript(JetBrains.DataFlow.Lifetime lifetime, System.Collections.Generic.IEnumerable<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.JavaScript.IVsSettingJavaScriptParameterInfoOverrider> overriders, JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.TextManager.Interop.IVsTextManager> textManager, JetBrains.Application.Settings.ISettingsStore settingsStore, System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Feature.Services.ParameterInfo.IParameterInfoDisabler> disablers) { }
         protected override string NameOfKey { get; }
         protected override System.Guid LangaugeGuid() { }
     }
@@ -323,7 +370,7 @@ namespace JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.MSBuild
     [JetBrains.ProjectModel.SolutionComponentAttribute()]
     public class VsSettingOverrideAutocompletionMSBuild : JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.VsSettingOverrideAutocompletionBase<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.MSBuild.IVsSettingMSBuildAutocompletionOverrider>
     {
-        public VsSettingOverrideAutocompletionMSBuild(JetBrains.DataFlow.Lifetime lifetime, System.Collections.Generic.IEnumerable<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.MSBuild.IVsSettingMSBuildAutocompletionOverrider> overriders, JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.TextManager.Interop.IVsTextManager> textManager, JetBrains.Application.Settings.ISettingsStore settingsStore) { }
+        public VsSettingOverrideAutocompletionMSBuild(JetBrains.DataFlow.Lifetime lifetime, System.Collections.Generic.IEnumerable<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.MSBuild.IVsSettingMSBuildAutocompletionOverrider> overriders, JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.TextManager.Interop.IVsTextManager> textManager, JetBrains.Application.Settings.ISettingsStore settingsStore, System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Feature.Services.CodeCompletion.ICodeCompletionDisabler> disablers) { }
         protected override string NameOfKey { get; }
         protected override System.Guid LangaugeGuid() { }
     }
@@ -334,7 +381,7 @@ namespace JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.TypeScript
     [JetBrains.ProjectModel.SolutionComponentAttribute()]
     public class HasActiveTextControlWithReSharperAutopopupTypeScript : JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.HasActiveTextControlWithReSharperAutomaticIntellisenceBase<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.TypeScript.ITypeScriptAutomaticCompletionIsSupported>, JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.IVsSettingOverrider, JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.TypeScript.IVsSettingTypeScriptAutocompletionOverrider, JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.TypeScript.IVsSettingTypeScriptParameterInfoOverrider
     {
-        public HasActiveTextControlWithReSharperAutopopupTypeScript(JetBrains.DataFlow.Lifetime lifetime, JetBrains.Application.IShellLocks locks, JetBrains.TextControl.TextControlManager textControlManager, JetBrains.DocumentManagers.DocumentManager documentManager, JetBrains.ProjectModel.FileTypes.IProjectFileTypeServices services, JetBrains.Application.Settings.ISettingsStore settingsStore, JetBrains.ReSharper.Feature.Services.CodeCompletion.IntellisenseManager intellisenseManager) { }
+        public HasActiveTextControlWithReSharperAutopopupTypeScript(JetBrains.DataFlow.Lifetime lifetime, JetBrains.Application.IShellLocks locks, JetBrains.TextControl.TextControlManager textControlManager, JetBrains.DocumentManagers.DocumentManager documentManager, JetBrains.ProjectModel.FileTypes.IProjectFileTypeServices services, JetBrains.Application.Settings.ISettingsStore settingsStore) { }
     }
     public interface ITypeScriptAutomaticCompletionIsSupported : JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.IAutomaticCompletionIsSupported { }
     public interface IVsSettingTypeScriptAutocompletionOverrider : JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.IVsSettingOverrider { }
@@ -342,14 +389,14 @@ namespace JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.TypeScript
     [JetBrains.ProjectModel.SolutionComponentAttribute()]
     public class VsSettingOverrideAutocompletionTypeScript : JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.VsSettingOverrideAutocompletionBase<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.TypeScript.IVsSettingTypeScriptAutocompletionOverrider>
     {
-        public VsSettingOverrideAutocompletionTypeScript(JetBrains.DataFlow.Lifetime lifetime, System.Collections.Generic.IEnumerable<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.TypeScript.IVsSettingTypeScriptAutocompletionOverrider> overriders, JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.TextManager.Interop.IVsTextManager> textManager, JetBrains.Application.Settings.ISettingsStore settingsStore) { }
+        public VsSettingOverrideAutocompletionTypeScript(JetBrains.DataFlow.Lifetime lifetime, System.Collections.Generic.IEnumerable<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.TypeScript.IVsSettingTypeScriptAutocompletionOverrider> overriders, JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.TextManager.Interop.IVsTextManager> textManager, JetBrains.Application.Settings.ISettingsStore settingsStore, System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Feature.Services.CodeCompletion.ICodeCompletionDisabler> disablers) { }
         protected override string NameOfKey { get; }
         protected override System.Guid LangaugeGuid() { }
     }
     [JetBrains.ProjectModel.SolutionComponentAttribute()]
     public class VsSettingOverrideParameterInfoTypeScript : JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.VsSettingOverrideParameterInfoBase<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.TypeScript.IVsSettingTypeScriptParameterInfoOverrider>
     {
-        public VsSettingOverrideParameterInfoTypeScript(JetBrains.DataFlow.Lifetime lifetime, System.Collections.Generic.IEnumerable<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.TypeScript.IVsSettingTypeScriptParameterInfoOverrider> overriders, JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.TextManager.Interop.IVsTextManager> textManager, JetBrains.Application.Settings.ISettingsStore settingsStore) { }
+        public VsSettingOverrideParameterInfoTypeScript(JetBrains.DataFlow.Lifetime lifetime, System.Collections.Generic.IEnumerable<JetBrains.PsiFeatures.VisualStudio.Core.FormatProperties.TypeScript.IVsSettingTypeScriptParameterInfoOverrider> overriders, JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.TextManager.Interop.IVsTextManager> textManager, JetBrains.Application.Settings.ISettingsStore settingsStore, System.Collections.Generic.IEnumerable<JetBrains.ReSharper.Feature.Services.ParameterInfo.IParameterInfoDisabler> disablers) { }
         protected override string NameOfKey { get; }
         protected override System.Guid LangaugeGuid() { }
     }
@@ -558,7 +605,7 @@ namespace JetBrains.PsiFeatures.VisualStudio.Core.LinqToXsd
     [JetBrains.ProjectModel.SolutionComponentAttribute()]
     public class VsLinqToXsdSupportManager : JetBrains.ReSharper.Psi.Asp.Impl.Generate.LinqToXsd.LinqToXsdSupportManager
     {
-        public VsLinqToXsdSupportManager(JetBrains.ProjectModel.ISolution solution, JetBrains.Application.IShellLocks locks, JetBrains.Application.ChangeManager changeManager, JetBrains.DocumentManagers.DocumentManager documentManager, JetBrains.DataFlow.Lifetime lifetime, JetBrains.DocumentManagers.impl.DocumentManagerOperations documentManagerOperations, JetBrains.ProjectModel.Model2.Transaction.IEnsureWritableHandler ensureWritableHandler, JetBrains.VsIntegration.ProjectModel.ProjectModelSynchronizer projectModelSynchronizer, JetBrains.ProjectModel.Tasks.ISolutionLoadTasksScheduler scheduler, JetBrains.VsIntegration.ProjectModel.VsSolutionWrapper solutionWrapper = null) { }
+        public VsLinqToXsdSupportManager(JetBrains.ProjectModel.ISolution solution, JetBrains.Util.ILogger logger, JetBrains.Application.IShellLocks locks, JetBrains.Application.ChangeManager changeManager, JetBrains.DocumentManagers.DocumentManager documentManager, JetBrains.DataFlow.Lifetime lifetime, JetBrains.DocumentManagers.impl.DocumentManagerOperations documentManagerOperations, JetBrains.ProjectModel.Model2.Transaction.IEnsureWritableHandler ensureWritableHandler, JetBrains.VsIntegration.ProjectModel.ProjectModelSynchronizer projectModelSynchronizer, JetBrains.ProjectModel.Tasks.ISolutionLoadTasksScheduler scheduler, JetBrains.VsIntegration.ProjectModel.VsSolutionWrapper solutionWrapper = null) { }
         protected override JetBrains.ReSharper.Psi.Asp.Impl.Generate.LinqToXsd.LinqToXsdDetector CreateLinqToXsdDetector(JetBrains.ProjectModel.IProject project, System.Action onInterrupt, System.Action onSuccessfulFinish) { }
     }
 }
@@ -804,7 +851,7 @@ namespace JetBrains.PsiFeatures.VisualStudio.Core.Resources
     public sealed class PsiFeaturesVisualStudioCoreThemedIcons
     {
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.PsiFeatures.VisualStudio.Core;component/Resources/PsiFeaturesVisualStud" +
-            "ioCoreIcons/ThemedIcons.PsiFeaturesVisualStudioCore.Generated.Xaml", 1, "GeneralOptionsPage")]
+            "ioCoreIcons/ThemedIcons.PsiFeaturesVisualStudioCore.Generated.Xaml", 5, "GeneralOptionsPage")]
         public sealed class GeneralOptionsPage : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
@@ -816,7 +863,7 @@ namespace JetBrains.PsiFeatures.VisualStudio.Core.Resources
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.PsiFeatures.VisualStudio.Core;component/Resources/PsiFeaturesVisualStud" +
-            "ioCoreIcons/ThemedIcons.PsiFeaturesVisualStudioCore.Generated.Xaml", 6, "NewFolder")]
+            "ioCoreIcons/ThemedIcons.PsiFeaturesVisualStudioCore.Generated.Xaml", 4, "NewFolder")]
         public sealed class NewFolder : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
@@ -828,7 +875,7 @@ namespace JetBrains.PsiFeatures.VisualStudio.Core.Resources
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.PsiFeatures.VisualStudio.Core;component/Resources/PsiFeaturesVisualStud" +
-            "ioCoreIcons/ThemedIcons.PsiFeaturesVisualStudioCore.Generated.Xaml", 5, "RuleDelete1")]
+            "ioCoreIcons/ThemedIcons.PsiFeaturesVisualStudioCore.Generated.Xaml", 6, "RuleDelete1")]
         public sealed class RuleDelete1 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
@@ -840,7 +887,7 @@ namespace JetBrains.PsiFeatures.VisualStudio.Core.Resources
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.PsiFeatures.VisualStudio.Core;component/Resources/PsiFeaturesVisualStud" +
-            "ioCoreIcons/ThemedIcons.PsiFeaturesVisualStudioCore.Generated.Xaml", 4, "Substitute")]
+            "ioCoreIcons/ThemedIcons.PsiFeaturesVisualStudioCore.Generated.Xaml", 1, "Substitute")]
         public sealed class Substitute : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
@@ -874,35 +921,35 @@ namespace JetBrains.PsiFeatures.VisualStudio.Core.Src.ProjectModel.PropertiesExt
     {
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.PsiFeatures.VisualStudio.Core;component/Src/ProjectModel/PropertiesExte" +
             "nder/WebProperties/UI/PathMappingControlIcons/ThemedIcons.PathMappingControl.Gen" +
-            "erated.Xaml", 2, "PathMappingRuleCreate")]
+            "erated.Xaml", 3, "PathMappingRuleCreate")]
         public sealed class PathMappingRuleCreate : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.PsiFeatures.VisualStudio.Core;component/Src/ProjectModel/PropertiesExte" +
             "nder/WebProperties/UI/PathMappingControlIcons/ThemedIcons.PathMappingControl.Gen" +
-            "erated.Xaml", 0, "PathMappingRuleDelete1")]
+            "erated.Xaml", 2, "PathMappingRuleDelete1")]
         public sealed class PathMappingRuleDelete1 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.PsiFeatures.VisualStudio.Core;component/Src/ProjectModel/PropertiesExte" +
             "nder/WebProperties/UI/PathMappingControlIcons/ThemedIcons.PathMappingControl.Gen" +
-            "erated.Xaml", 1, "PathMappingRuleDelete2")]
+            "erated.Xaml", 4, "PathMappingRuleDelete2")]
         public sealed class PathMappingRuleDelete2 : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.PsiFeatures.VisualStudio.Core;component/Src/ProjectModel/PropertiesExte" +
             "nder/WebProperties/UI/PathMappingControlIcons/ThemedIcons.PathMappingControl.Gen" +
-            "erated.Xaml", 3, "PathMappingRuleIgnore")]
+            "erated.Xaml", 0, "PathMappingRuleIgnore")]
         public sealed class PathMappingRuleIgnore : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;
         }
         [JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("JetBrains.PsiFeatures.VisualStudio.Core;component/Src/ProjectModel/PropertiesExte" +
             "nder/WebProperties/UI/PathMappingControlIcons/ThemedIcons.PathMappingControl.Gen" +
-            "erated.Xaml", 4, "PathMappingRuleSubstitute")]
+            "erated.Xaml", 1, "PathMappingRuleSubstitute")]
         public sealed class PathMappingRuleSubstitute : JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
         {
             public static JetBrains.UI.Icons.IconId Id;

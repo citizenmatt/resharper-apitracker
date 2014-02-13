@@ -26,16 +26,18 @@ namespace CitizenMatt.ReSharper.ApiTracker
             ApprovePublicApi(path, assembly);
         }
 
-        [TheoryWithLimitedFailures(10)]
-        [GroupedAssemblies(AssemblyPath, "JetBrains.Platform")]
+        [TheoryWithLimitedFailures(40)]
+        [GroupedAssemblies(AssemblyPath, "JetBrains.Platform",
+            AssemblyPrefixesToIgnore = new []{"JetBrains.Platform.ReSharper.VisualStudio"})]
         public void Approver_resharper_platform(string assembly, string path)
         {
             ApprovePublicApi(path, assembly);
         }
 
         [TheoryWithLimitedFailures(10)]
-        [GroupedAssemblies(AssemblyPath, "JetBrains.PsiFeatures.VisualStudio")]
-        public void Approver_resharper_psi_features_visual_studio(string assembly, string path)
+        [GroupedAssemblies(AssemblyPath, "JetBrains.Platform.ReSharper.VisualStudio",
+            "JetBrains.PsiFeatures.VisualStudio")]
+        public void Approver_resharper_visual_studio_integration(string assembly, string path)
         {
             ApprovePublicApi(path, assembly);
         }

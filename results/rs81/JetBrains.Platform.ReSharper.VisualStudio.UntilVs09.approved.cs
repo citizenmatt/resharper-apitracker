@@ -1,6 +1,15 @@
 ﻿[assembly: JetBrains.TextControl.DocumentMarkup.RegisterHighlighterAttribute("InvisibleMarkerType", "{5B1123D4-D36B-44EF-9710-569D3B95F9A1}", Layer=4000, VSPriority=850)]
 [assembly: System.Runtime.InteropServices.ComVisibleAttribute(false)]
 
+namespace JetBrains.VsIntegration.UntilVs09.UI
+{
+    
+    [JetBrains.Application.ShellComponentAttribute(JetBrains.Application.Sharing.Common, JetBrains.Application.Lifecycle.Deferred, JetBrains.Application.Creation.PrimaryThread, JetBrains.Application.Access.None)]
+    public class VsStatusBarIndicatorsWhidbey
+    {
+        public VsStatusBarIndicatorsWhidbey(JetBrains.DataFlow.Lifetime lifetime, JetBrains.UI.StatusBar.IStatusBar statusbar, JetBrains.UI.Application.IMainWindow mainWindow, JetBrains.Application.Env.RunsProducts.ProductConfigurations productConfigurations, JetBrains.UI.PopupMenu.JetPopupMenus jetPopupMenus, JetBrains.Application.Interop.NativeHook.IWindowsHookManager windowsHookManager, JetBrains.UI.PopupWindowManager.MainWindowPopupWindowContext mainWindowPopupWindowContext, JetBrains.Application.Components.IComponentContainer containerForFactoringViews, JetBrains.UI.Wpf.IAutomationViewsRegistry automationViewsRegistry) { }
+    }
+}
 namespace JetBrains.VsIntegration.Whidbey.Markup
 {
     
@@ -62,6 +71,12 @@ namespace JetBrains.VsIntegration.Whidbey.TextControl
         [JetBrains.Annotations.NotNullAttribute()]
         public readonly JetBrains.VsIntegration.Interop.Shim.TextManager.IVsTextView VsTextView;
         public CreateVsTextControlWhidbeyParams([JetBrains.Annotations.NotNullAttribute()] JetBrains.VsIntegration.DocumentModel.Whidbey.VsDocumentWhidbey document, [JetBrains.Annotations.NotNullAttribute()] JetBrains.VsIntegration.Interop.Shim.TextManager.IVsTextView textview, [JetBrains.Annotations.NotNullAttribute()] JetBrains.UI.WindowManagement.WindowFrame frame) { }
+    }
+    [JetBrains.Application.ShellComponentAttribute()]
+    public class VsErrorStripeLayoutManagerWhidbey : JetBrains.TextControl.ErrorStripe.ErrorStripeLayoutManager
+    {
+        public VsErrorStripeLayoutManagerWhidbey([JetBrains.Annotations.NotNullAttribute()] JetBrains.DataFlow.Lifetime lifetime, [JetBrains.Annotations.NotNullAttribute()] JetBrains.Application.Settings.Store.Implementation.SettingsStore settingsStore) { }
+        public override JetBrains.TextControl.ErrorStripe.ErrorStripeLayout AvailableLayouts { get; }
     }
     [JetBrains.ProjectModel.SolutionComponentAttribute()]
     public class VsTextControlCreationMonitorWhidbey
@@ -131,10 +146,5 @@ namespace JetBrains.VsIntegration.Whidbey.UI
     public class InvalidateOnIconThemeChange
     {
         public InvalidateOnIconThemeChange([JetBrains.Annotations.NotNullAttribute()] JetBrains.DataFlow.Lifetime lifetime, [JetBrains.Annotations.NotNullAttribute()] JetBrains.UI.Icons.IThemedIconManager themedIconManager, [JetBrains.Annotations.NotNullAttribute()] JetBrains.Threading.IThreading threading) { }
-    }
-    [JetBrains.Application.ShellComponentAttribute(JetBrains.Application.Sharing.Common, JetBrains.Application.Lifecycle.Deferred, JetBrains.Application.Creation.PrimaryThread, JetBrains.Application.Access.None)]
-    public class VsStatusBarIndicatorsWhidbey
-    {
-        public VsStatusBarIndicatorsWhidbey(JetBrains.DataFlow.Lifetime lifetime, JetBrains.UI.StatusBar.IStatusBar statusbar, JetBrains.UI.Application.IMainWindow mainWindow, JetBrains.Application.Env.RunsProducts.ProductConfigurations productConfigurations, JetBrains.UI.PopupMenu.JetPopupMenus a, JetBrains.Application.Interop.NativeHook.IWindowsHookManager b, JetBrains.UI.PopupWindowManager.MainWindowPopupWindowContext c) { }
     }
 }

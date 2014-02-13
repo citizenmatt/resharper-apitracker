@@ -100,6 +100,7 @@ namespace JetBrains.VsIntegration.SinceVs11.ProjectModel
     [JetBrains.ProjectModel.Properties.ProjectModelExtensionAttribute()]
     public class CSharpProjectPropertiesBuilder11 : JetBrains.VsIntegration.ProjectModel.ProjectProperties.CSharpProjectPropertiesBuilder
     {
+        public CSharpProjectPropertiesBuilder11(JetBrains.VsIntegration.ProjectModel.ProjectProperties.ProjectActiveConfigurationAccessor activeConfigurationAccessor) { }
         protected override JetBrains.ProjectModel.ProjectOutputType GetOutputType(object value) { }
         protected override bool ProcessManagedProjectPropertiesDispatch(JetBrains.ProjectModel.Properties.Managed.ManagedProjectBuildSettings managedProjectBuildSettings, JetBrains.ProjectModel.Impl.Build.ManagedProjectConfigurationBase managedProjectConfiguration, VSLangProj.ProjectProperties vsProjectProperties, VSLangProj.ProjectConfigurationProperties vsProjectConfiguration) { }
     }
@@ -148,13 +149,14 @@ namespace JetBrains.VsIntegration.SinceVs11.ProjectModel
     [JetBrains.ProjectModel.Properties.ProjectModelExtensionAttribute()]
     public class VBProjectPropertiesBuilder11 : JetBrains.VsIntegration.ProjectModel.ProjectProperties.VBProjectPropertiesBuilder
     {
+        public VBProjectPropertiesBuilder11(JetBrains.VsIntegration.ProjectModel.ProjectProperties.ProjectActiveConfigurationAccessor activeConfigurationAccessor) { }
         protected override JetBrains.ProjectModel.ProjectOutputType GetOutputType(object value) { }
         protected override bool ProcessManagedProjectPropertiesDispatch(JetBrains.ProjectModel.Properties.Managed.ManagedProjectBuildSettings managedProjectBuildSettings, JetBrains.ProjectModel.Impl.Build.ManagedProjectConfigurationBase managedProjectConfiguration, VSLangProj.ProjectProperties vsProjectProperties, VSLangProj.ProjectConfigurationProperties vsProjectConfiguration) { }
     }
     [JetBrains.ProjectModel.SolutionInstanceComponentAttribute()]
     public class VSProjectModelDescriptorBuilder11 : JetBrains.VsIntegration.ProjectModel.VSProjectModelDescriptionBuilder
     {
-        public VSProjectModelDescriptorBuilder11(JetBrains.ProjectModel.ISolution solution, JetBrains.ProjectModel.PlatformManager platformManager, JetBrains.ProjectModel.Update.ProjectModelUpdater projectModelUpdater, JetBrains.ProjectModel.Properties.ProjectModelExtensionsContainer projectModelExtensionsContainer, JetBrains.ProjectModel.IProjectFileExtensions projectFileExtensions, JetBrains.VsIntegration.ActionManagement.VsLocalizer localizer, JetBrains.ProjectModel.Caches.ISolutionCachesConfiguration solutionCachesConfiguration, JetBrains.ProjectModel.Properties.ProjectFilePropertiesFactory projectFilePropertiesFactory, JetBrains.VsIntegration.Application.IVsEnvironmentInformation vsEnvironmentInformation, JetBrains.VsIntegration.ProjectModel.VsSolutionWrapper vsSolutionWrapper = null) { }
+        public VSProjectModelDescriptorBuilder11(JetBrains.ProjectModel.ISolution solution, JetBrains.ProjectModel.PlatformManager platformManager, JetBrains.ProjectModel.Update.ProjectModelUpdater projectModelUpdater, JetBrains.ProjectModel.Properties.ProjectModelExtensionsContainer projectModelExtensionsContainer, JetBrains.ProjectModel.IProjectFileExtensions projectFileExtensions, JetBrains.VsIntegration.ActionManagement.VsLocalizer localizer, JetBrains.ProjectModel.Caches.ISolutionCachesConfiguration solutionCachesConfiguration, JetBrains.ProjectModel.Properties.ProjectFilePropertiesFactory projectFilePropertiesFactory, JetBrains.VsIntegration.Application.IVsEnvironmentInformation vsEnvironmentInformation, JetBrains.VsIntegration.Interop.Shim.Shell.IVsRunningDocumentTable vsRunningDocumentTable, JetBrains.VsIntegration.ProjectModel.VsSolutionWrapper vsSolutionWrapper = null) { }
         protected override JetBrains.Metadata.Utils.TargetPlatformData GetTargetPlatformData(Microsoft.VisualStudio.Shell.Interop.IVsHierarchy hierarchy) { }
     }
     [JetBrains.Application.ShellComponentAttribute()]
@@ -170,7 +172,7 @@ namespace JetBrains.VsIntegration.SinceVs11.TextControl
     public abstract class VsTextControlDevTenIncrementalSearchClientSinceVs11 : JetBrains.VsIntegration.SinceVs10.TextControl.VsTextControlDevTenIncrementalSearchClientSinceVs10
     {
         public static readonly string IsIncrementalSearchActive;
-        public VsTextControlDevTenIncrementalSearchClientSinceVs11([JetBrains.Annotations.NotNullAttribute()] Microsoft.VisualStudio.Text.IncrementalSearch.IIncrementalSearchFactoryService incrementalSearchFactoryService) { }
+        public VsTextControlDevTenIncrementalSearchClientSinceVs11([JetBrains.Annotations.NotNullAttribute()] JetBrains.Util.Lazy.Lazy<Microsoft.VisualStudio.Text.IncrementalSearch.IIncrementalSearchFactoryService> incrementalSearchFactoryService) { }
         [JetBrains.Annotations.CanBeNullAttribute()]
         protected abstract Microsoft.VisualStudio.Shell.Interop.IVsUIDataSource GetDataSourceFromFindManager();
         protected override bool IsVsIncrementalSearchActive(Microsoft.VisualStudio.Text.Editor.IWpfTextView wpfTextView) { }
@@ -1760,6 +1762,12 @@ namespace JetBrains.VsIntegration.SinceVs11.Theming
         public override void PrepareFrameworkElement(System.Windows.FrameworkElement element) { }
         public override void PrepareWinForm(JetBrains.DataFlow.Lifetime handleLifetime, System.IntPtr handle) { }
     }
+    [JetBrains.Application.ShellComponentAttribute()]
+    public class Vs11UnitTestThemeColorFiller : JetBrains.UI.Components.Theming.UnitTestThemeColorFiller
+    {
+        public Vs11UnitTestThemeColorFiller(Microsoft.VisualStudio.Shell.Interop.IVsUIShell5 vsUIShell5) { }
+        public override void FillColorTheme(JetBrains.UI.Components.Theming.ColorTheme t) { }
+    }
 }
 namespace JetBrains.VsIntegration.V11.ProjectModel.SqlServerDatabaseProject
 {
@@ -1767,12 +1775,14 @@ namespace JetBrains.VsIntegration.V11.ProjectModel.SqlServerDatabaseProject
     [JetBrains.ProjectModel.Properties.ProjectModelExtensionAttribute()]
     public class SqlServerDatabaseProjectCSharpProjectPropertiesBuilder11 : JetBrains.VsIntegration.SinceVs11.ProjectModel.CSharpProjectPropertiesBuilder11
     {
+        public SqlServerDatabaseProjectCSharpProjectPropertiesBuilder11(JetBrains.VsIntegration.ProjectModel.ProjectProperties.ProjectActiveConfigurationAccessor activeConfigurationAccessor) { }
         public override bool IsApplicable(JetBrains.ProjectModel.Properties.IProjectProperties projectProperties) { }
         public override bool RetrievePropertiesFromVSHierarchy(Microsoft.VisualStudio.Shell.Interop.IVsHierarchy hierarchy, JetBrains.ProjectModel.Properties.IProjectProperties projectProperties, JetBrains.Util.FileSystemPath projectLocation) { }
     }
     [JetBrains.ProjectModel.Properties.ProjectModelExtensionAttribute()]
     public class SqlServerDatabaseProjectVBProjectPropertiesBuilder11 : JetBrains.VsIntegration.SinceVs11.ProjectModel.VBProjectPropertiesBuilder11
     {
+        public SqlServerDatabaseProjectVBProjectPropertiesBuilder11(JetBrains.VsIntegration.ProjectModel.ProjectProperties.ProjectActiveConfigurationAccessor activeConfigurationAccessor) { }
         public override bool IsApplicable(JetBrains.ProjectModel.Properties.IProjectProperties projectProperties) { }
         public override bool RetrievePropertiesFromVSHierarchy(Microsoft.VisualStudio.Shell.Interop.IVsHierarchy hierarchy, JetBrains.ProjectModel.Properties.IProjectProperties projectProperties, JetBrains.Util.FileSystemPath projectLocation) { }
     }
